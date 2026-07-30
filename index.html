@@ -465,16 +465,110 @@ button { cursor: pointer; }
   color: var(--mut);
   margin: 14px 0 8px;
 }
-.builder-pane textarea {
+.builder-pane textarea,
+.builder-pane input[type="text"],
+.builder-pane input[type="tel"],
+.builder-pane input[type="email"],
+.builder-pane select {
   width: 100%;
-  min-height: 88px;
   border: 2px solid var(--ink);
   padding: 10px;
-  resize: vertical;
   background: #fff;
   font-size: 12.5px;
   line-height: 1.4;
 }
+.builder-pane textarea { min-height: 88px; resize: vertical; }
+.builder-pane .field-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: var(--mut);
+  margin: 10px 0 5px;
+}
+.builder-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.builder-tabs button {
+  border: 1px solid var(--ink);
+  background: #fff;
+  padding: 5px 8px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.builder-tabs button.on { background: var(--ink); color: #fff; }
+.builder-tabs button.done { border-color: var(--accent); }
+.bsec { display: none; }
+.bsec.on { display: block; }
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eae7e7;
+  font-size: 12px;
+}
+.check-row .mark {
+  width: 16px; height: 16px;
+  border: 1px solid var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.check-row .mark.ok { background: var(--ink); color: #fff; }
+.check-row .mark.no { background: #fff; color: var(--mut); }
+.rev-item {
+  border: 1px solid var(--ink);
+  background: #fff;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+}
+.rev-item .rev-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 600;
+}
+.rev-item span { color: var(--mut); font-weight: 400; font-size: 10.5px; }
+.logo-slot {
+  border: 2px dashed var(--ink);
+  background: #fff;
+  padding: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--mut);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.logo-slot.has { border-style: solid; color: var(--ink); font-weight: 600; }
+.live-ops-grid {
+  display: grid;
+  gap: 8px;
+}
+.live-ops-grid button {
+  text-align: left;
+  border: 1px solid var(--ink);
+  background: #fff;
+  padding: 10px;
+  font-size: 12px;
+}
+.live-ops-grid button b { display: block; margin-bottom: 3px; }
+.live-ops-grid button span { color: var(--mut); font-size: 11px; }
+.gate-banner {
+  border: 2px solid var(--ink);
+  background: var(--accent-soft);
+  padding: 10px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.gate-banner.ready { background: #fff; }
 .page-tree { display: flex; flex-direction: column; gap: 2px; }
 .page-tree label {
   display: flex;
@@ -1087,7 +1181,19 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     <!-- Cockpit / business nav -->
     <nav class="nav" id="navCockpit" style="display:none">
       <div class="section" id="cockpitSection">SITE COCKPIT</div>
-      <button type="button" class="on" data-cockpit="builder">Builder</button>
+      <button type="button" class="on" data-cockpit="builder" id="navBuilder">Builder</button>
+      <div class="subnav open" id="builderSubnav">
+        <button type="button" class="on" data-builder-tab="manage">Manage demos</button>
+        <button type="button" data-builder-tab="create">Create new demo</button>
+        <button type="button" data-builder-tab="questionnaire">Questionnaire</button>
+        <button type="button" data-builder-tab="nap">NAP</button>
+        <button type="button" data-builder-tab="logos">Logos</button>
+        <button type="button" data-builder-tab="phone">Phone</button>
+        <button type="button" data-builder-tab="pages">Pages / preview</button>
+        <button type="button" data-builder-tab="revisions">Demo revisions</button>
+        <button type="button" data-builder-tab="golive">Roll over to live</button>
+        <button type="button" data-builder-tab="liveops">Live site ops</button>
+      </div>
       <button type="button" data-cockpit="overview">Overview</button>
       <button type="button" data-cockpit="content">Content / QA</button>
       <button type="button" data-cockpit="leads">Site leads <span class="count" id="siteLeadCount">14</span></button>
@@ -1227,21 +1333,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
             <aside class="builder-pane">
               <div class="bp-scroll">
                 <div class="limit-card" id="limitCard"></div>
-                <h3>BUILD BRIEF</h3>
-                <textarea id="builderPrompt" placeholder="Describe changes — services, towns, CTAs…"></textarea>
-                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-                  <button class="chip" type="button" id="btnApplyBrief">Apply to preview</button>
-                  <button class="chip" type="button" id="btnRegenPages">Regenerate pages</button>
-                </div>
-                <h3>PAGE TREE <span id="pageTreeCount" style="font-weight:400;letter-spacing:0"></span></h3>
-                <div class="page-tree" id="pageTree"></div>
-                <h3>STORED ON YOUR PLAN</h3>
-                <div class="stored-list" id="storedList"></div>
+                <div class="builder-tabs" id="builderTabs"></div>
+                <div id="builderSections"></div>
               </div>
-              <div class="bp-foot">
-                <button class="btn primary" type="button" id="btnPublishPane" style="width:100%">Publish to my demo →</button>
-                <button class="chip" type="button" id="btnOpenLive" style="width:100%;justify-content:center">Open published URL</button>
-              </div>
+              <div class="bp-foot" id="builderFoot"></div>
             </aside>
             <div class="builder-frame">
               <div class="frame-chrome">
@@ -1354,10 +1449,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 <script>
 (function () {
   var PLANS = {
-    local: { id: "local", name: "Local Launch", maxPages: 40, maxSites: 1 },
-    pro: { id: "pro", name: "Service Area Pro", maxPages: 80, maxSites: 1 },
-    dominator: { id: "dominator", name: "Market Dominator", maxPages: 120, maxSites: 1 },
-    agency: { id: "agency", name: "Agency Pro", maxPages: 500, maxSites: 12 }
+    local: { id: "local", name: "Local Launch", maxPages: 40, maxSites: 10, maxRevisions: 10 },
+    pro: { id: "pro", name: "Service Area Pro", maxPages: 80, maxSites: 10, maxRevisions: 10 },
+    dominator: { id: "dominator", name: "Market Dominator", maxPages: 120, maxSites: 10, maxRevisions: 10 },
+    agency: { id: "agency", name: "Agency Pro", maxPages: 500, maxSites: 50, maxRevisions: 20 }
   };
 
   var ACCOUNT = {
@@ -1369,7 +1464,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
           name: "Elizabeth Electrical",
           url: "https://elizabeth-electrical-services.netlify.app/",
           pages: 19,
-          publishedAt: "2026-07-20"
+          publishedAt: "2026-07-20",
+          lifecycle: "demo"
         }
       ]
     },
@@ -1381,27 +1477,83 @@ body.mode-business .biz-inline { display: inline-flex !important; }
           name: "Elizabeth Electrical",
           url: "https://elizabeth-electrical-services.netlify.app/",
           pages: 19,
-          publishedAt: "2026-07-20"
+          publishedAt: "2026-07-20",
+          lifecycle: "demo"
         },
         {
           siteId: "seoc",
           name: "SEOCow / Crypto",
           url: "https://cryptoconsulting.netlify.app/",
           pages: 117,
-          publishedAt: "2026-07-20"
+          publishedAt: "2026-07-20",
+          lifecycle: "demo"
         }
       ]
     }
   };
+
+  function defaultIntake(overrides) {
+    overrides = overrides || {};
+    return {
+      questionnaire: {
+        services: overrides.services || "",
+        towns: overrides.towns || "",
+        hours: overrides.hours || "Mon–Fri 8a–6p",
+        notes: overrides.notes || "",
+        complete: !!overrides.qComplete
+      },
+      nap: {
+        name: overrides.name || "",
+        address: overrides.address || "",
+        city: overrides.city || "",
+        phone: overrides.phone || "",
+        email: overrides.email || "",
+        complete: !!overrides.napComplete
+      },
+      logos: {
+        primary: overrides.logoPrimary || "",
+        favicon: overrides.logoFavicon || "",
+        complete: !!overrides.logoComplete
+      },
+      phone: {
+        display: overrides.phone || "",
+        tracking: overrides.tracking || "",
+        complete: !!overrides.phoneComplete
+      }
+    };
+  }
 
   var SITES = {
     ees: {
       id: "ees", name: "Elizabeth Electrical", code: "EES", domain: "elizabethelectrical.demo",
       previewUrl: "https://elizabeth-electrical-services.netlify.app/",
       publishedUrl: "https://elizabeth-electrical-services.netlify.app/",
+      liveUrl: "",
+      lifecycle: "demo",
       pages: 19, leads7d: 14, status: "LIVE", ghl: "Elizabeth Electrical",
       spend: "$318", pacing: "91%", phone: "(908) 555-0142", area: "Elizabeth, NJ",
       instruction: "PROD-SDTS-V1",
+      intake: defaultIntake({
+        services: "Emergency electrical, panel upgrades, EV charger install, residential + light commercial",
+        towns: "Elizabeth, NJ and surrounding Union County",
+        hours: "24/7 emergency · office Mon–Fri 8a–6p",
+        name: "Elizabeth Electrical",
+        address: "200 Broad St",
+        city: "Elizabeth, NJ 07201",
+        phone: "(908) 555-0142",
+        email: "hello@elizabethelectrical.demo",
+        tracking: "(862) 295-0011",
+        logoPrimary: "EES wordmark.svg",
+        logoFavicon: "ees-favicon.png",
+        qComplete: true,
+        napComplete: true,
+        logoComplete: true,
+        phoneComplete: true
+      }),
+      revisions: [
+        { id: "r1", label: "Rev 1 · staging seed", url: "https://elizabeth-electrical-services.netlify.app/", at: "2026-07-18", pages: 12 },
+        { id: "r2", label: "Rev 2 · QA pass", url: "https://elizabeth-electrical-services.netlify.app/", at: "2026-07-20", pages: 19 }
+      ],
       pageTree: [
         { title: "Home", path: "/", selected: true },
         { title: "Emergency Electrical", path: "/emergency-electrical-services/", selected: true },
@@ -1790,6 +1942,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     view: "home",
     siteId: null,
     cockpit: "builder",
+    builderTab: "manage",
     channel: "google",
     kwIndex: 0,
     kwChannel: null,
@@ -1797,12 +1950,48 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     previewPath: "/"
   };
 
+  var BUILDER_TABS = [
+    { id: "manage", label: "Manage" },
+    { id: "create", label: "Create" },
+    { id: "questionnaire", label: "Questionnaire" },
+    { id: "nap", label: "NAP" },
+    { id: "logos", label: "Logos" },
+    { id: "phone", label: "Phone" },
+    { id: "pages", label: "Pages" },
+    { id: "revisions", label: "Revisions" },
+    { id: "golive", label: "Go live" },
+    { id: "liveops", label: "Live ops" }
+  ];
+
   function currentAccount() {
     return ACCOUNT[state.mode === "business" ? "business" : "agency"];
   }
 
   function currentPlan() {
     return PLANS[currentAccount().planId];
+  }
+
+  function ensureSiteMeta(s) {
+    if (!s) return s;
+    if (!s.intake) {
+      s.intake = defaultIntake({
+        name: s.name,
+        phone: s.phone,
+        city: s.area,
+        services: "",
+        towns: s.area || ""
+      });
+    }
+    if (!s.revisions) s.revisions = [];
+    if (!s.lifecycle) s.lifecycle = s.status === "LIVE" && s.liveUrl ? "live" : (s.publishedUrl || s.previewUrl ? "demo" : "draft");
+    if (!s.pageTree) {
+      s.pageTree = [
+        { title: "Home", path: "/", selected: true },
+        { title: "Services", path: "/services/", selected: true },
+        { title: "Contact", path: "/contact/", selected: true }
+      ];
+    }
+    return s;
   }
 
   function accountUsage() {
@@ -1819,10 +2008,21 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     };
   }
 
-  function demoUrlFor(site) {
-    if (site.publishedUrl) return site.publishedUrl;
+  function demoUrlFor(site, revNum) {
     var slug = (site.name || site.id).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    if (revNum) return "https://" + slug + "-r" + revNum + ".demo.nearmeos.com/";
+    if (site.publishedUrl) return site.publishedUrl;
     return "https://" + slug + ".demo.nearmeos.com/";
+  }
+
+  function intakeComplete(s) {
+    ensureSiteMeta(s);
+    var i = s.intake;
+    return !!(i.questionnaire.complete && i.nap.complete && i.logos.complete && i.phone.complete);
+  }
+
+  function canGoLive(s) {
+    return intakeComplete(s) && (s.revisions || []).length >= 1 && s.lifecycle !== "live";
   }
 
   function previewSrcdoc(site, path) {
@@ -1877,141 +2077,517 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
   function renderLimits() {
     var u = accountUsage();
+    var s = state.siteId ? ensureSiteMeta(SITES[state.siteId]) : null;
+    var plan = u.plan;
+    var revUsed = s ? (s.revisions || []).length : 0;
     var pct = Math.min(100, Math.round((u.pagesUsed / u.pagesMax) * 100));
     var sitesPct = Math.min(100, Math.round((u.sitesUsed / u.sitesMax) * 100));
     var over = u.pagesUsed > u.pagesMax || u.sitesUsed > u.sitesMax;
     document.getElementById("limitCard").innerHTML =
-      "<div class=\"lc-top\"><b>" + u.plan.name + "</b><span>" +
-      (state.mode === "business" ? "Your account" : "Agency fleet") + "</span></div>" +
-      "<div class=\"limit-meta\">Pages stored · <b>" + u.pagesUsed + "</b> / " + u.pagesMax + "</div>" +
+      "<div class=\"lc-top\"><b>" + plan.name + "</b><span>" +
+      (state.mode === "business" ? "Business account" : "Agency fleet") + "</span></div>" +
+      "<div class=\"limit-meta\">Pages on plan · <b>" + u.pagesUsed + "</b> / " + u.pagesMax + "</div>" +
       "<div class=\"limit-bar" + (over ? "" : " ok") + "\"><i style=\"width:" + pct + "%\"></i></div>" +
       "<div class=\"limit-meta\" style=\"margin-top:8px\">Demo sites · <b>" + u.sitesUsed +
       "</b> / " + u.sitesMax + "</div>" +
-      "<div class=\"limit-bar" + (over ? "" : " ok") + "\"><i style=\"width:" + sitesPct + "%\"></i></div>";
+      "<div class=\"limit-bar" + (over ? "" : " ok") + "\"><i style=\"width:" + sitesPct + "%\"></i></div>" +
+      (s ? "<div class=\"limit-meta\" style=\"margin-top:8px\">Revisions on this demo · <b>" + revUsed +
+      "</b> / " + plan.maxRevisions + " · lifecycle <b>" + (s.lifecycle || "draft").toUpperCase() + "</b></div>" : "");
   }
 
-  function renderPageTree() {
-    var s = SITES[state.siteId];
-    var tree = document.getElementById("pageTree");
+  function setBuilderTab(tab) {
+    state.builderTab = tab;
+    document.querySelectorAll("#builderSubnav button[data-builder-tab]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-builder-tab") === tab);
+    });
+    setCockpit("builder");
+  }
+
+  function renderBuilderTabs() {
+    var wrap = document.getElementById("builderTabs");
+    var s = state.siteId ? ensureSiteMeta(SITES[state.siteId]) : null;
+    wrap.innerHTML = "";
+    BUILDER_TABS.forEach(function (t) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = t.label;
+      if (t.id === state.builderTab) b.classList.add("on");
+      if (s && t.id === "questionnaire" && s.intake.questionnaire.complete) b.classList.add("done");
+      if (s && t.id === "nap" && s.intake.nap.complete) b.classList.add("done");
+      if (s && t.id === "logos" && s.intake.logos.complete) b.classList.add("done");
+      if (s && t.id === "phone" && s.intake.phone.complete) b.classList.add("done");
+      if (s && t.id === "golive" && s.lifecycle === "live") b.classList.add("done");
+      b.addEventListener("click", function () { setBuilderTab(t.id); });
+      wrap.appendChild(b);
+    });
+  }
+
+  function bindIntakeSave(s) {
+    var root = document.getElementById("builderSections");
+    var saveBtn = root.querySelector("[data-save-intake]");
+    if (!saveBtn) return;
+    saveBtn.addEventListener("click", function () {
+      var tab = saveBtn.getAttribute("data-save-intake");
+      if (tab === "questionnaire") {
+        s.intake.questionnaire.services = root.querySelector("[name=q_services]").value.trim();
+        s.intake.questionnaire.towns = root.querySelector("[name=q_towns]").value.trim();
+        s.intake.questionnaire.hours = root.querySelector("[name=q_hours]").value.trim();
+        s.intake.questionnaire.notes = root.querySelector("[name=q_notes]").value.trim();
+        s.intake.questionnaire.complete = !!(s.intake.questionnaire.services && s.intake.questionnaire.towns);
+      } else if (tab === "nap") {
+        s.intake.nap.name = root.querySelector("[name=nap_name]").value.trim();
+        s.intake.nap.address = root.querySelector("[name=nap_address]").value.trim();
+        s.intake.nap.city = root.querySelector("[name=nap_city]").value.trim();
+        s.intake.nap.phone = root.querySelector("[name=nap_phone]").value.trim();
+        s.intake.nap.email = root.querySelector("[name=nap_email]").value.trim();
+        s.name = s.intake.nap.name || s.name;
+        s.phone = s.intake.nap.phone || s.phone;
+        s.area = s.intake.nap.city || s.area;
+        s.intake.nap.complete = !!(s.intake.nap.name && s.intake.nap.address && s.intake.nap.phone);
+      } else if (tab === "logos") {
+        s.intake.logos.complete = !!(s.intake.logos.primary);
+      } else if (tab === "phone") {
+        s.intake.phone.display = root.querySelector("[name=ph_display]").value.trim();
+        s.intake.phone.tracking = root.querySelector("[name=ph_tracking]").value.trim();
+        s.phone = s.intake.phone.display || s.phone;
+        s.intake.phone.complete = !!s.intake.phone.display;
+      }
+      showToast("Saved · " + tab);
+      renderBuilder();
+      loadPreview(state.previewPath || "/");
+    });
+  }
+
+  function htmlManage(s) {
+    var demos = currentAccount().demos;
+    var plan = currentPlan();
+    var rows = demos.length ? demos.map(function (d, i) {
+      return "<button type=\"button\" class=\"stored-item\" data-open-demo=\"" + d.siteId + "\">" +
+        "<b>" + (i + 1) + ". " + d.name + "</b>" +
+        "<span>" + (d.lifecycle || "demo").toUpperCase() + " · " + d.pages + " pages · " + d.url + "</span></button>";
+    }).join("") : "<div class=\"limit-meta\">No demos yet — create your first demo site.</div>";
+    return "<h3>MANAGE DEMOS (1–" + plan.maxSites + ")</h3>" +
+      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Business accounts can store up to <b>" +
+      plan.maxSites + "</b> demos. Open one to edit intake, publish revisions, then roll over to live.</p>" +
+      "<div class=\"stored-list\">" + rows + "</div>" +
+      (s ? "<h3>ACTIVE DEMO</h3><div class=\"stored-item\"><b>" + s.name +
+      "</b><span>" + (s.lifecycle || "draft").toUpperCase() + " · " + s.pages + " pages</span></div>" : "");
+  }
+
+  function htmlCreate() {
+    var u = accountUsage();
+    var blocked = u.sitesUsed >= u.sitesMax;
+    return "<h3>CREATE NEW DEMO SITE</h3>" +
+      (blocked
+        ? "<div class=\"gate-banner\">Demo slot full · " + u.sitesUsed + "/" + u.sitesMax +
+          ". Delete or roll a demo to live before creating another.</div>"
+        : "<div class=\"gate-banner ready\">Slots available · <b>" + (u.sitesMax - u.sitesUsed) +
+          "</b> of " + u.sitesMax + " remaining on " + u.plan.name + ".</div>") +
+      "<label class=\"field-label\">BUSINESS NAME</label><input type=\"text\" id=\"newSiteName\" placeholder=\"e.g. Bayway Plumbing\">" +
+      "<label class=\"field-label\">PRIMARY TOWN / AREA</label><input type=\"text\" id=\"newSiteArea\" placeholder=\"e.g. Elizabeth, NJ\">" +
+      "<label class=\"field-label\">PHONE</label><input type=\"tel\" id=\"newSitePhone\" placeholder=\"(908) 555-0100\">" +
+      "<label class=\"field-label\">VERTICAL</label><select id=\"newSiteVertical\">" +
+      "<option>Electrician</option><option>Plumber</option><option>HVAC</option><option>Handyman</option><option>Other local service</option>" +
+      "</select>" +
+      "<p class=\"limit-meta\" style=\"margin-top:12px\">Starts as a draft demo. Complete questionnaire, NAP, logos, and phone before go-live.</p>";
+  }
+
+  function htmlQuestionnaire(s) {
+    var q = s.intake.questionnaire;
+    return "<h3>BUSINESS QUESTIONNAIRE</h3>" +
+      "<label class=\"field-label\">SERVICES YOU OFFER</label><textarea name=\"q_services\">" + (q.services || "") + "</textarea>" +
+      "<label class=\"field-label\">TOWNS / SERVICE AREA</label><textarea name=\"q_towns\" style=\"min-height:64px\">" + (q.towns || "") + "</textarea>" +
+      "<label class=\"field-label\">HOURS</label><input type=\"text\" name=\"q_hours\" value=\"" + (q.hours || "") + "\">" +
+      "<label class=\"field-label\">NOTES</label><textarea name=\"q_notes\" style=\"min-height:64px\">" + (q.notes || "") + "</textarea>" +
+      "<button class=\"btn primary\" type=\"button\" data-save-intake=\"questionnaire\" style=\"margin-top:12px;width:100%\">Save questionnaire</button>";
+  }
+
+  function htmlNap(s) {
+    var n = s.intake.nap;
+    return "<h3>NAP · NAME / ADDRESS / PHONE</h3>" +
+      "<label class=\"field-label\">BUSINESS NAME</label><input type=\"text\" name=\"nap_name\" value=\"" + (n.name || "") + "\">" +
+      "<label class=\"field-label\">STREET ADDRESS</label><input type=\"text\" name=\"nap_address\" value=\"" + (n.address || "") + "\">" +
+      "<label class=\"field-label\">CITY / STATE / ZIP</label><input type=\"text\" name=\"nap_city\" value=\"" + (n.city || "") + "\">" +
+      "<label class=\"field-label\">PHONE</label><input type=\"tel\" name=\"nap_phone\" value=\"" + (n.phone || "") + "\">" +
+      "<label class=\"field-label\">EMAIL</label><input type=\"email\" name=\"nap_email\" value=\"" + (n.email || "") + "\">" +
+      "<button class=\"btn primary\" type=\"button\" data-save-intake=\"nap\" style=\"margin-top:12px;width:100%\">Save NAP</button>";
+  }
+
+  function htmlLogos(s) {
+    var L = s.intake.logos;
+    return "<h3>LOGOS &amp; BRAND MARKS</h3>" +
+      "<div class=\"logo-slot" + (L.primary ? " has" : "") + "\" data-logo=\"primary\">" +
+      (L.primary ? "Primary logo · " + L.primary : "Click to attach primary logo (demo)") + "</div>" +
+      "<div class=\"logo-slot" + (L.favicon ? " has" : "") + "\" data-logo=\"favicon\">" +
+      (L.favicon ? "Favicon · " + L.favicon : "Click to attach favicon (demo)") + "</div>" +
+      "<button class=\"btn primary\" type=\"button\" data-save-intake=\"logos\" style=\"width:100%\">Mark logos complete</button>";
+  }
+
+  function htmlPhone(s) {
+    var p = s.intake.phone;
+    return "<h3>PHONE NUMBERS</h3>" +
+      "<label class=\"field-label\">DISPLAY / NAP PHONE</label><input type=\"tel\" name=\"ph_display\" value=\"" + (p.display || "") + "\">" +
+      "<label class=\"field-label\">TRACKING / CALL RAIL</label><input type=\"tel\" name=\"ph_tracking\" value=\"" + (p.tracking || "") + "\">" +
+      "<p class=\"limit-meta\" style=\"margin-top:8px\">Tracking number shows on ads &amp; demo CTAs; NAP stays consistent for local SEO.</p>" +
+      "<button class=\"btn primary\" type=\"button\" data-save-intake=\"phone\" style=\"margin-top:12px;width:100%\">Save phone</button>";
+  }
+
+  function htmlPages(s) {
     var pages = s.pageTree || [];
     var selected = pages.filter(function (p) { return p.selected; }).length;
-    document.getElementById("pageTreeCount").textContent = "· " + selected + " / " + pages.length;
-    tree.innerHTML = "";
-    pages.forEach(function (p, i) {
-      var lab = document.createElement("label");
-      if (p.path === state.previewPath) lab.className = "on";
-      lab.innerHTML =
-        "<input type=\"checkbox\" " + (p.selected ? "checked" : "") + " data-pg=\"" + i + "\">" +
-        "<span>" + p.title + "</span><span class=\"pg-meta\">" + p.path + "</span>";
+    var tree = pages.map(function (p, i) {
+      return "<label class=\"" + (p.path === state.previewPath ? "on" : "") + "\">" +
+        "<input type=\"checkbox\" data-pg=\"" + i + "\" " + (p.selected ? "checked" : "") + ">" +
+        "<span>" + p.title + "</span><span class=\"pg-meta\">" + p.path + "</span></label>";
+    }).join("");
+    return "<h3>BUILD BRIEF</h3>" +
+      "<textarea id=\"builderPrompt\" placeholder=\"Describe changes…\">Local SEO site for " + s.name +
+      " in " + s.area + " — full service + town coverage, forms to GHL.</textarea>" +
+      "<div style=\"display:flex;gap:8px;margin-top:8px;flex-wrap:wrap\">" +
+      "<button class=\"chip\" type=\"button\" id=\"btnApplyBrief\">Apply to preview</button>" +
+      "<button class=\"chip\" type=\"button\" id=\"btnRegenPages\">Regenerate pages</button></div>" +
+      "<h3>PAGE TREE · " + selected + " / " + pages.length + "</h3>" +
+      "<div class=\"page-tree\" id=\"pageTree\">" + tree + "</div>";
+  }
+
+  function htmlRevisions(s) {
+    var plan = currentPlan();
+    var revs = s.revisions || [];
+    var list = revs.length ? revs.slice().reverse().map(function (r) {
+      return "<div class=\"rev-item\"><div class=\"rev-top\"><span>" + r.label + "</span><span>" + r.at +
+        "</span></div><span>" + r.pages + " pages · " + r.url + "</span></div>";
+    }).join("") : "<div class=\"limit-meta\">No demo revisions yet.</div>";
+    return "<h3>DEMO SERVER REVISIONS</h3>" +
+      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Publish up to <b>" + plan.maxRevisions +
+      "</b> revisions per demo. Current: <b>" + revs.length + "</b>.</p>" + list;
+  }
+
+  function htmlGoLive(s) {
+    var checks = [
+      { ok: s.intake.questionnaire.complete, label: "Business questionnaire complete" },
+      { ok: s.intake.nap.complete, label: "NAP verified" },
+      { ok: s.intake.logos.complete, label: "Logos attached" },
+      { ok: s.intake.phone.complete, label: "Phone numbers set" },
+      { ok: (s.revisions || []).length >= 1, label: "At least 1 demo revision published" }
+    ];
+    var rows = checks.map(function (c) {
+      return "<div class=\"check-row\"><span class=\"mark " + (c.ok ? "ok" : "no") + "\">" +
+        (c.ok ? "✓" : "·") + "</span><span>" + c.label + "</span></div>";
+    }).join("");
+    var ready = canGoLive(s);
+    return "<h3>ROLL OVER TO LIVE SITE</h3>" +
+      "<div class=\"gate-banner " + (ready ? "ready" : "") + "\">" +
+      (s.lifecycle === "live"
+        ? "This site is already live · " + (s.liveUrl || s.publishedUrl)
+        : ready
+          ? "All gates passed — ready to promote demo → live domain."
+          : "Complete intake + publish a demo revision before go-live.") +
+      "</div>" + rows +
+      (s.lifecycle === "live" ? "" :
+        "<button class=\"btn primary\" type=\"button\" id=\"btnGoLive\" " +
+        (ready ? "" : "disabled ") +
+        "style=\"margin-top:14px;width:100%" + (ready ? "" : ";opacity:.45") +
+        "\">Promote demo → live site</button>");
+  }
+
+  function htmlLiveOps(s) {
+    if (s.lifecycle !== "live") {
+      return "<h3>LIVE SITE OPS</h3><div class=\"gate-banner\">Available after rollover. Finish intake and promote this demo first.</div>";
+    }
+    return "<h3>LIVE SITE OPS</h3>" +
+      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Live · <b>" + (s.liveUrl || s.publishedUrl) +
+      "</b></p><div class=\"live-ops-grid\">" +
+      "<button type=\"button\" data-toast=\"Inventory API · list pages (demo)\"><b>Inventory control</b><span>Page registry, slug law, publish state</span></button>" +
+      "<button type=\"button\" data-toast=\"GET /api/v1/sites/" + s.code + "/pages (demo)\"><b>Pages API</b><span>REST read/write for page blocks</span></button>" +
+      "<button type=\"button\" data-toast=\"Webhook endpoints configured (demo)\"><b>Webhooks</b><span>Lead + publish events → GHL / n8n</span></button>" +
+      "<button type=\"button\" data-toast=\"CDN cache purge queued (demo)\"><b>CDN / cache</b><span>Purge + redeploy edge</span></button>" +
+      "<button type=\"button\" data-toast=\"Redirect map editor (demo)\"><b>Redirects</b><span>301 map + migration rules</span></button>" +
+      "<button type=\"button\" data-toast=\"Schema / sitemap regenerate (demo)\"><b>SEO artifacts</b><span>Schema, sitemap, robots</span></button>" +
+      "</div>";
+  }
+
+  function wirePagesSection(s) {
+    var tree = document.getElementById("pageTree");
+    if (!tree) return;
+    tree.querySelectorAll("label").forEach(function (lab) {
+      var input = lab.querySelector("input");
+      var i = parseInt(input.getAttribute("data-pg"), 10);
+      var p = s.pageTree[i];
       lab.addEventListener("click", function (e) {
         if (e.target.tagName === "INPUT") return;
         e.preventDefault();
         loadPreview(p.path);
-        renderPageTree();
+        renderBuilder();
       });
-      lab.querySelector("input").addEventListener("change", function () {
+      input.addEventListener("change", function () {
         p.selected = this.checked;
-        s.pages = pages.filter(function (x) { return x.selected; }).length;
-        renderPageTree();
-        renderLimits();
-        showToast((p.selected ? "Included" : "Excluded") + " · " + p.title);
+        s.pages = s.pageTree.filter(function (x) { return x.selected; }).length;
+        renderBuilder();
       });
-      tree.appendChild(lab);
+    });
+    var apply = document.getElementById("btnApplyBrief");
+    var regen = document.getElementById("btnRegenPages");
+    if (apply) apply.addEventListener("click", function () {
+      loadPreview(state.previewPath || "/");
+      showToast("Preview updated from brief (demo)");
+    });
+    if (regen) regen.addEventListener("click", function () {
+      var plan = currentPlan();
+      if ((s.pageTree || []).length >= plan.maxPages) {
+        showToast("Page cap · " + plan.maxPages + " on " + plan.name);
+        return;
+      }
+      s.pageTree.push({
+        title: "New service page " + (s.pageTree.length + 1),
+        path: "/services/page-" + (s.pageTree.length + 1) + "/",
+        selected: true
+      });
+      s.pages = s.pageTree.filter(function (x) { return x.selected; }).length;
+      renderBuilder();
+      showToast("Draft page added");
     });
   }
 
-  function renderStored() {
-    var list = document.getElementById("storedList");
-    var demos = currentAccount().demos;
-    if (!demos.length) {
-      list.innerHTML = "<div class=\"limit-meta\">No published demos yet — build &amp; publish.</div>";
-      return;
+  function renderBuilderSections() {
+    var host = document.getElementById("builderSections");
+    var foot = document.getElementById("builderFoot");
+    var s = state.siteId ? ensureSiteMeta(SITES[state.siteId]) : null;
+    var tab = state.builderTab;
+    var html = "";
+
+    if (tab === "manage") html = htmlManage(s);
+    else if (tab === "create") html = htmlCreate();
+    else if (!s) html = "<div class=\"gate-banner\">Select or create a demo first.</div>";
+    else if (tab === "questionnaire") html = htmlQuestionnaire(s);
+    else if (tab === "nap") html = htmlNap(s);
+    else if (tab === "logos") html = htmlLogos(s);
+    else if (tab === "phone") html = htmlPhone(s);
+    else if (tab === "pages") html = htmlPages(s);
+    else if (tab === "revisions") html = htmlRevisions(s);
+    else if (tab === "golive") html = htmlGoLive(s);
+    else if (tab === "liveops") html = htmlLiveOps(s);
+
+    host.innerHTML = html;
+
+    // Foot actions by tab
+    if (tab === "create") {
+      foot.innerHTML = "<button class=\"btn primary\" type=\"button\" id=\"btnCreateDemo\" style=\"width:100%\">Create demo site →</button>";
+    } else if (tab === "revisions" || tab === "pages") {
+      foot.innerHTML =
+        "<button class=\"btn primary\" type=\"button\" id=\"btnPublishPane\" style=\"width:100%\">Publish revision to demo server →</button>" +
+        "<button class=\"chip\" type=\"button\" id=\"btnOpenLive\" style=\"width:100%;justify-content:center\">Open demo URL</button>";
+    } else if (tab === "golive" && s && s.lifecycle === "live") {
+      foot.innerHTML = "<button class=\"btn primary\" type=\"button\" id=\"btnOpenLive\" style=\"width:100%\">Open live site</button>";
+    } else if (tab === "liveops" && s && s.lifecycle === "live") {
+      foot.innerHTML = "<button class=\"chip\" type=\"button\" id=\"btnOpenLive\" style=\"width:100%;justify-content:center\">Open live site</button>";
+    } else {
+      foot.innerHTML =
+        "<button class=\"chip\" type=\"button\" id=\"btnOpenLive\" style=\"width:100%;justify-content:center\">Open published URL</button>";
     }
-    list.innerHTML = "";
-    demos.forEach(function (d) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "stored-item";
-      btn.innerHTML = "<b>" + d.name + "</b><span>" + d.pages + " pages · " + d.url + "</span>";
+
+    // Wire events inside sections
+    host.querySelectorAll("[data-open-demo]").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        if (d.siteId && SITES[d.siteId]) openSite(d.siteId, { business: state.mode === "business" });
-        else {
-          document.getElementById("siteFrame").src = d.url;
-          document.getElementById("frameUrl").textContent = d.url;
-          setCockpit("builder");
-        }
+        openSite(btn.getAttribute("data-open-demo"), { business: state.mode === "business" });
+        state.builderTab = "pages";
+        renderBuilder();
       });
-      list.appendChild(btn);
+    });
+    host.querySelectorAll("[data-logo]").forEach(function (slot) {
+      slot.addEventListener("click", function () {
+        var kind = slot.getAttribute("data-logo");
+        if (kind === "primary") s.intake.logos.primary = (s.code || "SITE") + "-logo.svg";
+        else s.intake.logos.favicon = (s.code || "SITE") + "-favicon.png";
+        showToast("Attached " + kind + " (demo)");
+        renderBuilder();
+      });
+    });
+    if (s) bindIntakeSave(s);
+    if (tab === "pages" && s) wirePagesSection(s);
+
+    var createBtn = document.getElementById("btnCreateDemo");
+    if (createBtn) createBtn.addEventListener("click", createNewDemo);
+
+    var pub = document.getElementById("btnPublishPane");
+    if (pub) pub.addEventListener("click", publishDemoRevision);
+
+    var open = document.getElementById("btnOpenLive");
+    if (open) open.addEventListener("click", openPublishedUrl);
+
+    var go = document.getElementById("btnGoLive");
+    if (go && !go.disabled) go.addEventListener("click", promoteToLive);
+
+    host.querySelectorAll("[data-toast]").forEach(function (el) {
+      el.addEventListener("click", function () { showToast(el.getAttribute("data-toast")); });
     });
   }
 
   function renderBuilder() {
-    if (!state.siteId) return;
-    var s = SITES[state.siteId];
-    document.getElementById("builderPrompt").value =
-      document.getElementById("builderPrompt").value ||
-      ("Local SEO site for " + s.name + " in " + s.area + " — full service + town coverage, forms to GHL.");
     renderLimits();
-    renderPageTree();
-    renderStored();
+    renderBuilderTabs();
+    renderBuilderSections();
+    document.querySelectorAll("#builderSubnav button[data-builder-tab]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-builder-tab") === state.builderTab);
+    });
+    document.getElementById("builderSubnav").classList.add("open");
     document.getElementById("frameStage").className = "frame-stage device-" + state.frameDevice;
     document.querySelectorAll("#frameDevices button").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-device") === state.frameDevice);
     });
-    loadPreview(state.previewPath || "/");
+    if (state.siteId) loadPreview(state.previewPath || "/");
   }
 
-  function publishSite() {
-    var s = SITES[state.siteId];
+  function createNewDemo() {
+    var u = accountUsage();
+    if (u.sitesUsed >= u.sitesMax) {
+      showToast("Demo limit · " + u.sitesMax + " on " + u.plan.name);
+      return;
+    }
+    var name = (document.getElementById("newSiteName").value || "").trim();
+    var area = (document.getElementById("newSiteArea").value || "").trim();
+    var phone = (document.getElementById("newSitePhone").value || "").trim();
+    var vertical = document.getElementById("newSiteVertical").value;
+    if (!name || !area) {
+      showToast("Name and area required");
+      return;
+    }
+    var id = "demo" + Date.now().toString(36);
+    var code = name.replace(/[^A-Za-z]/g, "").slice(0, 4).toUpperCase() || "DEMO";
+    SITES[id] = ensureSiteMeta({
+      id: id,
+      name: name,
+      code: code,
+      domain: "draft.demo",
+      previewUrl: "",
+      publishedUrl: "",
+      liveUrl: "",
+      lifecycle: "draft",
+      pages: 3,
+      leads7d: 0,
+      status: "BUILD",
+      ghl: name,
+      spend: "$0",
+      pacing: "—",
+      phone: phone || "—",
+      area: area,
+      instruction: "Standard",
+      intake: defaultIntake({
+        name: name,
+        phone: phone,
+        city: area,
+        towns: area,
+        services: vertical + " services"
+      }),
+      revisions: [],
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: vertical + " Services", path: "/services/", selected: true },
+        { title: "Contact", path: "/contact/", selected: true }
+      ],
+      qa: [],
+      leads: [],
+      ppc: null,
+      hidden: true
+    });
+    SITES[id].ppc = JSON.parse(JSON.stringify(SITES.ees.ppc));
+    openSite(id, { business: state.mode === "business" });
+    state.builderTab = "questionnaire";
+    renderBuilder();
+    showToast("Demo created · complete intake next");
+  }
+
+  function publishDemoRevision() {
+    var s = ensureSiteMeta(SITES[state.siteId]);
     if (!s) return;
     var acct = currentAccount();
     var plan = currentPlan();
     var selectedPages = (s.pageTree || []).filter(function (p) { return p.selected; }).length || s.pages;
+    if ((s.revisions || []).length >= plan.maxRevisions) {
+      showToast("Revision limit · " + plan.maxRevisions + " per demo");
+      return;
+    }
     var existing = acct.demos.find(function (d) { return d.siteId === s.id; });
-    var sitesAfter = existing ? acct.demos.length : acct.demos.length + 1;
-    var pagesAfter = 0;
-    acct.demos.forEach(function (d) {
-      pagesAfter += d.siteId === s.id ? 0 : (d.pages || 0);
-    });
-    pagesAfter += selectedPages;
-
-    if (sitesAfter > plan.maxSites) {
-      showToast("Plan limit · " + plan.name + " allows " + plan.maxSites + " demo site(s). Upgrade to publish another.");
+    if (!existing && acct.demos.length >= plan.maxSites) {
+      showToast("Demo site limit · " + plan.maxSites + " on " + plan.name);
       return;
     }
-    if (pagesAfter > plan.maxPages) {
-      showToast("Plan limit · " + selectedPages + " pages would exceed " + plan.maxPages + " on " + plan.name + ".");
-      return;
-    }
-
-    var url = demoUrlFor(s);
+    var revNum = (s.revisions || []).length + 1;
+    var url = s.previewUrl && revNum === 1 ? s.previewUrl : demoUrlFor(s, revNum);
     s.pages = selectedPages;
     s.status = "LIVE";
+    s.lifecycle = "demo";
     s.publishedUrl = url;
     if (!s.previewUrl) s.previewUrl = url;
     s.domain = url.replace(/^https?:\/\//, "").replace(/\/$/, "");
-
+    s.revisions.push({
+      id: "r" + revNum,
+      label: "Rev " + revNum + " · demo server",
+      url: url,
+      at: "Just now",
+      pages: selectedPages
+    });
     if (existing) {
       existing.pages = selectedPages;
       existing.url = url;
       existing.publishedAt = "Just now";
       existing.name = s.name;
+      existing.lifecycle = "demo";
     } else {
       acct.demos.push({
         siteId: s.id,
         name: s.name,
         url: url,
         pages: selectedPages,
-        publishedAt: "Just now"
+        publishedAt: "Just now",
+        lifecycle: "demo"
       });
     }
-
-    document.getElementById("railBadge").textContent = "LIVE";
+    document.getElementById("railBadge").textContent = "DEMO";
     document.getElementById("cockpitCrumb").innerHTML = "<b>" + s.code + "</b> · " + s.domain;
+    state.builderTab = "revisions";
     renderBuilder();
     renderSitesTable();
-    showToast("Published · stored on " + plan.name + " · " + url);
+    showToast("Published revision " + revNum + " → demo server");
     loadPreview("/");
+  }
+
+  function promoteToLive() {
+    var s = ensureSiteMeta(SITES[state.siteId]);
+    if (!canGoLive(s)) {
+      showToast("Finish intake + demo revision first");
+      return;
+    }
+    var slug = s.name.toLowerCase().replace(/[^a-z0-9]+/g, "").slice(0, 24) || s.id;
+    s.liveUrl = "https://www." + slug + ".com/";
+    s.lifecycle = "live";
+    s.status = "LIVE";
+    s.domain = "www." + slug + ".com";
+    var demo = currentAccount().demos.find(function (d) { return d.siteId === s.id; });
+    if (demo) {
+      demo.lifecycle = "live";
+      demo.url = s.liveUrl;
+    }
+    document.getElementById("railBadge").textContent = "LIVE";
+    document.getElementById("cockpitCrumb").innerHTML = "<b>" + s.code + "</b> · " + s.domain;
+    state.builderTab = "liveops";
+    renderBuilder();
+    showToast("Rolled over to live · inventory + API ops unlocked");
+  }
+
+  function openPublishedUrl() {
+    var s = SITES[state.siteId];
+    if (!s) return;
+    var url = s.liveUrl || s.publishedUrl || s.previewUrl || "";
+    if (!url) {
+      showToast("Publish a demo revision first");
+      return;
+    }
+    window.open(url, "_blank", "noopener");
+  }
+
+  function publishSite() {
+    // Top-bar Publish = demo revision publish
+    publishDemoRevision();
   }
 
   var toastEl = document.getElementById("toast");
@@ -2069,8 +2645,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       b.classList.toggle("on", b.getAttribute("data-mode") === mode);
     });
     if (mode === "business") {
-      // Business owner = single-site cockpit (Elizabeth Electrical)
-      openSite("ees", { business: true });
+      openSite("ees", { business: true, tab: "manage" });
     } else {
       exitCockpit();
       setView("sites");
@@ -2094,15 +2669,15 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
   function openSite(id, opts) {
     opts = opts || {};
-    var s = SITES[id];
+    var s = ensureSiteMeta(SITES[id]);
     if (!s) return;
     state.siteId = id;
     state.cockpit = "builder";
+    state.builderTab = opts.tab || "pages";
     state.channel = "google";
     state.kwIndex = 0;
     state.kwChannel = null;
     state.previewPath = "/";
-    document.getElementById("builderPrompt").value = "";
     closeLeads();
     closeRail();
     closeDropdowns();
@@ -2117,7 +2692,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
     document.getElementById("railName").textContent = s.name;
     document.getElementById("railSub").textContent = s.code + " · " + s.domain;
-    document.getElementById("railBadge").textContent = s.status;
+    document.getElementById("railBadge").textContent =
+      s.lifecycle === "live" ? "LIVE" : (s.lifecycle === "demo" ? "DEMO" : s.status);
     document.getElementById("footLabel").textContent = "TODAY'S SITE SPEND";
     document.getElementById("footSpend").textContent = s.spend;
     document.getElementById("footNote").textContent = "Budget pacing " + s.pacing;
@@ -2189,14 +2765,20 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     document.querySelectorAll(".cockpit-panel").forEach(function (p) {
       p.classList.toggle("on", p.id === "panel-" + panel);
     });
-    var sub = document.getElementById("ppcSubnav");
+    var ppcSub = document.getElementById("ppcSubnav");
+    var builderSub = document.getElementById("builderSubnav");
     if (panel === "ppc") {
-      sub.classList.add("open");
+      ppcSub.classList.add("open");
+      builderSub.classList.remove("open");
       renderPpc(state.channel);
+    } else if (panel === "builder") {
+      builderSub.classList.add("open");
+      ppcSub.classList.remove("open");
+      renderBuilder();
     } else {
-      sub.classList.remove("open");
+      ppcSub.classList.remove("open");
+      builderSub.classList.remove("open");
     }
-    if (panel === "builder") renderBuilder();
   }
 
   function carryClass(level) {
@@ -2491,55 +3073,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   });
 
   document.getElementById("btnPreview").addEventListener("click", function () {
+    state.builderTab = "pages";
     setCockpit("builder");
     loadPreview("/");
     showToast("Preview loaded in builder frame");
   });
   document.getElementById("btnPublish").addEventListener("click", publishSite);
-  document.getElementById("btnPublishPane").addEventListener("click", publishSite);
-  document.getElementById("btnOpenLive").addEventListener("click", function () {
-    var s = SITES[state.siteId];
-    var url = (s && (s.publishedUrl || s.previewUrl)) || "";
-    if (!url) {
-      showToast("Publish first to get a stored demo URL");
-      return;
-    }
-    window.open(url, "_blank", "noopener");
-  });
-  document.getElementById("btnApplyBrief").addEventListener("click", function () {
-    var text = document.getElementById("builderPrompt").value.trim();
-    if (!text) {
-      showToast("Add a brief first");
-      return;
-    }
-    var s = SITES[state.siteId];
-    if (s && !s.previewUrl) loadPreview("/");
-    else loadPreview(state.previewPath || "/");
-    showToast("Preview updated from brief (demo)");
-  });
-  document.getElementById("btnRegenPages").addEventListener("click", function () {
-    var s = SITES[state.siteId];
-    if (!s) return;
-    var plan = currentPlan();
-    var next = Math.min(plan.maxPages, Math.max(s.pages, (s.pageTree || []).length) + 8);
-    if (next > plan.maxPages) {
-      showToast("Would exceed " + plan.name + " · " + plan.maxPages + " page cap");
-      return;
-    }
-    showToast("Regenerating page packs…");
-    setTimeout(function () {
-      s.pages = next;
-      if (s.pageTree) {
-        s.pageTree.push({
-          title: "New service page " + (s.pageTree.length + 1),
-          path: "/services/page-" + (s.pageTree.length + 1) + "/",
-          selected: true
-        });
-      }
-      renderBuilder();
-      showToast("Draft pages · " + s.pages + " (within " + plan.name + ")");
-    }, 700);
-  });
   document.getElementById("frameDevices").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-device]");
     if (!b) return;
@@ -2548,6 +3087,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     document.querySelectorAll("#frameDevices button").forEach(function (x) {
       x.classList.toggle("on", x === b);
     });
+  });
+  document.getElementById("builderSubnav").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-builder-tab]");
+    if (!b) return;
+    e.stopPropagation();
+    setBuilderTab(b.getAttribute("data-builder-tab"));
   });
 
   document.querySelectorAll(".dd").forEach(function (dd) {
