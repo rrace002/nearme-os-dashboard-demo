@@ -2439,143 +2439,510 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   function factoryCss() {
     return "*{margin:0;padding:0;box-sizing:border-box}" +
       "body{font-family:Georgia,'Times New Roman',serif;color:#1c2733;line-height:1.65;background:#fff}" +
-      "h1,h2,h3,.nav,.btn,.utility,footer{font-family:'Segoe UI',Arial,Helvetica,sans-serif}" +
-      "a{color:#0b5394;text-decoration:none}.wrap{max-width:1080px;margin:0 auto;padding:0 22px}" +
+      "h1,h2,h3,.nav,.btn,.card h3,.utility{font-family:'Segoe UI',Arial,Helvetica,sans-serif}" +
+      "a{color:#0b5394;text-decoration:none}a:hover{text-decoration:underline}" +
+      ".wrap{max-width:1080px;margin:0 auto;padding:0 22px}" +
       ".demo-banner{background:#1c2733;color:#ffd35c;text-align:center;font:600 12px 'Segoe UI',sans-serif;padding:6px;letter-spacing:.4px}" +
       ".utility{background:#12314e;color:#cfe2f3;font-size:12.5px;padding:5px 0}.utility .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}" +
-      "header.main{background:#fff;border-bottom:3px solid #f5a800}header.main .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;gap:10px;flex-wrap:wrap}" +
-      ".logo{font:800 20px 'Segoe UI',sans-serif;color:#12314e}.logo span{color:#f5a800}.logo small{display:block;font:600 10.5px 'Segoe UI',sans-serif;color:#5a6b7b;letter-spacing:1.2px;text-transform:uppercase}" +
-      ".phone-cta a{font-size:18px;font-weight:800;color:#12314e}.phone-cta small{display:block;color:#5a6b7b;font-size:11px}" +
+      "header.main{background:#fff;border-bottom:3px solid #f5a800;position:relative;z-index:50}" +
+      "header.main .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;gap:10px;flex-wrap:wrap}" +
+      ".logo{font:800 22px 'Segoe UI',sans-serif;color:#12314e}.logo span{color:#f5a800}" +
+      ".logo small{display:block;font:600 10.5px 'Segoe UI',sans-serif;color:#5a6b7b;letter-spacing:1.5px;text-transform:uppercase}" +
+      ".phone-cta{text-align:right;font-family:'Segoe UI',sans-serif}.phone-cta a{font-size:19px;font-weight:800;color:#12314e}" +
+      ".phone-cta small{display:block;color:#5a6b7b;font-size:11px}" +
       "nav.nav{background:#12314e}nav.nav ul{list-style:none;display:flex;flex-wrap:wrap}" +
-      "nav.nav a{display:block;color:#fff;padding:12px 14px;font-size:13px;font-weight:600}nav.nav a:hover{background:#0b2338}" +
-      "nav.nav .em a{background:#c0392b}.hero{background:linear-gradient(rgba(10,26,42,.82),rgba(10,26,42,.82)),repeating-linear-gradient(45deg,#12314e 0 14px,#153a5c 14px 28px);color:#fff;text-align:center;padding:64px 0 54px}" +
-      ".hero h1{font-size:30px;max-width:820px;margin:0 auto 12px;line-height:1.25}.hero p{color:#ffd35c;font:600 14px 'Segoe UI',sans-serif}" +
-      ".btn{display:inline-block;background:#f5a800;color:#12314e;font:700 14px 'Segoe UI',sans-serif;padding:12px 22px;border-radius:4px;margin:6px 4px 0;border:0;cursor:pointer}" +
-      ".btn.alt{background:#0b5394;color:#fff}section{padding:40px 0}section.tint{background:#f4f7fa}" +
-      "section h2{font-size:24px;color:#12314e;margin-bottom:14px}section p{margin-bottom:12px;font-size:16px}" +
-      ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}" +
-      ".gcard{background:#fff;border:1px solid #dfe6ec;border-left:4px solid #f5a800;border-radius:6px;padding:18px}" +
-      ".gcard h3{font-size:15px;margin-bottom:8px}.gcard h3 a{color:#12314e}.gcard p{font-size:13.5px;color:#44525f;margin:0}" +
-      ".ctastrip{background:#12314e;color:#fff;text-align:center;padding:32px 0}.ctastrip h2{color:#fff}" +
-      ".formbox{background:#fff;border:1px solid #dfe6ec;border-top:4px solid #f5a800;border-radius:6px;padding:24px;max-width:640px}" +
-      ".formbox label{display:block;font:600 12px 'Segoe UI',sans-serif;color:#44525f;margin:12px 0 4px}" +
-      ".formbox input,.formbox textarea,.formbox select{width:100%;padding:10px;border:1px solid #c4cdd5;border-radius:4px;font:14px 'Segoe UI',sans-serif}" +
+      "nav.nav>.wrap>ul>li{position:relative}" +
+      "nav.nav a{display:block;color:#fff;padding:12px 15px;font-size:13.5px;font-weight:600}" +
+      "nav.nav a:hover{background:#0b2338;text-decoration:none}" +
+      "nav.nav li:hover>.dd{display:block}" +
+      ".dd{display:none;position:absolute;top:100%;left:0;background:#fff;min-width:270px;box-shadow:0 8px 22px rgba(0,0,0,.18);border-top:3px solid #f5a800;z-index:60}" +
+      ".dd a{color:#1c2733;padding:10px 15px;font-weight:500;border-bottom:1px solid #eef1f4}" +
+      ".dd a:hover{background:#fdf3dc}" +
+      "nav.nav .em a{background:#c0392b}nav.nav .em a:hover{background:#992d22}" +
+      ".hero{background:linear-gradient(rgba(10,26,42,.78),rgba(10,26,42,.78)),repeating-linear-gradient(45deg,#12314e 0 14px,#153a5c 14px 28px);color:#fff;text-align:center;padding:74px 0 64px}" +
+      ".hero h1{font-size:34px;max-width:820px;margin:0 auto 14px;line-height:1.25}" +
+      ".hero p{color:#ffd35c;font:600 15px 'Segoe UI',sans-serif;letter-spacing:.5px}.hero .btn{margin-top:26px}" +
+      ".btn{display:inline-block;background:#f5a800;color:#12314e;font:700 14px 'Segoe UI',sans-serif;padding:13px 28px;border-radius:4px;border:none;cursor:pointer;margin:6px 4px 0}" +
+      ".btn:hover{background:#ffc233;text-decoration:none}.btn.alt{background:#0b5394;color:#fff}.btn.alt:hover{background:#0e69bb}" +
+      "section{padding:44px 0}section.tint{background:#f4f7fa}" +
+      "section h2{font-size:25px;color:#12314e;margin-bottom:16px;line-height:1.3}section p{margin-bottom:14px;font-size:16.5px}" +
+      ".lead{font-size:17px}ul.checks{list-style:none;margin:10px 0 6px}" +
+      "ul.checks li{padding:7px 0 7px 30px;position:relative;font-size:16px}" +
+      "ul.checks li:before{content:\"\\2713\";position:absolute;left:4px;color:#f5a800;font-weight:800;font-family:'Segoe UI',sans-serif}" +
+      ".cols2{display:grid;grid-template-columns:1fr 1fr;gap:26px}" +
+      "@media(max-width:760px){.cols2{grid-template-columns:1fr}.hero h1{font-size:26px}}" +
+      ".card{background:#fff;border:1px solid #dfe6ec;border-radius:6px;padding:24px;box-shadow:0 2px 6px rgba(18,49,78,.06)}" +
+      ".card h3{color:#12314e;font-size:18px;margin-bottom:10px}" +
+      ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:20px}" +
+      ".gcard{background:#fff;border:1px solid #dfe6ec;border-left:4px solid #f5a800;border-radius:6px;padding:20px}" +
+      ".gcard h3{font-size:16px;margin-bottom:8px}.gcard h3 a{color:#12314e}.gcard p{font-size:14px;color:#44525f;margin:0}" +
+      ".gcard .tag{display:inline-block;margin-top:10px;font:600 10.5px 'Segoe UI',sans-serif;letter-spacing:.6px;text-transform:uppercase;color:#0b5394}" +
+      ".ctastrip{background:#12314e;color:#fff;text-align:center;padding:36px 0}.ctastrip h2{color:#fff;margin-bottom:14px}" +
+      ".vs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #dfe6ec;border-radius:6px;overflow:hidden;margin-top:18px}" +
+      ".vs .col{padding:24px}.vs .col.bad{background:#faf5f2}.vs .col.good{background:#f2f8f2}" +
+      ".vs h3{font-size:16px;margin-bottom:12px;color:#12314e}.vs ul{list-style:none}" +
+      ".vs li{padding:8px 0 8px 26px;position:relative;font-size:15px;border-bottom:1px dashed #e2e2e2}" +
+      ".vs .bad li:before{content:\"\\2717\";position:absolute;left:2px;color:#c0392b;font-weight:800}" +
+      ".vs .good li:before{content:\"\\2713\";position:absolute;left:2px;color:#2e7d32;font-weight:800}" +
+      "@media(max-width:760px){.vs{grid-template-columns:1fr}}" +
+      "details{border:1px solid #dfe6ec;border-radius:5px;margin-bottom:10px;background:#fff}" +
+      "details summary{cursor:pointer;padding:14px 18px;font:600 15px 'Segoe UI',sans-serif;color:#12314e;list-style:none}" +
+      "details summary:before{content:\"+ \";color:#f5a800;font-weight:800}details[open] summary:before{content:\"\\2013 \"}" +
+      "details div{padding:0 18px 16px;font-size:15.5px}" +
+      ".formbox{background:#fff;border:1px solid #dfe6ec;border-top:4px solid #f5a800;border-radius:6px;padding:28px;max-width:640px}" +
+      ".formbox label{display:block;font:600 12.5px 'Segoe UI',sans-serif;color:#44525f;margin:12px 0 4px}" +
+      ".formbox input,.formbox select,.formbox textarea{width:100%;padding:10px;border:1px solid #c4cdd5;border-radius:4px;font:14px 'Segoe UI',sans-serif}" +
+      ".formbox textarea{min-height:90px}" +
+      ".steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin:22px 0}" +
+      ".step{background:#fff;border:1px solid #dfe6ec;border-radius:6px;padding:20px}.step b{display:block;color:#12314e;font-family:'Segoe UI',sans-serif;margin-bottom:8px}" +
+      ".pricebox{display:inline-block;background:#fdf3dc;border:1px solid #f5a800;border-radius:5px;font:700 14px 'Segoe UI',sans-serif;color:#7a5600;padding:8px 14px;margin-bottom:16px}" +
       ".crumb{font:12.5px 'Segoe UI',sans-serif;color:#5a6b7b;padding:14px 0 0}.crumb a{color:#5a6b7b}" +
-      "footer{background:#0b2338;color:#b9c9d6;padding:36px 0 20px;margin-top:24px;font-size:13px}" +
-      "footer h4{color:#fff;font:700 12px 'Segoe UI',sans-serif;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px}" +
-      "footer ul{list-style:none}footer li{margin-bottom:6px}footer a{color:#b9c9d6}" +
-      ".fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px}" +
-      ".copy{border-top:1px solid #1d4266;margin-top:24px;padding-top:14px;text-align:center;font-size:12px;color:#7f95a8}" +
-      "ul.checks{list-style:none}ul.checks li{padding:6px 0 6px 28px;position:relative}ul.checks li:before{content:\"\\2713\";position:absolute;left:2px;color:#f5a800;font-weight:800;font-family:'Segoe UI',sans-serif}";
+      ".areas{font-size:15px;color:#44525f}" +
+      "footer{background:#0b2338;color:#b9c9d6;padding:44px 0 26px;margin-top:30px;font-size:13.5px}" +
+      "footer h4{color:#fff;font:700 13px 'Segoe UI',sans-serif;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px}" +
+      "footer ul{list-style:none}footer li{margin-bottom:7px}footer a{color:#b9c9d6}" +
+      ".fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px}" +
+      ".copy{border-top:1px solid #1d4266;margin-top:30px;padding-top:16px;text-align:center;font-size:12px;color:#7f95a8}";
   }
 
   function navLink(path, label) {
     return "<a href=\"#\" data-nm-path=\"" + path + "\">" + esc(label) + "</a>";
   }
 
+  function btnLink(path, label, alt) {
+    return navLink(path, label).replace("<a ", "<a class=\"btn" + (alt ? " alt" : "") + "\" ");
+  }
+
+  function telLink(facts) {
+    return "<a class=\"btn alt\" href=\"tel:" + esc(facts.tel) + "\">Call " + esc(facts.phone) + "</a>";
+  }
+
+  function getSiteFacts(site) {
+    var intake = site.intake || {};
+    var nap = intake.nap || {};
+    var q = intake.questionnaire || {};
+    var vert = resolveVertical(site);
+    var pack = VERTICAL_PACKS[vert] || VERTICAL_PACKS.Cleaning;
+    var phone = (intake.phone && intake.phone.display) || site.phone || "";
+    var area = nap.city || site.area || "";
+    var towns = q.towns || area;
+    var townParts = towns.split(/[,;·]+/).map(function (t) { return t.trim(); }).filter(Boolean);
+    var nameParts = (site.name || "Local Services").split(/\s+/);
+    return {
+      name: site.name,
+      logoFirst: nameParts[0] || site.name,
+      logoRest: nameParts.slice(1).join(" ") || "Services",
+      phone: phone,
+      tel: phone.replace(/[^\d+]/g, ""),
+      area: area,
+      city: (area.split(",")[0] || area).trim(),
+      towns: towns,
+      townsDisplay: townParts.slice(0, 8).join(", "),
+      hours: q.hours || "Mon–Sat 7–7 · 24/7 Emergency",
+      services: q.services || pack.hubs.map(function (h) { return h.title; }).join(", "),
+      notes: q.notes || "",
+      noun: pack.noun,
+      vertical: vert,
+      address: nap.address || "",
+      email: nap.email || ("hello@" + slugify(site.name) + ".demo"),
+      ghl: site.ghl || site.name,
+      licensed: "Licensed & insured local " + pack.noun + " [DEMO]"
+    };
+  }
+
+  function renderCrumb(items) {
+    var html = "<div class=\"wrap crumb\">";
+    items.forEach(function (item, i) {
+      if (i) html += " &rsaquo; ";
+      if (item.path) html += navLink(item.path, item.label);
+      else html += esc(item.label);
+    });
+    return html + "</div>";
+  }
+
+  function renderFaqBlock(faqs) {
+    var html = "<section class=\"tint\"><div class=\"wrap\"><h2>Frequently Asked Questions</h2>";
+    faqs.forEach(function (f) {
+      html += "<details><summary>" + esc(f.q) + "</summary><div><p>" + esc(f.a) + "</p></div></details>";
+    });
+    html += "</div></section>";
+    html += "<script type=\"application/ld+json\">" + JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map(function (f) {
+        return { "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } };
+      })
+    }) + "<\/script>";
+    return html;
+  }
+
+  function renderVsBlock(badTitle, goodTitle, badItems, goodItems) {
+    return "<div class=\"vs\"><div class=\"col bad\"><h3>" + esc(badTitle) + "</h3><ul>" +
+      badItems.map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+      "</ul></div><div class=\"col good\"><h3>" + esc(goodTitle) + "</h3><ul>" +
+      goodItems.map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+      "</ul></div></div>";
+  }
+
+  function renderChecksCols(title, intro, left, right, tint) {
+    return "<section" + (tint ? " class=\"tint\"" : "") + "><div class=\"wrap\"><h2>" + esc(title) + "</h2>" +
+      (intro ? "<p class=\"lead\">" + esc(intro) + "</p>" : "") +
+      "<div class=\"cols2\"><ul class=\"checks\">" +
+      left.map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+      "</ul><ul class=\"checks\">" +
+      right.map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+      "</ul></div></div></section>";
+  }
+
+  function renderCtaStrip(h2, p, estimate, facts) {
+    return "<div class=\"ctastrip\"><div class=\"wrap\"><h2>" + esc(h2) + "</h2>" +
+      (p ? "<p style=\"max-width:720px;margin:0 auto 16px\">" + esc(p) + "</p>" : "") +
+      (estimate ? btnLink(estimate.path, estimate.title) : "") +
+      " " + telLink(facts) + "</div></div>";
+  }
+
+  function renderFormShell(facts, title, serviceOptions, emergency) {
+    var opts = (serviceOptions || []).map(function (s) {
+      return "<option>" + esc(s) + "</option>";
+    }).join("");
+    return "<section><div class=\"wrap\"><h2>" + esc(title) + "</h2>" +
+      "<p>Tell us what's happening and the right member of our team will respond promptly. Prefer to talk? Call " +
+      esc(facts.phone) + (emergency ? " — emergencies answered 24/7." : ".") + "</p>" +
+      "<div class=\"formbox\"><label>Name</label><input type=\"text\">" +
+      "<label>Email</label><input type=\"email\"><label>Phone Number</label><input type=\"tel\">" +
+      "<label>Property Town</label><input type=\"text\" value=\"" + esc(facts.city) + "\">" +
+      "<label>Service needed</label><select><option>Please choose…</option>" + opts + "</select>" +
+      "<label>Comments</label><textarea placeholder=\"Describe the job or issue\"></textarea><br><br>" +
+      "<button class=\"btn\" type=\"button\" onclick=\"alert('DEMO form — destination GHL · " + esc(facts.ghl) + " not wired')\">Submit Now</button>" +
+      "<p style=\"margin-top:12px;font-size:12px;color:#7f95a8\">Demo form shell — submission routes to GHL · " + esc(facts.ghl) + " at rollout.</p>" +
+      "</div></div></section>";
+  }
+
+  function heroHeadline(facts) {
+    var city = facts.city;
+    if (facts.vertical === "Electrician") return "An affordable electrical partner in " + city + " that you can rely on";
+    if (facts.vertical === "Cleaning") return "Professional cleaning in " + city + " you can count on week after week";
+    if (facts.vertical === "Plumber") return "A trusted local plumber in " + city + " for drains, water heaters, and emergencies";
+    if (facts.vertical === "HVAC") return "Heating and cooling service in " + city + " with upfront pricing";
+    if (facts.vertical === "Handyman") return "Reliable handyman service in " + city + " for repairs done right the first time";
+    return facts.name + " — local " + facts.noun + " in " + city + " you can rely on";
+  }
+
+  function homeBenefitChecks(facts, pack) {
+    var svc = pack.hubs.map(function (h) { return h.title.replace(/ Services$/, "").toLowerCase(); });
+    return [
+      "Reliable scheduling across " + facts.area,
+      "Written scope and pricing before work begins",
+      svc[0] ? "Productized " + svc[0] + " with published from-prices [DEMO]" : "Flat pricing on common jobs [DEMO]",
+      "Technicians familiar with " + facts.city + " property types",
+      svc[1] ? "Full " + svc[1].replace(/ services$/, "") + " for homes and businesses" : "Residential and light commercial coverage",
+      "Forms and phone routing wired to your GHL pipeline",
+      "Coverage includes " + facts.townsDisplay,
+      svc[2] ? svc[2] + " scoped to your actual needs" : "Specialty services available on request",
+      "Same accountable team for follow-up and maintenance",
+      "Emergency dispatch when urgent issues arise",
+      "Permits and documentation handled where required [DEMO]",
+      "One local partner instead of a rotating cast of contractors"
+    ];
+  }
+
+  function homeChallengeChecks(facts) {
+    return [
+      "Appointments that slip when a one-person operation gets behind",
+      "Vague estimates that grow into surprise invoices",
+      "No documentation when insurance or sale requires it",
+      "Different technician every visit with no continuity",
+      "Hard-to-reach provider when something fails after the job",
+      "Coverage gaps for nearby towns you actually serve"
+    ];
+  }
+
+  function genericFaqs(facts, serviceLabel) {
+    var label = serviceLabel || facts.noun + " work";
+    return [
+      { q: "What areas do you serve?", a: facts.towns + ". Not sure you're in range? Call " + facts.phone + " and ask." },
+      { q: "Are you licensed and insured?", a: "Yes — " + facts.name + " is a licensed local " + facts.noun + " [license placeholder — DEMO] and fully insured. Details appear on every proposal." },
+      { q: "Do you charge for estimates?", a: "Site evaluations for custom " + label + " are free. Productized services carry flat published from-prices, confirmed before work begins." },
+      { q: "How fast can you schedule?", a: "Most " + label + " books within a few business days. Emergencies use our emergency request form or " + facts.phone + "." },
+      { q: "Will I get a written scope?", a: "Every job gets a written scope and price agreement before work starts — no verbal-only quotes that drift at invoice time." }
+    ];
+  }
+
+  function childFaqs(facts, pageTitle) {
+    var t = pageTitle.toLowerCase();
+    return [
+      { q: "How much does " + t + " cost?", a: "Cost depends on property size, access, and scope. We provide a fixed written proposal after evaluation so the number you approve is the number you pay." },
+      { q: "How soon can you schedule " + t + "?", a: "Most jobs in " + facts.city + " book within a few business days. Tell us your timeline on the quote form and we'll confirm availability." },
+      { q: "Do you serve towns near " + facts.city + "?", a: "Yes — " + facts.townsDisplay + " and surrounding areas. Call if your town isn't listed." },
+      { q: "Why choose " + facts.name + " for " + t + "?", a: "We're a local team that prices before we work, documents every job, and remains accountable after the visit — not a one-off handyman listing." }
+    ];
+  }
+
+  function renderFactoryNav(allPages, estimate, emergency) {
+    var hubs = allPages.filter(function (p) { return p.role === "SVC-HUB"; });
+    var aboutPages = allPages.filter(function (p) { return p.role === "COMP-HUB" || p.role === "COMP-CHILD"; });
+    var svcDd = hubs.map(function (h) { return navLink(h.path, h.title); }).join("");
+    var aboutDd = aboutPages.map(function (p) { return navLink(p.path, p.title); }).join("");
+    var svcPath = hubs[0] ? hubs[0].path : "/services/";
+    return "<li>" + navLink("/", "Home") + "</li>" +
+      "<li>" + navLink(svcPath, "Services &#9662;") + "<div class=\"dd\">" + svcDd + "</div></li>" +
+      "<li>" + navLink("/about/", "About &#9662;") + "<div class=\"dd\">" + aboutDd + "</div></li>" +
+      "<li>" + navLink("/contact/", "Contact") + "</li>" +
+      (estimate ? "<li>" + navLink(estimate.path, estimate.title) + "</li>" : "") +
+      (emergency ? "<li class=\"em\">" + navLink(emergency.path, "Emergency 24/7") + "</li>" : "");
+  }
+
+  function renderFactoryFooter(facts, allPages, estimate, emergency) {
+    var hubPages = allPages.filter(function (p) { return p.role === "SVC-HUB"; });
+    var svcCols = hubPages.map(function (h) {
+      var kids = allPages.filter(function (p) { return p.role === "SVC-CHILD" && p.hub === h.hub; });
+      return "<div><h4>" + navLink(h.path, h.title) + "</h4><ul>" +
+        kids.map(function (k) { return "<li>" + navLink(k.path, k.title) + "</li>"; }).join("") +
+        "</ul></div>";
+    }).join("");
+    var companyLinks = [
+      navLink("/about/", "About"),
+      navLink("/about/why-choose-us/", "Why Choose Us"),
+      navLink("/contact/", "Contact Us")
+    ];
+    if (estimate) companyLinks.push(navLink(estimate.path, estimate.title));
+    if (emergency) companyLinks.push(navLink(emergency.path, "Emergency Service"));
+    return "<footer><div class=\"wrap\"><div class=\"fcols\">" + svcCols +
+      "<div><h4>Company</h4><ul>" +
+      companyLinks.map(function (l) { return "<li>" + l + "</li>"; }).join("") +
+      "</ul></div></div><div class=\"copy\">" + esc(facts.name) + " · " + esc(facts.area) +
+      (facts.address ? " · " + esc(facts.address) : "") + " · " + esc(facts.phone) +
+      " · " + esc(facts.email) + "<br>Copyright &copy; " + new Date().getFullYear() + ". " +
+      esc(facts.name) + ". All rights reserved. · NearMe OS factory demo · sample content [DEMO]</div></div></footer>";
+  }
+
   function renderFactoryPage(site, page, allPages) {
-    var phone = (site.intake && site.intake.phone.display) || site.phone || "";
-    var area = (site.intake && site.intake.nap.city) || site.area || "";
-    var hours = (site.intake && site.intake.questionnaire.hours) || "Mon–Sat 7–7";
+    var facts = getSiteFacts(site);
+    var pack = VERTICAL_PACKS[facts.vertical] || VERTICAL_PACKS.Cleaning;
     var hubs = allPages.filter(function (p) { return p.role === "SVC-HUB"; });
     var forms = allPages.filter(function (p) { return /^FORM/.test(p.role); });
     var emergency = forms.find(function (p) { return /emergency|book/i.test(p.title); }) || forms[1] || forms[0];
     var estimate = forms.find(function (p) { return /estimate|quote/i.test(p.title); }) || forms[0];
-    var children = allPages.filter(function (p) { return p.role === "SVC-CHILD" && (!page.hub || p.hub === page.hub); });
-    if (page.role === "HOME") children = allPages.filter(function (p) { return p.role === "SVC-CHILD"; }).slice(0, 6);
-    if (page.role === "SVC-HUB") children = allPages.filter(function (p) { return p.role === "SVC-CHILD" && p.hub === page.hub; });
-
-    var nav = "<li>" + navLink("/", "Home") + "</li>" +
-      hubs.map(function (h) { return "<li>" + navLink(h.path, h.title.replace(/ Services$/, "")) + "</li>"; }).join("") +
-      "<li>" + navLink("/about/", "About") + "</li>" +
-      "<li>" + navLink("/contact/", "Contact") + "</li>" +
-      (estimate ? "<li>" + navLink(estimate.path, estimate.title) + "</li>" : "") +
-      (emergency ? "<li class=\"em\">" + navLink(emergency.path, "Emergency") + "</li>" : "");
-
+    var hubChildren = allPages.filter(function (p) { return p.role === "SVC-CHILD" && p.hub === page.hub; });
+    var allChildren = allPages.filter(function (p) { return p.role === "SVC-CHILD"; });
+    var serviceOptions = allChildren.map(function (c) { return c.title; });
     var body = "";
+    var extraHead = "";
+
     if (page.role === "HOME") {
+      var benefits = homeBenefitChecks(facts, pack);
+      var mid = Math.ceil(benefits.length / 2);
       body =
-        "<div class=\"hero\"><div class=\"wrap\"><h1>" + esc(site.name) + " in " + esc(area) +
-        " — local pages for every service you sell</h1><p>Licensed · Insured · Upfront pricing · Forms wired to GHL</p>" +
-        (estimate ? navLink(estimate.path, "Request Free Estimate").replace("<a", "<a class=\"btn\"") : "") +
-        " <a class=\"btn alt\" href=\"tel:" + esc(phone.replace(/[^\d+]/g, "")) + "\">Call " + esc(phone) + "</a></div></div>" +
-        "<section><div class=\"wrap\"><h2>Service coverage built the Near Me OS way</h2>" +
-        "<p>" + esc(site.name) + " is a " + esc(resolveVertical(site).toLowerCase()) +
-        " serving " + esc(area) + ". This demo site was generated from your questionnaire → URL inventory → TEMPLATE packs → validate pass (AI off).</p>" +
-        "<div class=\"grid\">" + hubs.map(function (h) {
-          return "<div class=\"gcard\"><h3>" + navLink(h.path, h.title) + "</h3><p>Hub page with child service landings for local search coverage.</p></div>";
-        }).join("") + "</div></div></section>" +
-        "<div class=\"ctastrip\"><div class=\"wrap\"><h2>Ready for a quote?</h2>" +
-        (estimate ? navLink(estimate.path, "Start your request").replace("<a", "<a class=\"btn\"") : "") +
-        "</div></div>";
-    } else if (page.role === "SVC-HUB") {
-      body =
-        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " + esc(page.title) + "</div>" +
-        "<section><div class=\"wrap\"><h2>" + esc(page.title) + " in " + esc(area) + "</h2>" +
-        "<p>Category hub for " + esc(page.title.toLowerCase()) + ". Child pages below target high-intent local queries.</p>" +
-        "<div class=\"grid\">" + children.map(function (c) {
-          return "<div class=\"gcard\"><h3>" + navLink(c.path, c.title) + "</h3><p>Service landing with FAQ + quote CTA.</p></div>";
-        }).join("") + "</div></div></section>";
-    } else if (page.role === "SVC-CHILD") {
-      body =
-        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " +
-        navLink("/" + page.hub + "/", page.parentTitle || "Services") + " / " + esc(page.title) + "</div>" +
-        "<section><div class=\"wrap\"><h2>" + esc(page.title) + " in " + esc(area) + "</h2>" +
-        "<p>" + esc(site.name) + " delivers " + esc(page.title.toLowerCase()) +
-        " for homes and businesses in " + esc(area) +
-        ". Scope is confirmed before work starts; forms route to your GHL pipeline.</p>" +
-        "<ul class=\"checks\"><li>Local technicians familiar with " + esc(area) + "</li>" +
-        "<li>Written scope before work begins</li><li>Quote form on this page</li><li>Phone CTA: " + esc(phone) + "</li></ul>" +
-        (estimate ? navLink(estimate.path, "Request an Estimate").replace("<a", "<a class=\"btn\"") : "") +
+        "<div class=\"hero\"><div class=\"wrap\"><h1>" + esc(heroHeadline(facts)) + "</h1>" +
+        "<p>Licensed · Insured · Upfront Pricing · " + esc(facts.hours.split("·")[0].trim()) + "</p>" +
+        (estimate ? btnLink(estimate.path, "Request Free Estimate") : "") +
+        " " + telLink(facts) + "</div></div>" +
+        "<section><div class=\"wrap\"><h2>" + esc(facts.name) + " Provides Cost-Effective " +
+        esc(pack.hubs[0].title) + " for Homes and Businesses in " + esc(facts.area) + "</h2>" +
+        "<p class=\"lead\">" + esc(facts.name) + " is a licensed local " + esc(facts.noun) +
+        " serving " + esc(facts.towns) + ". From " + esc(facts.services.toLowerCase()) +
+        ", our team delivers permitted, documented work with the price agreed before the job begins.</p>" +
+        "<p class=\"lead\">Built from your questionnaire facts — NAP, services, towns, and hours — this demo site shows the TEMPLATE pass the factory runs with AI off. Every page type (HOME, SVC-HUB, SVC-CHILD, COMP, FORM) is represented in the inventory below.</p></div></section>" +
+        renderChecksCols("With " + facts.name + " — Your Property Will Gain:", "", benefits.slice(0, mid), benefits.slice(mid), true) +
+        renderCtaStrip("Ready to speak to a licensed " + facts.noun + "?", "Request an evaluation or call our team — no obligation, no pressure.", estimate, facts) +
+        "<section><div class=\"wrap\"><div class=\"cols2\">" +
+        "<div class=\"card\"><h3>A Service Plan Tailored to Your Property</h3><p>No two properties are alike. A " + esc(facts.city) +
+        " home, a nearby commercial suite, and a multi-unit building each need different " + esc(facts.noun) +
+        " work in a different order. We scope every project around your actual equipment, budget, and timeline, and put the plan in writing before anyone starts. You stay focused on your property; we handle the rest.</p></div>" +
+        "<div class=\"card\"><h3>Working with " + esc(facts.name) + " will resolve these challenges:</h3><ul class=\"checks\">" +
+        homeChallengeChecks(facts).map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+        "</ul></div></div></div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>Property Owners Have These Key Issues with " +
+        esc(facts.vertical === "Cleaning" ? "Cleaning Providers" : facts.vertical + " Contractors") + "…</h2>" +
+        "<p class=\"lead\">Ask around " + esc(facts.city) + " and the same complaints come up — usually from relying on unlicensed operators or one-person shops rather than an established local company.</p>" +
+        "<div class=\"cols2\"><div class=\"card\"><h3>Reliability</h3><p>One-person operations answer when they can and schedule when it suits. An established company staffs its calendar — your service day happens on the day we booked it.</p></div>" +
+        "<div class=\"card\"><h3>Pricing</h3><p>Vague estimates become creative invoices when there's no reputation at stake. Our productized services carry flat from-prices [DEMO], and custom projects get fixed written proposals before work starts.</p></div></div>" +
+        (estimate ? "<p style=\"margin-top:20px\">" + btnLink(estimate.path, estimate.title) + "</p>" : "") +
         "</div></section>" +
-        "<section class=\"tint\"><div class=\"wrap\"><h2>FAQ</h2>" +
-        "<p><b>How fast can you schedule " + esc(page.title.toLowerCase()) + "?</b><br>Most jobs book within a few business days; emergencies use the emergency form.</p>" +
-        "<p><b>Do you serve nearby towns?</b><br>Yes — coverage follows your questionnaire towns: " +
-        esc((site.intake && site.intake.questionnaire.towns) || area) + ".</p></div></section>";
-    } else if (/^FORM/.test(page.role)) {
+        "<section><div class=\"wrap\"><h2>Independent Operator VS Trusted Local Company</h2>" +
+        renderVsBlock(
+          "Independent operator / one-person " + facts.noun,
+          "Established local company",
+          ["Scheduling depends on one person's day; jobs slip when anything runs long", "Pricing is a verbal estimate that can drift by the invoice", "Documentation is optional — until sale, claim, or inspection day", "Skill depth is one person's experience with your problem", "Warranty lasts as long as the phone number works"],
+          ["A staffed crew keeps committed windows, even when surprises appear", "Flat productized prices and fixed written proposals, agreed up front", "Every job is documented — protecting resale value and insurance standing", "Specialists across " + pack.hubs.length + " service categories on the same team", "Company-backed workmanship warranty with a fixed local presence"]
+        ) + "</div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>Is " + esc(facts.name) + " the Best " + esc(facts.vertical) + " for Your Property?</h2><p>We won't claim to be the best choice for every job — nobody honest can. What we offer is a licensed, insured local team that prices before it works, documents every visit, and serves " + esc(facts.townsDisplay) + ". If that's how you want " + esc(facts.noun) + " work bought and done, we believe the comparison will treat us kindly.</p></div></section>" +
+        renderFormShell(facts, "If you're ready for a local partner, reach our team here:", serviceOptions, emergency) +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>" + esc(facts.vertical) + " Services " + esc(facts.name) + " Provides</h2><div class=\"grid\">" +
+        allChildren.map(function (c) {
+          return "<div class=\"gcard\"><h3>" + navLink(c.path, c.title) + "</h3><p>" + esc(c.title) + " across " + esc(facts.area) + ".</p><span class=\"tag\">Standard</span></div>";
+        }).join("") + "</div></div></section>" +
+        renderFaqBlock(genericFaqs(facts));
+      extraHead = "<script type=\"application/ld+json\">" + JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: facts.name,
+        telephone: facts.phone,
+        email: facts.email,
+        areaServed: townPartsFrom(facts.towns),
+        address: { "@type": "PostalAddress", addressLocality: facts.city, addressCountry: "US" }
+      }) + "<\/script>";
+    } else if (page.role === "SVC-HUB") {
+      var hubKids = hubChildren;
       body =
-        "<section><div class=\"wrap\"><h2>" + esc(page.title) + "</h2>" +
-        "<p>Demo form shell — destination GHL · <b>" + esc(site.ghl) + "</b> (I1 wiring at rollout).</p>" +
-        "<div class=\"formbox\"><label>Name</label><input><label>Email</label><input><label>Phone</label><input>" +
-        "<label>Town</label><input value=\"" + esc(area) + "\"><label>Details</label><textarea></textarea><br><br>" +
-        "<button class=\"btn\" type=\"button\" onclick=\"alert('DEMO form — GHL destination not wired')\">Submit</button></div></div></section>";
+        renderCrumb([{ path: "/", label: "Home" }, { label: page.title }]) +
+        "<section style=\"padding-top:20px\"><div class=\"wrap\"><h2>" + esc(page.title) + " in " + esc(facts.area) + "</h2>" +
+        "<p class=\"lead\">" + esc(facts.name) + " is your local partner for " + esc(page.title.toLowerCase()) +
+        " across " + esc(facts.townsDisplay) + ". This hub organizes child service pages that target high-intent local searches — each with FAQ, comparison blocks, and quote CTAs wired to GHL.</p>" +
+        "<p class=\"lead\">Whether you need routine maintenance or a complex project, our team scopes work around your property, confirms pricing in writing, and schedules a crew that knows " + esc(facts.city) + " buildings.</p></div></section>" +
+        renderChecksCols(page.title + " from " + facts.name + " Can Help Your Property Gain:", "When " + page.title.toLowerCase() + " is handled by the team that will service you afterward, the benefits compound:", [
+          "One accountable contractor for every related service",
+          "Written scope and flat pricing before work begins",
+          "Technicians familiar with local property types",
+          "Scheduling that respects your calendar",
+          "Documentation insurers and buyers accept"
+        ], [
+          "Follow-up maintenance from the same crew",
+          "Emergency backup when urgent issues appear",
+          "Productized options with published from-prices [DEMO]",
+          "Forms routed to your GHL pipeline automatically",
+          "Coverage across " + facts.townsDisplay
+        ], true) +
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + " We Provide</h2><div class=\"grid\">" +
+        hubKids.map(function (c) {
+          return "<div class=\"gcard\"><h3>" + navLink(c.path, c.title) + "</h3><p>" + esc(c.title) + " for homes and businesses in " + esc(facts.area) + ".</p><span class=\"tag\">SVC-CHILD</span></div>";
+        }).join("") + "</div></div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>Our Process</h2><div class=\"steps\">" +
+        ["Request a quote or call " + facts.phone, "On-site evaluation and written scope", "Schedule service at a confirmed window", "Completed work with documentation"].map(function (step, i) {
+          return "<div class=\"step\"><b>Step " + (i + 1) + "</b><p>" + esc(step) + "</p></div>";
+        }).join("") + "</div></div></section>" +
+        renderCtaStrip("Ready for " + page.title.toLowerCase() + "?", "Tell us about your property and we'll come back with a clear evaluation — no obligation.", estimate, facts) +
+        "<section><div class=\"wrap\"><p class=\"areas\"><strong>Areas served:</strong> " + esc(facts.townsDisplay) + ".</p></div></section>" +
+        renderFaqBlock(genericFaqs(facts, page.title.toLowerCase()));
+    } else if (page.role === "SVC-CHILD") {
+      var related = hubChildren.filter(function (c) { return c.path !== page.path; });
+      var childBenefits = [
+        "Reliable scheduling for " + page.title.toLowerCase() + " across " + facts.city,
+        "Written scope and pricing confirmed before work begins",
+        "Technicians familiar with local property types",
+        "Same team available for follow-up service",
+        "Forms and phone routing wired to GHL · " + facts.ghl,
+        "Coverage includes " + facts.townsDisplay,
+        "Productized options with published from-prices where applicable [DEMO]",
+        "Emergency dispatch when urgent issues arise"
+      ];
+      body =
+        renderCrumb([{ path: "/", label: "Home" }, { path: "/" + page.hub + "/", label: page.parentTitle || "Services" }, { label: page.title }]) +
+        "<section style=\"padding-top:20px\"><div class=\"wrap\"><h2 style=\"font-size:29px\">Rely on " + esc(facts.name) + " as your go-to partner for " + esc(page.title.toLowerCase()) + ".</h2>" +
+        "<p class=\"lead\">There is real convenience in having one licensed local team handle your " + esc(page.title.toLowerCase()) +
+        " from first evaluation through completion. " + esc(facts.name) + " assesses your property, scopes the work with the price fixed before we begin, and remains your partner for every follow-up service across " + esc(facts.area) + ".</p>" +
+        "<span class=\"pricebox\">Standard service · fixed written proposal</span><p>" +
+        (estimate ? btnLink(estimate.path, "Request a Written Proposal") : "") +
+        " <a class=\"btn alt\" href=\"tel:" + esc(facts.tel) + "\">Questions? " + esc(facts.phone) + "</a></p></div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>" + esc(page.title) + " Combined with Ongoing Service from " + esc(facts.name) + " Can Help Your Property Gain:</h2>" +
+        "<p><em>When your " + esc(page.title.toLowerCase()) + " is done by the team that will service you afterward, the benefits compound:</em></p>" +
+        "<ul class=\"checks\">" + childBenefits.map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") + "</ul></div></section>" +
+        "<section><div class=\"wrap\"><h2>Enjoy " + esc(page.title.toLowerCase()) + " scoped specifically to your property's needs</h2><p>Every job is different. The right scope depends on your property's age, access, existing systems, and what you are planning next. Our team designs " + esc(page.title.toLowerCase()) + " around those specifics — so you invest in exactly what you need and nothing you don't, while you stay focused on everything else the property demands.</p></div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>Clients scheduling " + esc(page.title.toLowerCase()) + " with an established contractor see real problems resolved</h2><ul class=\"checks\">" +
+        ["Unclear pricing replaced with a fixed written proposal", "Scheduling slips eliminated by a staffed crew", "Documentation gaps closed for insurance and resale", "Follow-up service from the same accountable team"].map(function (li) { return "<li>" + esc(li) + "</li>"; }).join("") +
+        "</ul></div></section>" +
+        "<section><div class=\"wrap\"><h2>Property owners avoid key risks by using an established company for " + esc(page.title.toLowerCase()) + "</h2>" +
+        renderVsBlock(
+          "Properties can face these issues with an independent operator",
+          "Properties usually see improvements with an established local company",
+          ["Work performed without documentation, discovered later at sale or claim time", "No written scope — pricing drifts by the invoice", "Single-person scheduling: your service day slips when their other job runs long", "No standing relationship for follow-up or warranty claims", "No warranty backing if the installer can't be reached"],
+          ["Every job is documented and scoped in writing before work starts", "Load and scope calculations are engineered, not guessed", "A staffed crew keeps the scheduled window even when surprises appear", "Forms, phone, and follow-up handled by a company with a fixed local presence", "Workmanship warrantied by " + facts.name + ", not a phone number that may go dark"]
+        ) + "</div></section>" +
+        renderCtaStrip("Let's get it scheduled", "Considering " + page.title.toLowerCase() + " in " + facts.city + "? Tell us about your property and we'll come back with a clear evaluation — no obligation, no pressure.", estimate, facts) +
+        "<section><div class=\"wrap\"><h2>Is " + esc(facts.name) + " the best provider for your " + esc(page.title.toLowerCase()) + "?</h2><p>We won't claim to be the best choice for every property — no honest contractor can. What we can say: " + esc(page.title.toLowerCase()) + " is core work for our licensed team across " + esc(facts.area) + ", pricing is fixed before work starts, and we'll still answer the phone in ten years. If you value a documented, accountable local partner, we believe we compare very well with any alternative you're weighing.</p></div></section>" +
+        renderFaqBlock(childFaqs(facts, page.title)) +
+        (related.length ? "<section><div class=\"wrap\"><h2>Related " + esc(page.parentTitle || "Services") + "</h2><div class=\"grid\">" +
+          related.map(function (c) { return "<div class=\"gcard\"><h3>" + navLink(c.path, c.title) + "</h3><span class=\"tag\">Related</span></div>"; }).join("") +
+          "</div><p class=\"areas\" style=\"margin-top:18px\"><strong>Areas served:</strong> " + esc(facts.townsDisplay) + ".</p></div></section>" : "");
+    } else if (/^FORM/.test(page.role)) {
+      var isEmergency = /emergency/i.test(page.title);
+      body =
+        renderCrumb([{ path: "/", label: "Home" }, { label: page.title }]) +
+        (isEmergency ? "<section style=\"padding-top:12px\"><div class=\"wrap\"><div class=\"notice\">Emergency requests are monitored 24/7. For immediate danger, call " + esc(facts.phone) + " first.</div></div></section>" : "") +
+        renderFormShell(facts, page.title, serviceOptions, isEmergency) +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>What happens next</h2><div class=\"steps\">" +
+        ["Form submitted to GHL · " + facts.ghl, "Dispatcher reviews urgency and scope", "Team member calls or texts to confirm", "Written proposal or appointment scheduled"].map(function (step, i) {
+          return "<div class=\"step\"><b>Step " + (i + 1) + "</b><p>" + esc(step) + "</p></div>";
+        }).join("") + "</div></div></section>";
+    } else if (page.role === "COMP-HUB") {
+      body =
+        renderCrumb([{ path: "/", label: "Home" }, { label: page.title }]) +
+        "<section style=\"padding-top:20px\"><div class=\"wrap\"><h2>About " + esc(facts.name) + "</h2>" +
+        "<p class=\"lead\">" + esc(facts.name) + " is a licensed local " + esc(facts.noun) + " serving " + esc(facts.towns) +
+        ". " + esc(facts.services) + " — delivered with upfront pricing, documented work, and a team that knows " + esc(facts.city) + " properties.</p>" +
+        "<p class=\"lead\">" + esc(facts.notes || "This company page is generated from NAP and questionnaire facts in the factory TEMPLATE pass (AI off). Owner review replaces placeholder copy at rollout.") + "</p></div></section>" +
+        renderChecksCols("Why property owners choose " + facts.name, "", [
+          "Local team with accountability after the job",
+          "Written scopes — no surprise invoices",
+          "Coverage across " + facts.townsDisplay,
+          "Forms and phone wired to GHL · " + facts.ghl,
+          "Productized services with published from-prices [DEMO]",
+          "Emergency dispatch when urgent issues arise"
+        ], [
+          "Established company — not a rotating gig listing",
+          "Documentation insurers and buyers accept",
+          "Permits handled where required [DEMO]",
+          "Same crew for follow-up maintenance",
+          "Flat pricing confirmed before work begins",
+          "One partner for " + pack.hubs.length + " service categories"
+        ], true) +
+        renderCtaStrip("Ready to work with " + facts.name + "?", "Request an evaluation or call " + facts.phone + ".", estimate, facts);
+    } else if (page.role === "COMP-CHILD") {
+      body =
+        renderCrumb([{ path: "/", label: "Home" }, { path: "/about/", label: "About" }, { label: page.title }]) +
+        "<section style=\"padding-top:20px\"><div class=\"wrap\"><h2>" + esc(page.title) + "</h2>" +
+        "<p class=\"lead\">Property owners in " + esc(facts.city) + " choose " + esc(facts.name) + " because we combine local accountability with factory-grade page coverage — every service you sell gets a dedicated landing page with FAQ, comparison blocks, and quote CTAs.</p></div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><div class=\"cols2\">" +
+        "<div class=\"card\"><h3>Reliability you can plan around</h3><p>We staff our schedule so your service window is the service window — not 'sometime this week' from a one-person operation juggling five other jobs.</p></div>" +
+        "<div class=\"card\"><h3>Pricing you can trust</h3><p>Productized services carry flat from-prices [DEMO]. Custom work gets a fixed written proposal before anyone starts — the number you approve is the number you pay.</p></div></div></div></section>" +
+        "<section><div class=\"wrap\"><h2>Independent Operator VS " + esc(facts.name) + "</h2>" +
+        renderVsBlock("Typical independent operator", facts.name, [
+          "Answers the phone when available — not when you need them",
+          "Verbal estimate that grows by invoice time",
+          "No documentation for insurance or resale",
+          "Different person every visit"
+        ], [
+          "Staffed dispatch and confirmed appointment windows",
+          "Fixed written proposals on every custom job",
+          "Documented work accepted by insurers and buyers",
+          "Same accountable local team start to finish"
+        ]) + "</div></section>" +
+        renderCtaStrip("See the difference for yourself", "Request a quote — the evaluation costs nothing.", estimate, facts);
+    } else if (page.role === "COMP-CONTACT") {
+      body =
+        renderCrumb([{ path: "/", label: "Home" }, { label: "Contact" }]) +
+        "<section style=\"padding-top:20px\"><div class=\"wrap\"><h2>Contact " + esc(facts.name) + "</h2>" +
+        "<p class=\"lead\">" + esc(facts.address ? facts.address + ", " : "") + esc(facts.area) + " · " + esc(facts.phone) + " · " + esc(facts.email) + "</p>" +
+        "<p>Hours: " + esc(facts.hours) + ". Service area: " + esc(facts.townsDisplay) + ".</p></div></section>" +
+        renderFormShell(facts, "Send us a message", serviceOptions, false);
     } else {
       body =
-        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " + esc(page.title) + "</div>" +
-        "<section><div class=\"wrap\"><h2>" + esc(page.title) + "</h2>" +
-        "<p>" + esc(site.name) + " · " + esc(area) + " · " + esc(phone) + "</p>" +
-        "<p>" + esc((site.intake && site.intake.questionnaire.notes) || "Company page generated from NAP + questionnaire facts.") + "</p>" +
-        (page.path === "/contact/" ? "<div class=\"formbox\"><label>Message</label><textarea></textarea><br><br><button class=\"btn\" type=\"button\">Send</button></div>" : "") +
-        "</div></section>";
+        renderCrumb([{ path: "/", label: "Home" }, { label: page.title }]) +
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + "</h2><p>" + esc(facts.name) + " · " + esc(facts.area) + " · " + esc(facts.phone) + "</p></div></section>";
     }
-
-    var footLinks = hubs.slice(0, 4).map(function (h) {
-      return "<li>" + navLink(h.path, h.title) + "</li>";
-    }).join("");
 
     return "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">" +
       "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
-      "<title>" + esc(page.title) + " | " + esc(site.name) + "</title>" +
+      "<title>" + esc(page.title) + " | " + esc(facts.name) + "</title>" +
+      "<meta name=\"description\" content=\"" + esc(page.title) + " in " + esc(facts.area) + " — " + esc(facts.name) + " local " + esc(facts.noun) + ".\">" +
       "<style>" + factoryCss() + "</style></head><body>" +
-      "<div class=\"demo-banner\">DEMO BUILD — NearMe OS Website Factory · " + esc(site.name) +
-      " · " + esc(site.pages) + " pages · sample content pending owner review</div>" +
-      "<div class=\"utility\"><div class=\"wrap\"><span>" + esc(hours) + "</span><span>" + esc(area) +
-      " · " + esc(phone) + "</span></div></div>" +
-      "<header class=\"main\"><div class=\"wrap\"><div class=\"logo\">" + esc(site.name.split(" ")[0] || site.name) +
-      " <span>" + esc(site.name.split(" ").slice(1).join(" ") || "Services") + "</span>" +
-      "<small>" + esc(area) + "</small></div>" +
-      "<div class=\"phone-cta\"><a href=\"tel:" + esc(phone.replace(/[^\d+]/g, "")) + "\">" + esc(phone) +
+      "<div class=\"demo-banner\">DEMO BUILD — NearMe OS Website Factory · " + esc(facts.name) +
+      " · sample content, placeholder facts marked [DEMO]</div>" +
+      "<div class=\"utility\"><div class=\"wrap\"><span>" + esc(facts.licensed) + "</span><span>" + esc(facts.hours) + "</span></div></div>" +
+      "<header class=\"main\"><div class=\"wrap\"><div class=\"logo\">" + esc(facts.logoFirst) +
+      (facts.logoRest ? " <span>" + esc(facts.logoRest) + "</span>" : "") +
+      "<small>" + esc(facts.area) + "</small></div>" +
+      "<div class=\"phone-cta\"><a href=\"tel:" + esc(facts.tel) + "\">" + esc(facts.phone) +
       "</a><small>Call for flat-price service</small></div></div></header>" +
-      "<nav class=\"nav\"><div class=\"wrap\"><ul>" + nav + "</ul></div></nav>" +
-      body +
-      "<footer><div class=\"wrap\"><div class=\"fcols\"><div><h4>Services</h4><ul>" + footLinks +
-      "</ul></div><div><h4>Company</h4><ul><li>" + navLink("/about/", "About") + "</li><li>" +
-      navLink("/contact/", "Contact") + "</li></ul></div><div><h4>NAP</h4><p>" + esc(site.name) +
-      "<br>" + esc((site.intake && site.intake.nap.address) || "") + "<br>" + esc(area) +
-      "<br>" + esc(phone) + "</p></div></div>" +
-      "<div class=\"copy\">NearMe OS factory demo · not a live customer site</div></div></footer>" +
+      "<nav class=\"nav\"><div class=\"wrap\"><ul>" + renderFactoryNav(allPages, estimate, emergency) + "</ul></div></nav>" +
+      body + extraHead +
+      renderFactoryFooter(facts, allPages, estimate, emergency) +
       "<script>(function(){document.addEventListener('click',function(e){var a=e.target.closest('a[data-nm-path]');if(!a)return;e.preventDefault();parent.postMessage({type:'nm-nav',path:a.getAttribute('data-nm-path')},'*');});})();<\/script>" +
       "</body></html>";
+  }
+
+  function townPartsFrom(towns) {
+    return towns.split(/[,;·]+/).map(function (t) { return t.trim(); }).filter(Boolean);
   }
 
   function buildSiteHtml(site) {
