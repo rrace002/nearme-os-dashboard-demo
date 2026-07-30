@@ -991,16 +991,23 @@ button { cursor: pointer; }
 }
 .kw-table {
   width: 100%;
-  min-width: 1180px;
+  min-width: 1320px;
   border-collapse: collapse;
   font-size: 11.5px;
+  table-layout: auto;
 }
-.kw-table th:nth-child(1) { min-width: 168px; }
-.kw-table th:nth-child(2) { min-width: 108px; }
-.kw-table th:nth-child(3) { min-width: 188px; }
-.kw-table th:nth-child(4) { min-width: 208px; }
-.kw-table th:nth-child(5) { min-width: 228px; }
-.kw-table th:nth-child(6) { min-width: 188px; }
+.kw-table th:nth-child(1),
+.kw-table td:nth-child(1) { min-width: 168px; }
+.kw-table th:nth-child(2),
+.kw-table td:nth-child(2) { min-width: 108px; }
+.kw-table th:nth-child(3),
+.kw-table td:nth-child(3) { min-width: 200px; }
+.kw-table th:nth-child(4),
+.kw-table td:nth-child(4) { min-width: 240px; }
+.kw-table th:nth-child(5),
+.kw-table td:nth-child(5) { min-width: 260px; }
+.kw-table th:nth-child(6),
+.kw-table td:nth-child(6) { min-width: 200px; }
 .kw-links { display: flex; flex-direction: column; gap: 8px; }
 .kw-link-item { font-size: 11px; line-height: 1.35; }
 .kw-link-item b { display: block; font-weight: 600; }
@@ -3710,8 +3717,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         "<div class=\"kw-table-wrap\">" +
         "<table class=\"kw-table\"><thead><tr>" +
           "<th>Target keyword</th><th>SEO carryover</th>" +
-          "<th>Site 1 · landing page</th><th>Site 2 · links on page</th>" +
-          "<th>Linked page ranking keywords</th><th>Organic ranks · Site 1</th>" +
+          "<th>Site 1</th><th>Site 2 / Links on landing page</th>" +
+          "<th>linked page ranking keywords</th><th>Organic ranks for page 1</th>" +
         "</tr></thead><tbody>" + rows + "</tbody></table>" +
         "</div>" +
         renderKwDetail(selected) +
