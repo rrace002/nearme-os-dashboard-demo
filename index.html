@@ -151,25 +151,97 @@ button { cursor: pointer; }
   color: #9b9797;
   padding: 8px 8px 4px;
 }
-.nav .demo-switch button {
+.switch-mode-btn {
+  margin: 0 10px 10px;
+  width: calc(100% - 20px);
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  padding: 10px 12px;
   font-size: 11px;
-  padding: 7px 8px;
-}
-.nav .demo-switch button .dn {
-  display: inline-block;
-  min-width: 18px;
   font-weight: 700;
-  margin-right: 4px;
+  letter-spacing: .06em;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
 }
-.nav .demo-switch button small {
+.switch-mode-btn:hover { background: var(--accent-soft); }
+.switch-mode-btn span { font-weight: 600; color: var(--mut); letter-spacing: 0; font-size: 10.5px; }
+.mode-picker {
+  display: none;
+  margin: 0 10px 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.mode-picker.open { display: flex; }
+.mode-picker button {
+  border: none;
+  border-bottom: 1px solid #eae7e7;
+  background: #fff;
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.mode-picker button:last-child { border-bottom: none; }
+.mode-picker button:hover { background: var(--bg); }
+.mode-picker button.on { background: var(--ink); color: #fff; }
+.mode-picker button small {
   display: block;
-  font-size: 9.5px;
-  color: var(--mut);
+  font-size: 10px;
   font-weight: 400;
+  color: var(--mut);
   margin-top: 2px;
-  padding-left: 22px;
 }
-.nav .demo-switch button.on small { color: var(--ink); opacity: .75; }
+.mode-picker button.on small { color: rgba(255,255,255,.75); }
+.current-mode-label {
+  margin: 0 10px 8px;
+  padding: 8px 10px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.demo-version {
+  margin: 0 10px 10px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  flex-shrink: 0;
+}
+.demo-version label {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--mut);
+  padding: 8px 10px 0;
+}
+.demo-version select {
+  width: 100%;
+  border: none;
+  border-top: 1px solid #eae7e7;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #fff;
+  margin-top: 6px;
+}
+.mode-panel { display: none; flex-direction: column; gap: 1px; padding: 0 10px 8px; }
+.mode-panel.open { display: flex; }
+.mode-panel button {
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 8px 10px;
+  font-size: 12px;
+  width: 100%;
+}
+.mode-panel button:hover { background: var(--surface); }
+.mode-panel button.on { background: var(--surface); font-weight: 600; border: 1px solid var(--ink); }
 .back-site {
   margin: 10px;
   border: 1px solid var(--ink);
@@ -1237,16 +1309,29 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       <button type="button" data-toast="PPC routing is configured per site — open a site cockpit">PPC routing → site</button>
     </nav>
 
-    <!-- Cockpit: four modes -->
+    <!-- Cockpit: one mode at a time for this tenant -->
     <nav class="nav" id="navCockpit" style="display:none">
-      <div class="section" id="cockpitSection">WORKSPACE</div>
+      <div class="section" id="cockpitSection">YOUR SITE</div>
 
-      <button type="button" class="on" data-ws-mode="build" id="navBuildMode">Build Mode</button>
-      <div class="subnav open" id="buildSubnav">
-        <div class="sub-label">DEMOS ON THIS ACCOUNT</div>
-        <div class="demo-switch" id="demoSwitcher"></div>
-        <button type="button" data-builder-tab="create">+ Create new demo</button>
-        <div class="sub-label">BUILD TOOLS</div>
+      <button type="button" class="switch-mode-btn" id="btnSwitchMode">
+        SWITCH MODE <span id="switchModeHint">Build ▾</span>
+      </button>
+      <div class="mode-picker" id="modePicker" aria-hidden="true">
+        <button type="button" class="on" data-ws-mode="build">Builder<small>Demos, intake, factory build, rollover</small></button>
+        <button type="button" data-ws-mode="live">Live Site Management<small>Content, config, inventory, hosting</small></button>
+        <button type="button" data-ws-mode="crm">CRM Mode<small>Leads &amp; GHL for this site</small></button>
+        <button type="button" data-ws-mode="ppc">PPC Routing + Management<small>Google, Bing, Meta, Reddit</small></button>
+      </div>
+
+      <div class="current-mode-label" id="currentModeLabel">Builder</div>
+
+      <div class="demo-version" id="demoVersionWrap">
+        <label for="demoVersionSelect">DEMO VERSION</label>
+        <select id="demoVersionSelect" aria-label="Select demo version"></select>
+      </div>
+
+      <div class="mode-panel open" id="buildSubnav" data-panel-for="build">
+        <button type="button" data-builder-tab="create">Create new demo</button>
         <button type="button" data-builder-tab="questionnaire">Questionnaire</button>
         <button type="button" data-builder-tab="nap">NAP</button>
         <button type="button" data-builder-tab="logos">Logos</button>
@@ -1256,8 +1341,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         <button type="button" data-builder-tab="golive">Roll over to live</button>
       </div>
 
-      <button type="button" data-ws-mode="live" id="navLiveMode">Live Site Management</button>
-      <div class="subnav" id="liveSubnav">
+      <div class="mode-panel" id="liveSubnav" data-panel-for="live">
         <button type="button" class="on" data-live-tab="overview">Overview</button>
         <button type="button" data-live-tab="content">Content</button>
         <button type="button" data-live-tab="config">Site config</button>
@@ -1265,15 +1349,13 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         <button type="button" data-live-tab="hosting">Hosting &amp; CDN</button>
       </div>
 
-      <button type="button" data-ws-mode="crm" id="navCrmMode">CRM Mode <span class="count" id="siteLeadCount">14</span></button>
-      <div class="subnav" id="crmSubnav">
-        <button type="button" class="on" data-crm-tab="leads">Site leads</button>
+      <div class="mode-panel" id="crmSubnav" data-panel-for="crm">
+        <button type="button" class="on" data-crm-tab="leads">Site leads <span class="count" id="siteLeadCount">14</span></button>
         <button type="button" data-crm-tab="pipeline">Pipeline</button>
         <button type="button" data-crm-tab="ghl">GHL sync</button>
       </div>
 
-      <button type="button" data-ws-mode="ppc" id="navPpcMode">PPC Routing + Management</button>
-      <div class="subnav" id="ppcSubnav">
+      <div class="mode-panel" id="ppcSubnav" data-panel-for="ppc">
         <button type="button" class="on" data-channel="google">Google Ads</button>
         <button type="button" data-channel="bing">Bing Ads</button>
         <button type="button" data-channel="facebook">Facebook / Meta</button>
@@ -2567,28 +2649,32 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     return list;
   }
 
-  function renderDemoSwitcher() {
-    var wrap = document.getElementById("demoSwitcher");
-    if (!wrap) return;
+  function closeModePicker() {
+    var picker = document.getElementById("modePicker");
+    if (!picker) return;
+    picker.classList.remove("open");
+    picker.setAttribute("aria-hidden", "true");
+  }
+
+  function renderDemoVersionSelect() {
+    var sel = document.getElementById("demoVersionSelect");
+    var wrap = document.getElementById("demoVersionWrap");
+    if (!sel || !wrap) return;
     var demos = listAccountDemos();
     var plan = currentPlan();
-    wrap.innerHTML = "";
+    var html = "";
     if (!demos.length) {
-      wrap.innerHTML = "<div class=\"limit-meta\" style=\"padding:6px 8px\">No demos yet</div>";
-      return;
-    }
-    demos.slice(0, plan.maxSites).forEach(function (d, i) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.setAttribute("data-demo-id", d.siteId);
-      if (d.siteId === state.siteId) btn.className = "on";
-      btn.innerHTML = "<span class=\"dn\">#" + (i + 1) + "</span>" + esc(d.name) +
-        "<small>" + String(d.lifecycle || "draft").toUpperCase() + " · " + (d.pages || 0) + " pp</small>";
-      btn.addEventListener("click", function () {
-        openSite(d.siteId, { business: state.mode === "business", wsMode: "build", tab: "pages" });
+      html = "<option value=\"\">No demos yet — create one</option>";
+    } else {
+      demos.slice(0, plan.maxSites).forEach(function (d, i) {
+        var ver = "Demo Version " + (i + 1) + ".0";
+        var label = ver + " — " + d.name + " (" + String(d.lifecycle || "draft").toUpperCase() + ")";
+        html += "<option value=\"" + d.siteId + "\"" +
+          (d.siteId === state.siteId ? " selected" : "") + ">" + label + "</option>";
       });
-      wrap.appendChild(btn);
-    });
+    }
+    sel.innerHTML = html;
+    wrap.style.display = state.wsMode === "build" ? "" : "none";
   }
 
   function setBuilderTab(tab) {
@@ -2606,21 +2692,38 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     setWorkspaceMode("live");
   }
 
+  function modeTitle(mode) {
+    if (mode === "build") return "Builder";
+    if (mode === "live") return "Live Site Management";
+    if (mode === "crm") return "CRM Mode";
+    if (mode === "ppc") return "PPC Routing + Management";
+    return "Workspace";
+  }
+
   function setWorkspaceMode(mode) {
     state.wsMode = mode;
-    document.querySelectorAll("#navCockpit > button[data-ws-mode]").forEach(function (b) {
+    closeModePicker();
+
+    document.querySelectorAll("#modePicker button[data-ws-mode]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-ws-mode") === mode);
     });
-    document.getElementById("buildSubnav").classList.toggle("open", mode === "build");
-    document.getElementById("liveSubnav").classList.toggle("open", mode === "live");
-    document.getElementById("crmSubnav").classList.toggle("open", mode === "crm");
-    document.getElementById("ppcSubnav").classList.toggle("open", mode === "ppc");
+    document.querySelectorAll(".mode-panel").forEach(function (p) {
+      p.classList.toggle("open", p.getAttribute("data-panel-for") === mode);
+    });
+
+    var label = modeTitle(mode);
+    document.getElementById("currentModeLabel").textContent = label;
+    document.getElementById("switchModeHint").textContent = label + " ▾";
+    document.getElementById("demoVersionWrap").style.display = mode === "build" ? "" : "none";
 
     document.querySelectorAll("#liveSubnav button[data-live-tab]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-live-tab") === state.liveTab);
     });
     document.querySelectorAll("#crmSubnav button[data-crm-tab]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-crm-tab") === state.crmTab);
+    });
+    document.querySelectorAll("#ppcSubnav button[data-channel]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-channel") === state.channel);
     });
 
     var panel = "builder";
@@ -2640,7 +2743,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     });
 
     if (mode === "build") {
-      renderDemoSwitcher();
+      renderDemoVersionSelect();
       renderBuilder();
     } else if (mode === "live") {
       renderLiveMode();
@@ -3006,7 +3109,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     renderLimits();
     renderBuilderTabs();
     renderBuilderSections();
-    renderDemoSwitcher();
+    renderDemoVersionSelect();
     document.querySelectorAll("#buildSubnav button[data-builder-tab]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-builder-tab") === state.builderTab);
     });
@@ -3610,14 +3713,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       setWorkspaceMode(ws.getAttribute("data-ws-mode"));
       return;
     }
-    var liveBtn = e.target.closest("[data-live-tab]");
-    if (liveBtn && liveBtn.closest("#liveSubnav")) {
+    var liveBtn = e.target.closest("#liveSubnav [data-live-tab]");
+    if (liveBtn) {
       e.preventDefault();
       setLiveTab(liveBtn.getAttribute("data-live-tab"));
       return;
     }
-    var crmBtn = e.target.closest("[data-crm-tab]");
-    if (crmBtn && crmBtn.closest("#crmSubnav")) {
+    var crmBtn = e.target.closest("#crmSubnav [data-crm-tab]");
+    if (crmBtn) {
       e.preventDefault();
       state.crmTab = crmBtn.getAttribute("data-crm-tab");
       setWorkspaceMode("crm");
@@ -3705,6 +3808,24 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     setBuilderTab(b.getAttribute("data-builder-tab"));
   });
 
+  document.getElementById("btnSwitchMode").addEventListener("click", function (e) {
+    e.stopPropagation();
+    var picker = document.getElementById("modePicker");
+    var open = picker.classList.toggle("open");
+    picker.setAttribute("aria-hidden", open ? "false" : "true");
+  });
+  document.getElementById("modePicker").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-ws-mode]");
+    if (!b) return;
+    e.stopPropagation();
+    setWorkspaceMode(b.getAttribute("data-ws-mode"));
+  });
+  document.getElementById("demoVersionSelect").addEventListener("change", function () {
+    var id = this.value;
+    if (!id || id === state.siteId) return;
+    openSite(id, { business: state.mode === "business", wsMode: "build", tab: state.builderTab || "pages" });
+  });
+
   window.addEventListener("message", function (e) {
     if (!e.data || e.data.type !== "nm-nav") return;
     if (!state.siteId) return;
@@ -3754,12 +3875,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     });
   });
 
-  document.addEventListener("click", function () { closeDropdowns(); });
+  document.addEventListener("click", function () {
+    closeDropdowns();
+    closeModePicker();
+  });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       closeLeads();
       closeRail();
       closeDropdowns();
+      closeModePicker();
     }
   });
 
