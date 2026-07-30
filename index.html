@@ -985,7 +985,36 @@ button { cursor: pointer; }
   font-weight: 600;
 }
 .kw-map .rh span { font-weight: 400; font-size: 11.5px; color: var(--mut); }
-.kw-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.kw-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.kw-table {
+  width: 100%;
+  min-width: 1180px;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+.kw-table th:nth-child(1) { min-width: 168px; }
+.kw-table th:nth-child(2) { min-width: 108px; }
+.kw-table th:nth-child(3) { min-width: 188px; }
+.kw-table th:nth-child(4) { min-width: 208px; }
+.kw-table th:nth-child(5) { min-width: 228px; }
+.kw-table th:nth-child(6) { min-width: 188px; }
+.kw-links { display: flex; flex-direction: column; gap: 8px; }
+.kw-link-item { font-size: 11px; line-height: 1.35; }
+.kw-link-item b { display: block; font-weight: 600; }
+.kw-link-item .path { margin-top: 2px; display: block; }
+.linked-org-terms { display: flex; flex-direction: column; gap: 10px; }
+.lo-group .lo-src {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--mut);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
 .kw-table th {
   text-align: left;
   font-size: 9px;
@@ -1799,8 +1828,19 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "24 hour electrician elizabeth", pos: 11, change: "0" }
               ],
               links: [
-                { label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/", clicks: 184, ctr: "12.4%", dwell: "48s", scroll: "72%", leads: 22 },
-                { label: "Panel upgrades", href: "/electrical-panel-services/panel-upgrade-services/", clicks: 61, ctr: "4.1%", dwell: "36s", scroll: "55%", leads: 4 },
+                {
+                  label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/",
+                  clicks: 184, ctr: "12.4%", dwell: "48s", scroll: "72%", leads: 22,
+                  organic: [
+                    { term: "emergency electrician book", pos: 6, change: "+2" },
+                    { term: "book electrician elizabeth", pos: 9, change: "+1" }
+                  ]
+                },
+                {
+                  label: "Panel upgrades", href: "/electrical-panel-services/panel-upgrade-services/",
+                  clicks: 61, ctr: "4.1%", dwell: "36s", scroll: "55%", leads: 4,
+                  organic: [{ term: "panel upgrade elizabeth", pos: 8, change: "+3" }]
+                },
                 { label: "Call now (tel)", href: "tel:+19085550142", clicks: 97, ctr: "6.6%", dwell: "—", scroll: "—", leads: 18 }
               ]
             },
@@ -1822,8 +1862,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "electrical panel replacement elizabeth", pos: 9, change: "+1" }
               ],
               links: [
-                { label: "Request estimate", href: "/electrical-panel-services/request-estimate/", clicks: 132, ctr: "9.8%", dwell: "52s", scroll: "68%", leads: 19 },
-                { label: "Financing options", href: "/resources/financing/", clicks: 44, ctr: "3.2%", dwell: "41s", scroll: "61%", leads: 2 },
+                {
+                  label: "Request estimate", href: "/electrical-panel-services/request-estimate/",
+                  clicks: 132, ctr: "9.8%", dwell: "52s", scroll: "68%", leads: 19,
+                  organic: [{ term: "electrical estimate nj", pos: 7, change: "+2" }]
+                },
+                {
+                  label: "Financing options", href: "/resources/financing/",
+                  clicks: 44, ctr: "3.2%", dwell: "41s", scroll: "61%", leads: 2,
+                  organic: [{ term: "electrical financing nj", pos: 14, change: "0" }]
+                },
                 { label: "Emergency electrical", href: "/emergency-electrical-services/", clicks: 28, ctr: "2.1%", dwell: "29s", scroll: "48%", leads: 1 }
               ]
             },
@@ -1845,8 +1893,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "electrician near me elizabeth", pos: 3, change: "+2" }
               ],
               links: [
-                { label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/", clicks: 210, ctr: "14.1%", dwell: "44s", scroll: "70%", leads: 31 },
-                { label: "Service areas", href: "/service-areas/elizabeth-nj/", clicks: 39, ctr: "2.6%", dwell: "33s", scroll: "51%", leads: 3 }
+                {
+                  label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/",
+                  clicks: 210, ctr: "14.1%", dwell: "44s", scroll: "70%", leads: 31,
+                  organic: [{ term: "emergency electrician book", pos: 6, change: "+2" }]
+                },
+                {
+                  label: "Service areas", href: "/service-areas/elizabeth-nj/",
+                  clicks: 39, ctr: "2.6%", dwell: "33s", scroll: "51%", leads: 3,
+                  organic: [{ term: "electrician service area elizabeth", pos: 11, change: "+1" }]
+                }
               ]
             }
           ]
@@ -1881,7 +1937,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "elizabeth electrical services", pos: 2, change: "+1" }
               ],
               links: [
-                { label: "Book a call", href: "/book-a-call/", clicks: 86, ctr: "11.2%", dwell: "39s", scroll: "64%", leads: 14 },
+                {
+                  label: "Book a call", href: "/book-a-call/",
+                  clicks: 86, ctr: "11.2%", dwell: "39s", scroll: "64%", leads: 14,
+                  organic: [{ term: "book electrician elizabeth", pos: 5, change: "+2" }]
+                },
                 { label: "Emergency electrical", href: "/emergency-electrical-services/", clicks: 52, ctr: "6.8%", dwell: "31s", scroll: "58%", leads: 7 }
               ]
             },
@@ -1903,8 +1963,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "union county electrician reviews", pos: 18, change: "0" }
               ],
               links: [
-                { label: "Read reviews", href: "/reviews/", clicks: 41, ctr: "5.4%", dwell: "47s", scroll: "71%", leads: 2 },
-                { label: "Request estimate", href: "/electrical-panel-services/request-estimate/", clicks: 33, ctr: "4.3%", dwell: "35s", scroll: "49%", leads: 3 }
+                {
+                  label: "Read reviews", href: "/reviews/",
+                  clicks: 41, ctr: "5.4%", dwell: "47s", scroll: "71%", leads: 2,
+                  organic: [{ term: "electrician reviews union county", pos: 10, change: "+1" }]
+                },
+                {
+                  label: "Request estimate", href: "/electrical-panel-services/request-estimate/",
+                  clicks: 33, ctr: "4.3%", dwell: "35s", scroll: "49%", leads: 3,
+                  organic: [{ term: "electrician estimate union county", pos: 13, change: "0" }]
+                }
               ]
             }
           ]
@@ -1939,7 +2007,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "emergency electrician nj", pos: 7, change: "+1" }
               ],
               links: [
-                { label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/", clicks: 96, ctr: "8.1%", dwell: "42s", scroll: "66%", leads: 15 },
+                {
+                  label: "Book emergency call", href: "/emergency-electrical-services/book-a-call/",
+                  clicks: 96, ctr: "8.1%", dwell: "42s", scroll: "66%", leads: 15,
+                  organic: [{ term: "emergency electrician book", pos: 6, change: "+2" }]
+                },
                 { label: "Meta lead form handoff", href: "#lead-form", clicks: 210, ctr: "17.8%", dwell: "—", scroll: "—", leads: 28 }
               ]
             },
@@ -1960,7 +2032,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "panel upgrade cost nj", pos: 5, change: "+3" }
               ],
               links: [
-                { label: "Request estimate", href: "/electrical-panel-services/request-estimate/", clicks: 78, ctr: "10.2%", dwell: "50s", scroll: "69%", leads: 12 },
+                {
+                  label: "Request estimate", href: "/electrical-panel-services/request-estimate/",
+                  clicks: 78, ctr: "10.2%", dwell: "50s", scroll: "69%", leads: 12,
+                  organic: [{ term: "panel upgrade estimate nj", pos: 7, change: "+2" }]
+                },
                 { label: "Call now (tel)", href: "tel:+19085550142", clicks: 34, ctr: "4.4%", dwell: "—", scroll: "—", leads: 6 }
               ]
             }
@@ -1995,7 +2071,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "electrician elizabeth nj contact", pos: 12, change: "+1" }
               ],
               links: [
-                { label: "Send message", href: "/contact/#form", clicks: 48, ctr: "11.7%", dwell: "55s", scroll: "74%", leads: 5 },
+                {
+                  label: "Send message", href: "/contact/#form",
+                  clicks: 48, ctr: "11.7%", dwell: "55s", scroll: "74%", leads: 5,
+                  organic: [{ term: "contact electrician elizabeth", pos: 15, change: "+1" }]
+                },
                 { label: "Service areas", href: "/service-areas/elizabeth-nj/", clicks: 21, ctr: "5.1%", dwell: "28s", scroll: "46%", leads: 1 }
               ]
             },
@@ -2017,7 +2097,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                 { term: "panel upgrade diy vs pro", pos: 16, change: "0" }
               ],
               links: [
-                { label: "Get a pro estimate", href: "/electrical-panel-services/request-estimate/", clicks: 29, ctr: "7.1%", dwell: "61s", scroll: "80%", leads: 3 },
+                {
+                  label: "Get a pro estimate", href: "/electrical-panel-services/request-estimate/",
+                  clicks: 29, ctr: "7.1%", dwell: "61s", scroll: "80%", leads: 3,
+                  organic: [{ term: "panel upgrade elizabeth", pos: 8, change: "+3" }]
+                },
                 { label: "Related: emergency electrical", href: "/emergency-electrical-services/", clicks: 11, ctr: "2.7%", dwell: "24s", scroll: "42%", leads: 0 }
               ]
             }
@@ -3485,6 +3569,37 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     return "LOW";
   }
 
+  function renderOrgTerms(terms) {
+    if (!terms || !terms.length) return "";
+    return terms.map(function (o) {
+      var chgCls = o.change === "0" ? " flat" : "";
+      var chgTxt = o.change === "0" ? "—" : o.change;
+      return "<div class=\"ot\"><b>#" + o.pos + "</b><span>" + o.term +
+        "</span><span class=\"chg" + chgCls + "\">" + chgTxt + "</span></div>";
+    }).join("");
+  }
+
+  function renderLinksColumn(links) {
+    if (!links || !links.length) {
+      return "<span style=\"font-size:10.5px;color:var(--mut)\">—</span>";
+    }
+    return "<div class=\"kw-links\">" + links.map(function (ln) {
+      return "<div class=\"kw-link-item\"><b>" + ln.label + "</b>" +
+        "<span class=\"path\">" + ln.href + "</span></div>";
+    }).join("") + "</div>";
+  }
+
+  function renderLinkedOrgTerms(links) {
+    var withOrg = (links || []).filter(function (ln) { return ln.organic && ln.organic.length; });
+    if (!withOrg.length) {
+      return "<span style=\"font-size:10.5px;color:var(--mut)\">—</span>";
+    }
+    return "<div class=\"linked-org-terms\">" + withOrg.map(function (ln) {
+      return "<div class=\"lo-group\"><span class=\"lo-src\">" + ln.label + "</span>" +
+        "<div class=\"org-terms\">" + renderOrgTerms(ln.organic) + "</div></div>";
+    }).join("") + "</div>";
+  }
+
   function renderKwDetail(kw) {
     if (!kw) return "";
     var L = kw.landing;
@@ -3540,12 +3655,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var selected = kws[state.kwIndex];
 
     var rows = kws.map(function (k, i) {
-      var org = (k.organic || []).map(function (o) {
-        var chgCls = o.change === "0" ? " flat" : "";
-        var chgTxt = o.change === "0" ? "—" : o.change;
-        return "<div class=\"ot\"><b>#" + o.pos + "</b><span>" + o.term +
-          "</span><span class=\"chg" + chgCls + "\">" + chgTxt + "</span></div>";
-      }).join("");
+      var org = renderOrgTerms(k.organic || []);
       return "<tr class=\"kw-row" + (i === state.kwIndex ? " on" : "") +
         "\" data-kw=\"" + i + "\">" +
         "<td><div class=\"kw\">" + k.keyword + "</div>" +
@@ -3556,7 +3666,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         "<td><b>" + k.landing.title + "</b>" +
         "<span class=\"path\">" + k.landing.path + "</span>" +
         "<span class=\"code\">" + k.landing.code + " · " + k.landing.site + "</span></td>" +
-        "<td><div class=\"org-terms\">" + org + "</div></td>" +
+        "<td>" + renderLinksColumn(k.links) + "</td>" +
+        "<td>" + renderLinkedOrgTerms(k.links) + "</td>" +
+        "<td><div class=\"org-terms\">" + (org || "<span style=\"font-size:10.5px;color:var(--mut)\">—</span>") + "</div></td>" +
         "</tr>";
     }).join("");
 
@@ -3594,11 +3706,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       rules + "</div>" +
       "<div class=\"kw-map\">" +
         "<div class=\"rh\">Target keyword → landing → organic SEO " +
-        "<span>Click a row for on-page links &amp; interaction metrics</span></div>" +
+        "<span>Click a row for link clicks, CTR &amp; interaction metrics</span></div>" +
+        "<div class=\"kw-table-wrap\">" +
         "<table class=\"kw-table\"><thead><tr>" +
           "<th>Target keyword</th><th>SEO carryover</th>" +
-          "<th>Target website page</th><th>Organic ranks for page</th>" +
+          "<th>Site 1 · landing page</th><th>Site 2 · links on page</th>" +
+          "<th>Linked page ranking keywords</th><th>Organic ranks · Site 1</th>" +
         "</tr></thead><tbody>" + rows + "</tbody></table>" +
+        "</div>" +
         renderKwDetail(selected) +
       "</div>";
 
