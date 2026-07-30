@@ -401,6 +401,209 @@ button { cursor: pointer; }
 }
 .cockpit-panel { display: none; flex-direction: column; min-height: 0; overflow: auto; }
 .cockpit-panel.on { display: flex; }
+.cockpit-panel.builder-panel { overflow: hidden; }
+
+/* Bolt-style builder: controls + site frame */
+.builder-split {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+.builder-pane {
+  border-right: 2px solid var(--ink);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+.builder-pane .bp-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px;
+}
+.builder-pane .bp-foot {
+  border-top: 2px solid var(--ink);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+.limit-card {
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  padding: 12px;
+  margin-bottom: 14px;
+}
+.limit-card .lc-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.limit-card .lc-top b { font-size: 12px; }
+.limit-card .lc-top span { font-size: 10.5px; color: var(--mut); }
+.limit-bar {
+  height: 8px;
+  background: var(--soft);
+  border: 1px solid var(--ink);
+  margin: 6px 0 4px;
+}
+.limit-bar > i { display: block; height: 100%; background: var(--accent); }
+.limit-bar.ok > i { background: var(--ink); }
+.limit-meta { font-size: 11px; color: var(--mut); }
+.builder-pane h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--mut);
+  margin: 14px 0 8px;
+}
+.builder-pane textarea {
+  width: 100%;
+  min-height: 88px;
+  border: 2px solid var(--ink);
+  padding: 10px;
+  resize: vertical;
+  background: #fff;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+.page-tree { display: flex; flex-direction: column; gap: 2px; }
+.page-tree label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid #eae7e7;
+  cursor: pointer;
+}
+.page-tree label:hover { border-color: var(--ink); }
+.page-tree label.on { border-color: var(--ink); background: var(--accent-soft); }
+.page-tree input { accent-color: var(--ink); }
+.page-tree .pg-meta { margin-left: auto; font-size: 10px; color: var(--mut); }
+.stored-list { display: flex; flex-direction: column; gap: 6px; }
+.stored-item {
+  border: 1px solid var(--ink);
+  background: #fff;
+  padding: 8px 10px;
+  font-size: 11.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: left;
+  width: 100%;
+}
+.stored-item:hover { background: var(--accent-soft); }
+.stored-item b { font-size: 12px; }
+.stored-item span { color: var(--mut); font-size: 10.5px; }
+
+.builder-frame {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: #d7d3d3;
+  position: relative;
+}
+.frame-chrome {
+  height: 44px;
+  border-bottom: 2px solid var(--ink);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+.frame-dots { display: flex; gap: 5px; }
+.frame-dots i {
+  width: 9px; height: 9px;
+  border: 1px solid var(--ink);
+  background: var(--soft);
+  display: block;
+}
+.frame-url {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--ink);
+  background: var(--bg);
+  padding: 5px 10px;
+  font-size: 11px;
+  font-family: Consolas, Menlo, monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.frame-devices { display: flex; gap: 4px; }
+.frame-devices button {
+  border: 1px solid var(--ink);
+  background: #fff;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.frame-devices button.on { background: var(--ink); color: #fff; }
+.frame-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 14px;
+  overflow: auto;
+}
+.frame-stage.device-tablet .frame-viewport { max-width: 820px; }
+.frame-stage.device-mobile .frame-viewport { max-width: 390px; }
+.frame-viewport {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(32, 30, 29, .18);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  transition: max-width .25s ease;
+}
+.frame-viewport iframe {
+  flex: 1;
+  width: 100%;
+  border: 0;
+  background: #fff;
+  min-height: 420px;
+}
+.frame-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--mut);
+  font-size: 13px;
+}
+.frame-empty b { color: var(--ink); font-size: 15px; }
+@media (max-width: 1100px) {
+  .builder-split { grid-template-columns: 1fr; }
+  .builder-pane {
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+    max-height: 42vh;
+  }
+}
 
 .ppc-layout {
   display: grid;
@@ -884,7 +1087,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     <!-- Cockpit / business nav -->
     <nav class="nav" id="navCockpit" style="display:none">
       <div class="section" id="cockpitSection">SITE COCKPIT</div>
-      <button type="button" class="on" data-cockpit="overview">Overview</button>
+      <button type="button" class="on" data-cockpit="builder">Builder</button>
+      <button type="button" data-cockpit="overview">Overview</button>
       <button type="button" data-cockpit="content">Content / QA</button>
       <button type="button" data-cockpit="leads">Site leads <span class="count" id="siteLeadCount">14</span></button>
       <button type="button" data-cockpit="ppc" id="navPpc">PPC routing</button>
@@ -1013,17 +1217,58 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         <span class="crumb" id="cockpitCrumb"><b>EES</b> · elizabeth…</span>
         <div class="spacer"></div>
         <button class="chip agency-only" type="button" id="topBackSites">← Fleet</button>
-        <button class="btn" type="button" data-toast="Preview site (demo)">Preview</button>
-        <button class="btn primary" type="button" data-toast="Publish queued (demo)">Publish</button>
+        <button class="btn" type="button" id="btnPreview">Preview</button>
+        <button class="btn primary" type="button" id="btnPublish">Publish</button>
       </div>
 
       <div class="cockpit-shell">
-        <div class="cockpit-panel on" id="panel-overview">
+        <div class="cockpit-panel on builder-panel" id="panel-builder">
+          <div class="builder-split">
+            <aside class="builder-pane">
+              <div class="bp-scroll">
+                <div class="limit-card" id="limitCard"></div>
+                <h3>BUILD BRIEF</h3>
+                <textarea id="builderPrompt" placeholder="Describe changes — services, towns, CTAs…"></textarea>
+                <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+                  <button class="chip" type="button" id="btnApplyBrief">Apply to preview</button>
+                  <button class="chip" type="button" id="btnRegenPages">Regenerate pages</button>
+                </div>
+                <h3>PAGE TREE <span id="pageTreeCount" style="font-weight:400;letter-spacing:0"></span></h3>
+                <div class="page-tree" id="pageTree"></div>
+                <h3>STORED ON YOUR PLAN</h3>
+                <div class="stored-list" id="storedList"></div>
+              </div>
+              <div class="bp-foot">
+                <button class="btn primary" type="button" id="btnPublishPane" style="width:100%">Publish to my demo →</button>
+                <button class="chip" type="button" id="btnOpenLive" style="width:100%;justify-content:center">Open published URL</button>
+              </div>
+            </aside>
+            <div class="builder-frame">
+              <div class="frame-chrome">
+                <div class="frame-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="frame-url" id="frameUrl">—</div>
+                <div class="frame-devices" id="frameDevices">
+                  <button type="button" class="on" data-device="desktop">Desktop</button>
+                  <button type="button" data-device="tablet">Tablet</button>
+                  <button type="button" data-device="mobile">Mobile</button>
+                </div>
+              </div>
+              <div class="frame-stage device-desktop" id="frameStage">
+                <div class="frame-viewport" id="frameViewport">
+                  <iframe id="siteFrame" title="Site preview" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cockpit-panel" id="panel-overview">
           <div class="pad">
             <div class="kpis" id="siteKpis"></div>
             <div class="field-grid" id="siteFacts"></div>
             <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn primary" type="button" data-cockpit="ppc">Configure PPC routing →</button>
+              <button class="btn primary" type="button" data-cockpit="builder">Open Builder →</button>
+              <button class="chip" type="button" data-cockpit="ppc">Configure PPC routing</button>
               <button class="chip" type="button" data-cockpit="content">Content / QA</button>
               <button class="chip" type="button" data-cockpit="leads">Site leads</button>
             </div>
@@ -1108,12 +1353,64 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
 <script>
 (function () {
+  var PLANS = {
+    local: { id: "local", name: "Local Launch", maxPages: 40, maxSites: 1 },
+    pro: { id: "pro", name: "Service Area Pro", maxPages: 80, maxSites: 1 },
+    dominator: { id: "dominator", name: "Market Dominator", maxPages: 120, maxSites: 1 },
+    agency: { id: "agency", name: "Agency Pro", maxPages: 500, maxSites: 12 }
+  };
+
+  var ACCOUNT = {
+    business: {
+      planId: "local",
+      demos: [
+        {
+          siteId: "ees",
+          name: "Elizabeth Electrical",
+          url: "https://elizabeth-electrical-services.netlify.app/",
+          pages: 19,
+          publishedAt: "2026-07-20"
+        }
+      ]
+    },
+    agency: {
+      planId: "agency",
+      demos: [
+        {
+          siteId: "ees",
+          name: "Elizabeth Electrical",
+          url: "https://elizabeth-electrical-services.netlify.app/",
+          pages: 19,
+          publishedAt: "2026-07-20"
+        },
+        {
+          siteId: "seoc",
+          name: "SEOCow / Crypto",
+          url: "https://cryptoconsulting.netlify.app/",
+          pages: 117,
+          publishedAt: "2026-07-20"
+        }
+      ]
+    }
+  };
+
   var SITES = {
     ees: {
       id: "ees", name: "Elizabeth Electrical", code: "EES", domain: "elizabethelectrical.demo",
+      previewUrl: "https://elizabeth-electrical-services.netlify.app/",
+      publishedUrl: "https://elizabeth-electrical-services.netlify.app/",
       pages: 19, leads7d: 14, status: "LIVE", ghl: "Elizabeth Electrical",
       spend: "$318", pacing: "91%", phone: "(908) 555-0142", area: "Elizabeth, NJ",
       instruction: "PROD-SDTS-V1",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "Emergency Electrical", path: "/emergency-electrical-services/", selected: true },
+        { title: "Panel Upgrades", path: "/electrical-panel-services/panel-upgrade-services/", selected: true },
+        { title: "EV Charger Install", path: "/ev-charger-installation/", selected: true },
+        { title: "Service Areas · Elizabeth", path: "/service-areas/elizabeth-nj/", selected: true },
+        { title: "Book a Call", path: "/book-a-call/", selected: true },
+        { title: "Contact", path: "/contact/", selected: false }
+      ],
       qa: [
         { page: "Panel upgrades", code: "EES-C02-S01", check: "All ranges pass", ok: true },
         { page: "Emergency electrical", code: "EES-C01-S03", check: "FAQ facets warn", ok: false },
@@ -1385,9 +1682,17 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     },
     krus: {
       id: "krus", name: "Kitchens Are Us", code: "KRUS", domain: "kitchensareusnj.com",
+      previewUrl: "",
+      publishedUrl: "",
       pages: 57, leads7d: 14, status: "LIVE", ghl: "Kitchens Are Us",
       spend: "$264", pacing: "78%", phone: "(908) 555-0199", area: "Elizabeth / Union NJ",
       instruction: "PROD-SDTS-V1",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "Cabinet Refacing", path: "/cabinet-refacing/", selected: true },
+        { title: "Tile Backsplashes", path: "/tile-backsplashes/", selected: true },
+        { title: "Book Consult", path: "/book-a-consult/", selected: true }
+      ],
       qa: [
         { page: "Cabinet refacing", code: "KRUS-C02-S03", check: "All ranges pass", ok: true },
         { page: "Tile backsplashes", code: "KRUS-C03-S04", check: "FAQ facets warn", ok: false }
@@ -1400,18 +1705,35 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     },
     seoc: {
       id: "seoc", name: "SEOCow", code: "SEOC", domain: "seocow rebuild",
+      previewUrl: "https://cryptoconsulting.netlify.app/",
+      publishedUrl: "https://cryptoconsulting.netlify.app/",
       pages: 117, leads7d: 9, status: "LIVE", ghl: "SEOCow",
       spend: "$110", pacing: "62%", phone: "—", area: "National / dogfood",
       instruction: "MASTER-IT-V1",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "SEO Consulting", path: "/seo-consulting-services/", selected: true },
+        { title: "Free Audit", path: "/free-website-audit/", selected: true }
+      ],
       qa: [{ page: "Home", code: "SEOC-CORE-HOME", check: "All ranges pass", ok: true }],
       leads: [{ when: "2d", who: "Inbound audit", src: "SEOC-CORE-CONTACT", st: "In GHL" }],
       ppc: null
     },
     austin: {
       id: "austin", name: "Austin Plumber (demo)", code: "NEW", domain: "just generated",
+      previewUrl: "",
+      publishedUrl: "",
       pages: 42, leads7d: 0, status: "BUILD", ghl: "BlueLine Plumbing",
       spend: "$0", pacing: "—", phone: "(512) 555-0184", area: "Austin, TX",
       instruction: "Standard",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "Emergency Plumbing", path: "/emergency-plumbing/", selected: true },
+        { title: "Drain Cleaning", path: "/drain-cleaning/", selected: true },
+        { title: "Water Heaters", path: "/water-heater-repair/", selected: true },
+        { title: "Austin Service Area", path: "/service-areas/austin-tx/", selected: true },
+        { title: "Book / Request", path: "/book-a-call/", selected: true }
+      ],
       qa: [],
       leads: [],
       ppc: null,
@@ -1419,8 +1741,15 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     },
     blpl: {
       id: "blpl", name: "BlueLine Plumbing", code: "BLPL", domain: "Austin · intake",
+      previewUrl: "",
+      publishedUrl: "",
       pages: 37, leads7d: 0, status: "BUILD", ghl: "BlueLine Plumbing",
       spend: "$0", pacing: "—", phone: "(512) 555-0184", area: "Austin, TX",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "Emergency Plumbing", path: "/emergency-plumbing/", selected: true },
+        { title: "Book a Call", path: "/book-a-call/", selected: true }
+      ],
       instruction: "Standard",
       qa: [],
       leads: [],
@@ -1428,9 +1757,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     },
     gwel: {
       id: "gwel", name: "GridWorks Electric", code: "GWEL", domain: "Elizabeth NJ",
+      previewUrl: "",
+      publishedUrl: "",
       pages: 42, leads7d: 10, status: "LIVE", ghl: "GridWorks Electric",
       spend: "$150", pacing: "88%", phone: "(908) 555-0177", area: "Elizabeth, NJ",
       instruction: "PROD-SDTS-V1",
+      pageTree: [
+        { title: "Home", path: "/", selected: true },
+        { title: "Service Hub", path: "/electrical-services/", selected: true },
+        { title: "Request Quote", path: "/request-a-quote/", selected: true }
+      ],
       qa: [{ page: "Service hub", code: "GWEL-C01", check: "All ranges pass", ok: true }],
       leads: [{ when: "5h", who: "Femwell Props", src: "GWEL-C01-RFQ", st: "Awaiting" }],
       ppc: null
@@ -1453,11 +1789,230 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     mode: "agency",
     view: "home",
     siteId: null,
-    cockpit: "overview",
+    cockpit: "builder",
     channel: "google",
     kwIndex: 0,
-    kwChannel: null
+    kwChannel: null,
+    frameDevice: "desktop",
+    previewPath: "/"
   };
+
+  function currentAccount() {
+    return ACCOUNT[state.mode === "business" ? "business" : "agency"];
+  }
+
+  function currentPlan() {
+    return PLANS[currentAccount().planId];
+  }
+
+  function accountUsage() {
+    var acct = currentAccount();
+    var plan = currentPlan();
+    var pages = 0;
+    acct.demos.forEach(function (d) { pages += d.pages || 0; });
+    return {
+      sitesUsed: acct.demos.length,
+      sitesMax: plan.maxSites,
+      pagesUsed: pages,
+      pagesMax: plan.maxPages,
+      plan: plan
+    };
+  }
+
+  function demoUrlFor(site) {
+    if (site.publishedUrl) return site.publishedUrl;
+    var slug = (site.name || site.id).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    return "https://" + slug + ".demo.nearmeos.com/";
+  }
+
+  function previewSrcdoc(site, path) {
+    var pages = (site.pageTree || []).filter(function (p) { return p.selected; });
+    var links = pages.map(function (p) {
+      return "<a href=\"#\" style=\"display:block;padding:8px 0;color:#ec3013;text-decoration:none;border-bottom:1px solid #eae7e7\">" +
+        p.title + " <span style=\"color:#605d5d;font-size:12px\">" + p.path + "</span></a>";
+    }).join("");
+    var active = pages.find(function (p) { return p.path === path; }) || pages[0] || { title: site.name, path: "/" };
+    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
+      "<link href=\"https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap\" rel=\"stylesheet\">" +
+      "<style>body{margin:0;font-family:Archivo,system-ui,sans-serif;color:#201e1d;background:#f3f2f2}" +
+      "header{background:#201e1d;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}" +
+      "header b{letter-spacing:.08em;font-size:12px}main{padding:28px 20px;max-width:720px}" +
+      "h1{font-size:28px;margin:0 0 8px}p{color:#605d5d;line-height:1.5}.banner{background:#ffe0d9;border:2px solid #201e1d;padding:10px 12px;font-size:12px;margin-bottom:18px}" +
+      ".cta{display:inline-block;margin-top:16px;background:#ec3013;color:#fff;padding:10px 14px;font-weight:700;text-decoration:none}" +
+      "aside{margin-top:28px;padding-top:16px;border-top:2px solid #201e1d}aside h3{font-size:11px;letter-spacing:.1em;color:#605d5d}</style></head><body>" +
+      "<header><b>" + site.name.toUpperCase() + "</b><span style=\"font-size:12px\">" + site.area + "</span></header>" +
+      "<main><div class=\"banner\">NearMe OS preview · draft frame · not yet published</div>" +
+      "<h1>" + active.title + "</h1>" +
+      "<p>Local SEO page for <b>" + site.name + "</b> in " + site.area +
+      ". Quote form and NAP wire to GHL · <b>" + site.ghl + "</b>.</p>" +
+      "<p style=\"font-size:13px\">Path <code>" + active.path + "</code> · phone " + site.phone + "</p>" +
+      "<a class=\"cta\" href=\"#\">Request a quote</a>" +
+      "<aside><h3>SITE PAGES (" + pages.length + ")</h3>" + links + "</aside></main></body></html>";
+  }
+
+  function loadPreview(path) {
+    var s = SITES[state.siteId];
+    if (!s) return;
+    path = path || state.previewPath || "/";
+    state.previewPath = path;
+    var frame = document.getElementById("siteFrame");
+    var urlEl = document.getElementById("frameUrl");
+    var base = s.previewUrl || s.publishedUrl || "";
+    if (base && path === "/") {
+      urlEl.textContent = base;
+      frame.removeAttribute("srcdoc");
+      frame.src = base;
+    } else if (base && path !== "/") {
+      var abs = base.replace(/\/$/, "") + path;
+      urlEl.textContent = abs + "  ·  preview shell";
+      frame.removeAttribute("src");
+      frame.srcdoc = previewSrcdoc(s, path);
+    } else {
+      var draft = "preview://" + (s.domain || s.id) + path;
+      urlEl.textContent = draft;
+      frame.removeAttribute("src");
+      frame.srcdoc = previewSrcdoc(s, path);
+    }
+  }
+
+  function renderLimits() {
+    var u = accountUsage();
+    var pct = Math.min(100, Math.round((u.pagesUsed / u.pagesMax) * 100));
+    var sitesPct = Math.min(100, Math.round((u.sitesUsed / u.sitesMax) * 100));
+    var over = u.pagesUsed > u.pagesMax || u.sitesUsed > u.sitesMax;
+    document.getElementById("limitCard").innerHTML =
+      "<div class=\"lc-top\"><b>" + u.plan.name + "</b><span>" +
+      (state.mode === "business" ? "Your account" : "Agency fleet") + "</span></div>" +
+      "<div class=\"limit-meta\">Pages stored · <b>" + u.pagesUsed + "</b> / " + u.pagesMax + "</div>" +
+      "<div class=\"limit-bar" + (over ? "" : " ok") + "\"><i style=\"width:" + pct + "%\"></i></div>" +
+      "<div class=\"limit-meta\" style=\"margin-top:8px\">Demo sites · <b>" + u.sitesUsed +
+      "</b> / " + u.sitesMax + "</div>" +
+      "<div class=\"limit-bar" + (over ? "" : " ok") + "\"><i style=\"width:" + sitesPct + "%\"></i></div>";
+  }
+
+  function renderPageTree() {
+    var s = SITES[state.siteId];
+    var tree = document.getElementById("pageTree");
+    var pages = s.pageTree || [];
+    var selected = pages.filter(function (p) { return p.selected; }).length;
+    document.getElementById("pageTreeCount").textContent = "· " + selected + " / " + pages.length;
+    tree.innerHTML = "";
+    pages.forEach(function (p, i) {
+      var lab = document.createElement("label");
+      if (p.path === state.previewPath) lab.className = "on";
+      lab.innerHTML =
+        "<input type=\"checkbox\" " + (p.selected ? "checked" : "") + " data-pg=\"" + i + "\">" +
+        "<span>" + p.title + "</span><span class=\"pg-meta\">" + p.path + "</span>";
+      lab.addEventListener("click", function (e) {
+        if (e.target.tagName === "INPUT") return;
+        e.preventDefault();
+        loadPreview(p.path);
+        renderPageTree();
+      });
+      lab.querySelector("input").addEventListener("change", function () {
+        p.selected = this.checked;
+        s.pages = pages.filter(function (x) { return x.selected; }).length;
+        renderPageTree();
+        renderLimits();
+        showToast((p.selected ? "Included" : "Excluded") + " · " + p.title);
+      });
+      tree.appendChild(lab);
+    });
+  }
+
+  function renderStored() {
+    var list = document.getElementById("storedList");
+    var demos = currentAccount().demos;
+    if (!demos.length) {
+      list.innerHTML = "<div class=\"limit-meta\">No published demos yet — build &amp; publish.</div>";
+      return;
+    }
+    list.innerHTML = "";
+    demos.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "stored-item";
+      btn.innerHTML = "<b>" + d.name + "</b><span>" + d.pages + " pages · " + d.url + "</span>";
+      btn.addEventListener("click", function () {
+        if (d.siteId && SITES[d.siteId]) openSite(d.siteId, { business: state.mode === "business" });
+        else {
+          document.getElementById("siteFrame").src = d.url;
+          document.getElementById("frameUrl").textContent = d.url;
+          setCockpit("builder");
+        }
+      });
+      list.appendChild(btn);
+    });
+  }
+
+  function renderBuilder() {
+    if (!state.siteId) return;
+    var s = SITES[state.siteId];
+    document.getElementById("builderPrompt").value =
+      document.getElementById("builderPrompt").value ||
+      ("Local SEO site for " + s.name + " in " + s.area + " — full service + town coverage, forms to GHL.");
+    renderLimits();
+    renderPageTree();
+    renderStored();
+    document.getElementById("frameStage").className = "frame-stage device-" + state.frameDevice;
+    document.querySelectorAll("#frameDevices button").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-device") === state.frameDevice);
+    });
+    loadPreview(state.previewPath || "/");
+  }
+
+  function publishSite() {
+    var s = SITES[state.siteId];
+    if (!s) return;
+    var acct = currentAccount();
+    var plan = currentPlan();
+    var selectedPages = (s.pageTree || []).filter(function (p) { return p.selected; }).length || s.pages;
+    var existing = acct.demos.find(function (d) { return d.siteId === s.id; });
+    var sitesAfter = existing ? acct.demos.length : acct.demos.length + 1;
+    var pagesAfter = 0;
+    acct.demos.forEach(function (d) {
+      pagesAfter += d.siteId === s.id ? 0 : (d.pages || 0);
+    });
+    pagesAfter += selectedPages;
+
+    if (sitesAfter > plan.maxSites) {
+      showToast("Plan limit · " + plan.name + " allows " + plan.maxSites + " demo site(s). Upgrade to publish another.");
+      return;
+    }
+    if (pagesAfter > plan.maxPages) {
+      showToast("Plan limit · " + selectedPages + " pages would exceed " + plan.maxPages + " on " + plan.name + ".");
+      return;
+    }
+
+    var url = demoUrlFor(s);
+    s.pages = selectedPages;
+    s.status = "LIVE";
+    s.publishedUrl = url;
+    if (!s.previewUrl) s.previewUrl = url;
+    s.domain = url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+    if (existing) {
+      existing.pages = selectedPages;
+      existing.url = url;
+      existing.publishedAt = "Just now";
+      existing.name = s.name;
+    } else {
+      acct.demos.push({
+        siteId: s.id,
+        name: s.name,
+        url: url,
+        pages: selectedPages,
+        publishedAt: "Just now"
+      });
+    }
+
+    document.getElementById("railBadge").textContent = "LIVE";
+    document.getElementById("cockpitCrumb").innerHTML = "<b>" + s.code + "</b> · " + s.domain;
+    renderBuilder();
+    renderSitesTable();
+    showToast("Published · stored on " + plan.name + " · " + url);
+    loadPreview("/");
+  }
 
   var toastEl = document.getElementById("toast");
   var toastTimer;
@@ -1542,10 +2097,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var s = SITES[id];
     if (!s) return;
     state.siteId = id;
-    state.cockpit = "overview";
+    state.cockpit = "builder";
     state.channel = "google";
     state.kwIndex = 0;
     state.kwChannel = null;
+    state.previewPath = "/";
+    document.getElementById("builderPrompt").value = "";
     closeLeads();
     closeRail();
     closeDropdowns();
@@ -1619,9 +2176,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       });
     }
 
-    setCockpit("overview");
+    setCockpit("builder");
     setView("cockpit");
-    showToast("Cockpit · " + s.name);
+    showToast("Builder · " + s.name);
   }
 
   function setCockpit(panel) {
@@ -1639,6 +2196,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     } else {
       sub.classList.remove("open");
     }
+    if (panel === "builder") renderBuilder();
   }
 
   function carryClass(level) {
@@ -1928,7 +2486,68 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   });
   document.getElementById("generate").addEventListener("click", runGenerate);
   document.getElementById("buildDone").addEventListener("click", function () {
+    window.__showAustin = true;
     openSite("austin");
+  });
+
+  document.getElementById("btnPreview").addEventListener("click", function () {
+    setCockpit("builder");
+    loadPreview("/");
+    showToast("Preview loaded in builder frame");
+  });
+  document.getElementById("btnPublish").addEventListener("click", publishSite);
+  document.getElementById("btnPublishPane").addEventListener("click", publishSite);
+  document.getElementById("btnOpenLive").addEventListener("click", function () {
+    var s = SITES[state.siteId];
+    var url = (s && (s.publishedUrl || s.previewUrl)) || "";
+    if (!url) {
+      showToast("Publish first to get a stored demo URL");
+      return;
+    }
+    window.open(url, "_blank", "noopener");
+  });
+  document.getElementById("btnApplyBrief").addEventListener("click", function () {
+    var text = document.getElementById("builderPrompt").value.trim();
+    if (!text) {
+      showToast("Add a brief first");
+      return;
+    }
+    var s = SITES[state.siteId];
+    if (s && !s.previewUrl) loadPreview("/");
+    else loadPreview(state.previewPath || "/");
+    showToast("Preview updated from brief (demo)");
+  });
+  document.getElementById("btnRegenPages").addEventListener("click", function () {
+    var s = SITES[state.siteId];
+    if (!s) return;
+    var plan = currentPlan();
+    var next = Math.min(plan.maxPages, Math.max(s.pages, (s.pageTree || []).length) + 8);
+    if (next > plan.maxPages) {
+      showToast("Would exceed " + plan.name + " · " + plan.maxPages + " page cap");
+      return;
+    }
+    showToast("Regenerating page packs…");
+    setTimeout(function () {
+      s.pages = next;
+      if (s.pageTree) {
+        s.pageTree.push({
+          title: "New service page " + (s.pageTree.length + 1),
+          path: "/services/page-" + (s.pageTree.length + 1) + "/",
+          selected: true
+        });
+      }
+      renderBuilder();
+      showToast("Draft pages · " + s.pages + " (within " + plan.name + ")");
+    }, 700);
+  });
+  document.getElementById("frameDevices").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-device]");
+    if (!b) return;
+    state.frameDevice = b.getAttribute("data-device");
+    document.getElementById("frameStage").className = "frame-stage device-" + state.frameDevice;
+    document.querySelectorAll("#frameDevices button").forEach(function (x) {
+      x.classList.toggle("on", x === b);
+    });
   });
 
   document.querySelectorAll(".dd").forEach(function (dd) {
