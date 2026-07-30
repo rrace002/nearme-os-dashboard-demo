@@ -2685,8 +2685,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var aboutDd = aboutPages.map(function (p) { return navLink(p.path, p.title); }).join("");
     var svcPath = hubs[0] ? hubs[0].path : "/services/";
     return "<li>" + navLink("/", "Home") + "</li>" +
-      "<li>" + navLink(svcPath, "Services &#9662;") + "<div class=\"dd\">" + svcDd + "</div></li>" +
-      "<li>" + navLink("/about/", "About &#9662;") + "<div class=\"dd\">" + aboutDd + "</div></li>" +
+      "<li>" + navLink(svcPath, "Services ▾") + "<div class=\"dd\">" + svcDd + "</div></li>" +
+      "<li>" + navLink("/about/", "About ▾") + "<div class=\"dd\">" + aboutDd + "</div></li>" +
       "<li>" + navLink("/contact/", "Contact") + "</li>" +
       (estimate ? "<li>" + navLink(estimate.path, estimate.title) + "</li>" : "") +
       (emergency ? "<li class=\"em\">" + navLink(emergency.path, "Emergency 24/7") + "</li>" : "");
