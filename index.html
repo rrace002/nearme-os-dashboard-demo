@@ -144,6 +144,32 @@ button { cursor: pointer; }
   color: var(--ink);
   font-weight: 600;
 }
+.nav .subnav .sub-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: #9b9797;
+  padding: 8px 8px 4px;
+}
+.nav .demo-switch button {
+  font-size: 11px;
+  padding: 7px 8px;
+}
+.nav .demo-switch button .dn {
+  display: inline-block;
+  min-width: 18px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+.nav .demo-switch button small {
+  display: block;
+  font-size: 9.5px;
+  color: var(--mut);
+  font-weight: 400;
+  margin-top: 2px;
+  padding-left: 22px;
+}
+.nav .demo-switch button.on small { color: var(--ink); opacity: .75; }
 .back-site {
   margin: 10px;
   border: 1px solid var(--ink);
@@ -1211,33 +1237,48 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       <button type="button" data-toast="PPC routing is configured per site — open a site cockpit">PPC routing → site</button>
     </nav>
 
-    <!-- Cockpit / business nav -->
+    <!-- Cockpit: four modes -->
     <nav class="nav" id="navCockpit" style="display:none">
-      <div class="section" id="cockpitSection">SITE COCKPIT</div>
-      <button type="button" class="on" data-cockpit="builder" id="navBuilder">Builder</button>
-      <div class="subnav open" id="builderSubnav">
-        <button type="button" class="on" data-builder-tab="manage">Manage demos</button>
-        <button type="button" data-builder-tab="create">Create new demo</button>
+      <div class="section" id="cockpitSection">WORKSPACE</div>
+
+      <button type="button" class="on" data-ws-mode="build" id="navBuildMode">Build Mode</button>
+      <div class="subnav open" id="buildSubnav">
+        <div class="sub-label">DEMOS ON THIS ACCOUNT</div>
+        <div class="demo-switch" id="demoSwitcher"></div>
+        <button type="button" data-builder-tab="create">+ Create new demo</button>
+        <div class="sub-label">BUILD TOOLS</div>
         <button type="button" data-builder-tab="questionnaire">Questionnaire</button>
         <button type="button" data-builder-tab="nap">NAP</button>
         <button type="button" data-builder-tab="logos">Logos</button>
         <button type="button" data-builder-tab="phone">Phone</button>
-        <button type="button" data-builder-tab="pages">Pages / preview</button>
+        <button type="button" class="on" data-builder-tab="pages">Pages / preview</button>
         <button type="button" data-builder-tab="revisions">Demo revisions</button>
         <button type="button" data-builder-tab="golive">Roll over to live</button>
-        <button type="button" data-builder-tab="liveops">Live site ops</button>
       </div>
-      <button type="button" data-cockpit="overview">Overview</button>
-      <button type="button" data-cockpit="content">Content / QA</button>
-      <button type="button" data-cockpit="leads">Site leads <span class="count" id="siteLeadCount">14</span></button>
-      <button type="button" data-cockpit="ppc" id="navPpc">PPC routing</button>
+
+      <button type="button" data-ws-mode="live" id="navLiveMode">Live Site Management</button>
+      <div class="subnav" id="liveSubnav">
+        <button type="button" class="on" data-live-tab="overview">Overview</button>
+        <button type="button" data-live-tab="content">Content</button>
+        <button type="button" data-live-tab="config">Site config</button>
+        <button type="button" data-live-tab="ops">Inventory / API</button>
+        <button type="button" data-live-tab="hosting">Hosting &amp; CDN</button>
+      </div>
+
+      <button type="button" data-ws-mode="crm" id="navCrmMode">CRM Mode <span class="count" id="siteLeadCount">14</span></button>
+      <div class="subnav" id="crmSubnav">
+        <button type="button" class="on" data-crm-tab="leads">Site leads</button>
+        <button type="button" data-crm-tab="pipeline">Pipeline</button>
+        <button type="button" data-crm-tab="ghl">GHL sync</button>
+      </div>
+
+      <button type="button" data-ws-mode="ppc" id="navPpcMode">PPC Routing + Management</button>
       <div class="subnav" id="ppcSubnav">
         <button type="button" class="on" data-channel="google">Google Ads</button>
         <button type="button" data-channel="bing">Bing Ads</button>
         <button type="button" data-channel="facebook">Facebook / Meta</button>
         <button type="button" data-channel="reddit">Reddit Ads</button>
       </div>
-      <button type="button" data-cockpit="config">Site config</button>
     </nav>
 
     <div class="rail-foot">
@@ -1398,20 +1439,34 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
         <div class="cockpit-panel" id="panel-overview">
           <div class="pad">
+            <div class="notice" id="liveTenancyNote"><b>Live Site Management</b> — scoped to this site’s tenancy only.</div>
             <div class="kpis" id="siteKpis"></div>
             <div class="field-grid" id="siteFacts"></div>
             <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn primary" type="button" data-cockpit="builder">Open Builder →</button>
-              <button class="chip" type="button" data-cockpit="ppc">Configure PPC routing</button>
-              <button class="chip" type="button" data-cockpit="content">Content / QA</button>
-              <button class="chip" type="button" data-cockpit="leads">Site leads</button>
+              <button class="btn primary" type="button" data-ws-mode="build">Open Build Mode →</button>
+              <button class="chip" type="button" data-ws-mode="live" data-live-tab="content">Content</button>
+              <button class="chip" type="button" data-ws-mode="ppc">PPC routing</button>
+              <button class="chip" type="button" data-ws-mode="crm">CRM</button>
             </div>
           </div>
         </div>
 
         <div class="cockpit-panel" id="panel-content">
           <div class="pad">
-            <div class="notice"><b>QA gate</b> — engine drafts awaiting approval for this site only.</div>
+            <div class="notice"><b>Content · this site only</b> — pages, QA, and edits for <span id="contentSiteName">the active live site</span>. Other demos / tenants are not shown.</div>
+            <div class="kpis" style="margin-bottom:14px">
+              <div class="kpi"><div class="l">PAGES LIVE</div><div class="n" id="contentPageCount">0</div></div>
+              <div class="kpi"><div class="l">QA BACKLOG</div><div class="n" id="contentQaCount">0</div></div>
+              <div class="kpi"><div class="l">DRAFT EDITS</div><div class="n" id="contentDraftCount">0</div></div>
+              <div class="kpi"><div class="l">TENANCY</div><div class="n" style="font-size:13px;padding-top:8px" id="contentTenancy">—</div></div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+              <button class="chip" type="button" data-toast="Edit page body (demo)">Edit copy</button>
+              <button class="chip" type="button" data-toast="FAQ editor (demo)">FAQ blocks</button>
+              <button class="chip" type="button" data-toast="Schema refresh (demo)">Schema</button>
+              <button class="chip" type="button" data-toast="Media library (demo)">Images</button>
+              <button class="btn primary" type="button" data-toast="Publish content revision (demo)">Publish content</button>
+            </div>
             <table class="table">
               <thead><tr><th>PAGE</th><th>CODE</th><th>CHECKS</th><th></th></tr></thead>
               <tbody id="qaRows"></tbody>
@@ -1419,9 +1474,26 @@ body.mode-business .biz-inline { display: inline-flex !important; }
           </div>
         </div>
 
+        <div class="cockpit-panel" id="panel-ops">
+          <div class="pad" id="liveOpsPad"></div>
+        </div>
+
+        <div class="cockpit-panel" id="panel-hosting">
+          <div class="pad">
+            <div class="notice"><b>Hosting &amp; CDN</b> — live property only (not demo revisions).</div>
+            <div class="live-ops-grid" id="hostingGrid">
+              <button type="button" data-toast="CDN purge queued (demo)"><b>Purge CDN</b><span>Edge cache invalidation</span></button>
+              <button type="button" data-toast="SSL status OK (demo)"><b>SSL / domain</b><span>Certificate + DNS status</span></button>
+              <button type="button" data-toast="Deploy log (demo)"><b>Deploy history</b><span>Last 10 production deploys</span></button>
+              <button type="button" data-toast="Redirect map (demo)"><b>Redirects</b><span>301 map for this site</span></button>
+            </div>
+          </div>
+        </div>
+
         <div class="cockpit-panel" id="panel-leads">
           <div class="pad">
-            <div class="notice">Leads attributed to <b id="leadsSiteName">this site</b> via sourcePageCode → GHL sub-account.</div>
+            <div class="notice"><b>CRM Mode</b> — leads for <b id="leadsSiteName">this site</b> only · sourcePageCode → GHL sub-account.</div>
+            <div id="crmExtra" style="margin-bottom:14px;display:none"></div>
             <table class="table">
               <thead><tr><th>WHEN</th><th>CONTACT</th><th>SOURCE PAGE</th><th>STATUS</th></tr></thead>
               <tbody id="siteLeadRows"></tbody>
@@ -1980,8 +2052,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     mode: "agency",
     view: "home",
     siteId: null,
+    wsMode: "build",
     cockpit: "builder",
-    builderTab: "manage",
+    builderTab: "pages",
+    liveTab: "overview",
+    crmTab: "leads",
     channel: "google",
     kwIndex: 0,
     kwChannel: null,
@@ -1990,7 +2065,6 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   };
 
   var BUILDER_TABS = [
-    { id: "manage", label: "Manage" },
     { id: "create", label: "Create" },
     { id: "questionnaire", label: "Questionnaire" },
     { id: "nap", label: "NAP" },
@@ -1998,8 +2072,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     { id: "phone", label: "Phone" },
     { id: "pages", label: "Pages" },
     { id: "revisions", label: "Revisions" },
-    { id: "golive", label: "Go live" },
-    { id: "liveops", label: "Live ops" }
+    { id: "golive", label: "Go live" }
   ];
 
   function currentAccount() {
@@ -2473,12 +2546,164 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       "</b> / " + plan.maxRevisions + " · lifecycle <b>" + (s.lifecycle || "draft").toUpperCase() + "</b></div>" : "");
   }
 
+  function listAccountDemos() {
+    var acct = currentAccount();
+    var seen = {};
+    var list = [];
+    acct.demos.forEach(function (d) {
+      if (!d.siteId || seen[d.siteId]) return;
+      seen[d.siteId] = true;
+      list.push({ siteId: d.siteId, name: d.name, lifecycle: d.lifecycle || "demo", pages: d.pages });
+    });
+    Object.keys(SITES).forEach(function (id) {
+      if (seen[id]) return;
+      var s = SITES[id];
+      if (s.hidden && id !== state.siteId) return;
+      if (s.lifecycle === "draft" || s.lifecycle === "demo" || s.status === "BUILD") {
+        seen[id] = true;
+        list.push({ siteId: id, name: s.name, lifecycle: s.lifecycle || "draft", pages: s.pages });
+      }
+    });
+    return list;
+  }
+
+  function renderDemoSwitcher() {
+    var wrap = document.getElementById("demoSwitcher");
+    if (!wrap) return;
+    var demos = listAccountDemos();
+    var plan = currentPlan();
+    wrap.innerHTML = "";
+    if (!demos.length) {
+      wrap.innerHTML = "<div class=\"limit-meta\" style=\"padding:6px 8px\">No demos yet</div>";
+      return;
+    }
+    demos.slice(0, plan.maxSites).forEach(function (d, i) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-demo-id", d.siteId);
+      if (d.siteId === state.siteId) btn.className = "on";
+      btn.innerHTML = "<span class=\"dn\">#" + (i + 1) + "</span>" + esc(d.name) +
+        "<small>" + String(d.lifecycle || "draft").toUpperCase() + " · " + (d.pages || 0) + " pp</small>";
+      btn.addEventListener("click", function () {
+        openSite(d.siteId, { business: state.mode === "business", wsMode: "build", tab: "pages" });
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
   function setBuilderTab(tab) {
     state.builderTab = tab;
-    document.querySelectorAll("#builderSubnav button[data-builder-tab]").forEach(function (b) {
+    state.wsMode = "build";
+    document.querySelectorAll("#buildSubnav button[data-builder-tab]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-builder-tab") === tab);
     });
-    setCockpit("builder");
+    setWorkspaceMode("build");
+  }
+
+  function setLiveTab(tab) {
+    state.liveTab = tab;
+    state.wsMode = "live";
+    setWorkspaceMode("live");
+  }
+
+  function setWorkspaceMode(mode) {
+    state.wsMode = mode;
+    document.querySelectorAll("#navCockpit > button[data-ws-mode]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-ws-mode") === mode);
+    });
+    document.getElementById("buildSubnav").classList.toggle("open", mode === "build");
+    document.getElementById("liveSubnav").classList.toggle("open", mode === "live");
+    document.getElementById("crmSubnav").classList.toggle("open", mode === "crm");
+    document.getElementById("ppcSubnav").classList.toggle("open", mode === "ppc");
+
+    document.querySelectorAll("#liveSubnav button[data-live-tab]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-live-tab") === state.liveTab);
+    });
+    document.querySelectorAll("#crmSubnav button[data-crm-tab]").forEach(function (b) {
+      b.classList.toggle("on", b.getAttribute("data-crm-tab") === state.crmTab);
+    });
+
+    var panel = "builder";
+    if (mode === "build") panel = "builder";
+    else if (mode === "live") {
+      if (state.liveTab === "content") panel = "content";
+      else if (state.liveTab === "config") panel = "config";
+      else if (state.liveTab === "ops") panel = "ops";
+      else if (state.liveTab === "hosting") panel = "hosting";
+      else panel = "overview";
+    } else if (mode === "crm") panel = "leads";
+    else if (mode === "ppc") panel = "ppc";
+
+    state.cockpit = panel;
+    document.querySelectorAll(".cockpit-panel").forEach(function (p) {
+      p.classList.toggle("on", p.id === "panel-" + panel);
+    });
+
+    if (mode === "build") {
+      renderDemoSwitcher();
+      renderBuilder();
+    } else if (mode === "live") {
+      renderLiveMode();
+    } else if (mode === "crm") {
+      renderCrmMode();
+    } else if (mode === "ppc") {
+      renderPpc(state.channel);
+    }
+  }
+
+  function renderLiveMode() {
+    var s = state.siteId ? ensureSiteMeta(SITES[state.siteId]) : null;
+    if (!s) return;
+    var note = document.getElementById("liveTenancyNote");
+    if (note) {
+      note.innerHTML = "<b>Live Site Management</b> — tenancy <b>" + esc(s.code) + "</b> · " +
+        esc(s.name) + " only. Lifecycle: <b>" + esc((s.lifecycle || "draft").toUpperCase()) + "</b>.";
+    }
+    var cname = document.getElementById("contentSiteName");
+    if (cname) cname.textContent = s.name;
+    var pc = document.getElementById("contentPageCount");
+    if (pc) pc.textContent = String(s.pages || 0);
+    var qc = document.getElementById("contentQaCount");
+    if (qc) qc.textContent = String((s.qa || []).length);
+    var dc = document.getElementById("contentDraftCount");
+    if (dc) dc.textContent = s.lifecycle === "live" ? "2" : "0";
+    var ten = document.getElementById("contentTenancy");
+    if (ten) ten.textContent = s.code;
+
+    var ops = document.getElementById("liveOpsPad");
+    if (ops && state.liveTab === "ops") {
+      ops.innerHTML = htmlLiveOps(s);
+      ops.querySelectorAll("[data-toast]").forEach(function (el) {
+        el.addEventListener("click", function () { showToast(el.getAttribute("data-toast")); });
+      });
+      var go = document.getElementById("btnGotoGoLive");
+      if (go) go.addEventListener("click", function () {
+        state.builderTab = "golive";
+        setWorkspaceMode("build");
+      });
+    }
+  }
+
+  function renderCrmMode() {
+    var s = state.siteId ? SITES[state.siteId] : null;
+    var extra = document.getElementById("crmExtra");
+    if (!extra) return;
+    if (state.crmTab === "pipeline") {
+      extra.style.display = "block";
+      extra.innerHTML = "<div class=\"gate-banner ready\">Pipeline view · New → Contacted → Booked → Won (demo) for <b>" +
+        esc(s ? s.name : "site") + "</b> only.</div>";
+    } else if (state.crmTab === "ghl") {
+      extra.style.display = "block";
+      extra.innerHTML = "<div class=\"gate-banner ready\">GHL sync · location <b>" +
+        esc(s ? s.ghl : "—") + "</b> · last pull 2 min ago (demo).</div>" +
+        "<button class=\"btn primary\" type=\"button\" data-toast=\"Opening GoHighLevel (demo)\">Open in GHL</button>";
+      extra.querySelector("[data-toast]").addEventListener("click", function () {
+        showToast("Opening GoHighLevel (demo)");
+      });
+    } else {
+      extra.style.display = "none";
+      extra.innerHTML = "";
+    }
   }
 
   function renderBuilderTabs() {
@@ -2534,22 +2759,6 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       renderBuilder();
       loadPreview(state.previewPath || "/");
     });
-  }
-
-  function htmlManage(s) {
-    var demos = currentAccount().demos;
-    var plan = currentPlan();
-    var rows = demos.length ? demos.map(function (d, i) {
-      return "<button type=\"button\" class=\"stored-item\" data-open-demo=\"" + d.siteId + "\">" +
-        "<b>" + (i + 1) + ". " + d.name + "</b>" +
-        "<span>" + (d.lifecycle || "demo").toUpperCase() + " · " + d.pages + " pages · " + d.url + "</span></button>";
-    }).join("") : "<div class=\"limit-meta\">No demos yet — create your first demo site.</div>";
-    return "<h3>MANAGE DEMOS (1–" + plan.maxSites + ")</h3>" +
-      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Business accounts can store up to <b>" +
-      plan.maxSites + "</b> demos. Open one to edit intake, publish revisions, then roll over to live.</p>" +
-      "<div class=\"stored-list\">" + rows + "</div>" +
-      (s ? "<h3>ACTIVE DEMO</h3><div class=\"stored-item\"><b>" + s.name +
-      "</b><span>" + (s.lifecycle || "draft").toUpperCase() + " · " + s.pages + " pages</span></div>" : "");
   }
 
   function htmlCreate() {
@@ -2673,15 +2882,19 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
   function htmlLiveOps(s) {
     if (s.lifecycle !== "live") {
-      return "<h3>LIVE SITE OPS</h3><div class=\"gate-banner\">Available after rollover. Finish intake and promote this demo first.</div>";
+      return "<h3>INVENTORY / API</h3>" +
+        "<div class=\"gate-banner\">This tenancy is still <b>" + esc((s.lifecycle || "draft").toUpperCase()) +
+        "</b>. Roll over from Build Mode → Go live to unlock live inventory &amp; API controls for <b>" +
+        esc(s.name) + "</b> only.</div>" +
+        "<button class=\"btn primary\" type=\"button\" id=\"btnGotoGoLive\">Go to Roll over →</button>";
     }
-    return "<h3>LIVE SITE OPS</h3>" +
-      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Live · <b>" + (s.liveUrl || s.publishedUrl) +
-      "</b></p><div class=\"live-ops-grid\">" +
+    return "<h3>INVENTORY / API · " + esc(s.code) + "</h3>" +
+      "<p class=\"limit-meta\" style=\"margin-bottom:10px\">Live · <b>" + esc(s.liveUrl || s.publishedUrl) +
+      "</b> · tenant-scoped</p><div class=\"live-ops-grid\">" +
       "<button type=\"button\" data-toast=\"Inventory API · list pages (demo)\"><b>Inventory control</b><span>Page registry, slug law, publish state</span></button>" +
-      "<button type=\"button\" data-toast=\"GET /api/v1/sites/" + s.code + "/pages (demo)\"><b>Pages API</b><span>REST read/write for page blocks</span></button>" +
+      "<button type=\"button\" data-toast=\"GET /api/v1/sites/" + esc(s.code) + "/pages (demo)\"><b>Pages API</b><span>REST read/write for page blocks</span></button>" +
       "<button type=\"button\" data-toast=\"Webhook endpoints configured (demo)\"><b>Webhooks</b><span>Lead + publish events → GHL / n8n</span></button>" +
-      "<button type=\"button\" data-toast=\"CDN cache purge queued (demo)\"><b>CDN / cache</b><span>Purge + redeploy edge</span></button>" +
+      "<button type=\"button\" data-toast=\"Content blocks API (demo)\"><b>Content features</b><span>Block-level edits for this site</span></button>" +
       "<button type=\"button\" data-toast=\"Redirect map editor (demo)\"><b>Redirects</b><span>301 map + migration rules</span></button>" +
       "<button type=\"button\" data-toast=\"Schema / sitemap regenerate (demo)\"><b>SEO artifacts</b><span>Schema, sitemap, robots</span></button>" +
       "</div>";
@@ -2732,9 +2945,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var tab = state.builderTab;
     var html = "";
 
-    if (tab === "manage") html = htmlManage(s);
-    else if (tab === "create") html = htmlCreate();
-    else if (!s) html = "<div class=\"gate-banner\">Select or create a demo first.</div>";
+    if (tab === "create") html = htmlCreate();
+    else if (!s) html = "<div class=\"gate-banner\">Select a demo # in the rail, or create a new demo.</div>";
     else if (tab === "questionnaire") html = htmlQuestionnaire(s);
     else if (tab === "nap") html = htmlNap(s);
     else if (tab === "logos") html = htmlLogos(s);
@@ -2742,7 +2954,6 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     else if (tab === "pages") html = htmlPages(s);
     else if (tab === "revisions") html = htmlRevisions(s);
     else if (tab === "golive") html = htmlGoLive(s);
-    else if (tab === "liveops") html = htmlLiveOps(s);
 
     host.innerHTML = html;
 
@@ -2762,14 +2973,6 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         "<button class=\"chip\" type=\"button\" id=\"btnOpenLive\" style=\"width:100%;justify-content:center\">Open published URL</button>";
     }
 
-    // Wire events inside sections
-    host.querySelectorAll("[data-open-demo]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        openSite(btn.getAttribute("data-open-demo"), { business: state.mode === "business" });
-        state.builderTab = "pages";
-        renderBuilder();
-      });
-    });
     host.querySelectorAll("[data-logo]").forEach(function (slot) {
       slot.addEventListener("click", function () {
         var kind = slot.getAttribute("data-logo");
@@ -2803,10 +3006,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     renderLimits();
     renderBuilderTabs();
     renderBuilderSections();
-    document.querySelectorAll("#builderSubnav button[data-builder-tab]").forEach(function (b) {
+    renderDemoSwitcher();
+    document.querySelectorAll("#buildSubnav button[data-builder-tab]").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-builder-tab") === state.builderTab);
     });
-    document.getElementById("builderSubnav").classList.add("open");
     document.getElementById("frameStage").className = "frame-stage device-" + state.frameDevice;
     document.querySelectorAll("#frameDevices button").forEach(function (b) {
       b.classList.toggle("on", b.getAttribute("data-device") === state.frameDevice);
@@ -2956,9 +3159,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     }
     document.getElementById("railBadge").textContent = "LIVE";
     document.getElementById("cockpitCrumb").innerHTML = "<b>" + s.code + "</b> · " + s.domain;
-    state.builderTab = "liveops";
-    renderBuilder();
-    showToast("Rolled over to live · inventory + API ops unlocked");
+    state.wsMode = "live";
+    state.liveTab = "ops";
+    setWorkspaceMode("live");
+    showToast("Rolled over to live · Live Site Management unlocked");
   }
 
   function openPublishedUrl() {
@@ -2967,7 +3171,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var url = s.liveUrl || s.publishedUrl || s.previewUrl || "";
     if (s.built && (!url || /demo\.nearmeos\.com/.test(url))) {
       state.builderTab = "pages";
-      setCockpit("builder");
+      setWorkspaceMode("build");
       loadPreview("/");
       showToast("Built demo plays in the frame (host simulated until Netlify deploy)");
       return;
@@ -3039,7 +3243,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       b.classList.toggle("on", b.getAttribute("data-mode") === mode);
     });
     if (mode === "business") {
-      openSite("ees", { business: true, tab: "manage" });
+      openSite("ees", { business: true, wsMode: "build", tab: "pages" });
     } else {
       exitCockpit();
       setView("sites");
@@ -3066,12 +3270,16 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var s = ensureSiteMeta(SITES[id]);
     if (!s) return;
     state.siteId = id;
-    state.cockpit = "builder";
     state.builderTab = opts.tab || "pages";
+    state.liveTab = opts.liveTab || "overview";
+    state.crmTab = "leads";
     state.channel = "google";
     state.kwIndex = 0;
     state.kwChannel = null;
     state.previewPath = "/";
+    if (opts.wsMode) state.wsMode = opts.wsMode;
+    else if (s.lifecycle === "live") state.wsMode = "live";
+    else state.wsMode = "build";
     closeLeads();
     closeRail();
     closeDropdowns();
@@ -3080,7 +3288,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     document.getElementById("navAgency").style.display = "none";
     document.getElementById("navCockpit").style.display = "";
     document.getElementById("cockpitSection").textContent =
-      opts.business ? "YOUR SITE" : "SITE COCKPIT";
+      opts.business ? "YOUR WORKSPACE" : "SITE WORKSPACE";
     document.getElementById("backToSites").style.display =
       state.mode === "agency" ? "block" : "none";
 
@@ -3146,33 +3354,20 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       });
     }
 
-    setCockpit("builder");
+    setWorkspaceMode(state.wsMode);
     setView("cockpit");
-    showToast("Builder · " + s.name);
+    showToast((state.wsMode === "live" ? "Live · " : "Build · ") + s.name);
   }
 
   function setCockpit(panel) {
-    state.cockpit = panel;
-    document.querySelectorAll("#navCockpit > button[data-cockpit]").forEach(function (b) {
-      b.classList.toggle("on", b.getAttribute("data-cockpit") === panel);
-    });
-    document.querySelectorAll(".cockpit-panel").forEach(function (p) {
-      p.classList.toggle("on", p.id === "panel-" + panel);
-    });
-    var ppcSub = document.getElementById("ppcSubnav");
-    var builderSub = document.getElementById("builderSubnav");
-    if (panel === "ppc") {
-      ppcSub.classList.add("open");
-      builderSub.classList.remove("open");
-      renderPpc(state.channel);
-    } else if (panel === "builder") {
-      builderSub.classList.add("open");
-      ppcSub.classList.remove("open");
-      renderBuilder();
-    } else {
-      ppcSub.classList.remove("open");
-      builderSub.classList.remove("open");
-    }
+    // Back-compat mapping from old panel ids → workspace modes
+    if (panel === "builder") setWorkspaceMode("build");
+    else if (panel === "overview" || panel === "content" || panel === "config") {
+      state.liveTab = panel === "overview" ? "overview" : panel;
+      setWorkspaceMode("live");
+    } else if (panel === "leads") setWorkspaceMode("crm");
+    else if (panel === "ppc") setWorkspaceMode("ppc");
+    else setWorkspaceMode(panel);
   }
 
   function carryClass(level) {
@@ -3407,6 +3602,27 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       setView(view.getAttribute("data-view"));
       return;
     }
+    var ws = e.target.closest("[data-ws-mode]");
+    if (ws) {
+      e.preventDefault();
+      var liveTab = ws.getAttribute("data-live-tab");
+      if (liveTab) state.liveTab = liveTab;
+      setWorkspaceMode(ws.getAttribute("data-ws-mode"));
+      return;
+    }
+    var liveBtn = e.target.closest("[data-live-tab]");
+    if (liveBtn && liveBtn.closest("#liveSubnav")) {
+      e.preventDefault();
+      setLiveTab(liveBtn.getAttribute("data-live-tab"));
+      return;
+    }
+    var crmBtn = e.target.closest("[data-crm-tab]");
+    if (crmBtn && crmBtn.closest("#crmSubnav")) {
+      e.preventDefault();
+      state.crmTab = crmBtn.getAttribute("data-crm-tab");
+      setWorkspaceMode("crm");
+      return;
+    }
     var cp = e.target.closest("[data-cockpit]");
     if (cp) {
       setCockpit(cp.getAttribute("data-cockpit"));
@@ -3414,8 +3630,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     }
     var ch = e.target.closest("[data-channel]");
     if (ch) {
-      setCockpit("ppc");
-      renderPpc(ch.getAttribute("data-channel"));
+      state.channel = ch.getAttribute("data-channel");
+      setWorkspaceMode("ppc");
       return;
     }
     var toast = e.target.closest("[data-toast]");
@@ -3468,9 +3684,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 
   document.getElementById("btnPreview").addEventListener("click", function () {
     state.builderTab = "pages";
-    setCockpit("builder");
+    setWorkspaceMode("build");
     loadPreview("/");
-    showToast("Preview loaded in builder frame");
+    showToast("Preview loaded in Build Mode frame");
   });
   document.getElementById("btnPublish").addEventListener("click", publishSite);
   document.getElementById("frameDevices").addEventListener("click", function (e) {
@@ -3482,7 +3698,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       x.classList.toggle("on", x === b);
     });
   });
-  document.getElementById("builderSubnav").addEventListener("click", function (e) {
+  document.getElementById("buildSubnav").addEventListener("click", function (e) {
     var b = e.target.closest("button[data-builder-tab]");
     if (!b) return;
     e.stopPropagation();
