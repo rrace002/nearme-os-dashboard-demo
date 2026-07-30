@@ -608,6 +608,39 @@ button { cursor: pointer; }
   background: #d7d3d3;
   position: relative;
 }
+.factory-overlay {
+  display: none;
+  position: absolute;
+  inset: 44px 0 0 0;
+  z-index: 8;
+  background: rgba(243, 242, 242, .96);
+  padding: 28px 32px;
+  overflow: auto;
+}
+.factory-overlay.open { display: block; }
+.factory-overlay h2 { font-size: 18px; margin-bottom: 6px; }
+.factory-overlay .fo-sub { font-size: 12.5px; color: var(--mut); margin-bottom: 16px; }
+.factory-overlay .fo-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.factory-overlay .fo-step {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid #eae7e7;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: 12.5px;
+}
+.factory-overlay .fo-step.run { border-color: var(--accent); }
+.factory-overlay .fo-step.done { border-color: var(--ink); }
+.factory-overlay .fo-step .dot {
+  width: 22px; height: 22px;
+  border: 1px solid var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.factory-overlay .fo-step.done .dot { background: var(--ink); color: #fff; }
+.factory-overlay .fo-step.run .dot { border-color: var(--accent); color: var(--accent); }
 .frame-chrome {
   height: 44px;
   border-bottom: 2px solid var(--ink);
@@ -1353,6 +1386,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
                   <iframe id="siteFrame" title="Site preview" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
                 </div>
               </div>
+              <div class="factory-overlay" id="factoryOverlay" aria-live="polite">
+                <h2 id="factoryTitle">Factory build</h2>
+                <p class="fo-sub" id="factorySub">S1 → S8 · questionnaire → inventory → render → validate</p>
+                <div class="progress"><i id="factoryBar"></i></div>
+                <div class="fo-steps" id="factorySteps"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -2025,54 +2064,393 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     return intakeComplete(s) && (s.revisions || []).length >= 1 && s.lifecycle !== "live";
   }
 
-  function previewSrcdoc(site, path) {
-    var pages = (site.pageTree || []).filter(function (p) { return p.selected; });
-    var links = pages.map(function (p) {
-      return "<a href=\"#\" style=\"display:block;padding:8px 0;color:#ec3013;text-decoration:none;border-bottom:1px solid #eae7e7\">" +
-        p.title + " <span style=\"color:#605d5d;font-size:12px\">" + p.path + "</span></a>";
+  function slugify(str) {
+    return String(str || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+  }
+
+  function esc(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* Factory packs — same shape as EES / engine service-tree demos */
+  var VERTICAL_PACKS = {
+    Electrician: {
+      noun: "electrician",
+      hubs: [
+        { title: "Electrical Panel Services", slug: "electrical-panel-services", children: ["Electrical Panel Upgrade", "Circuit Breaker Replacement", "Whole-House Surge Protection"] },
+        { title: "Electrical Wiring Services", slug: "electrical-wiring-services", children: ["Whole-House Rewiring", "EV Charger Installation", "Knob-and-Tube Replacement"] },
+        { title: "Lighting Installation Services", slug: "lighting-installation-services", children: ["Recessed Lighting Installation", "Ceiling Fan Installation", "Landscape Lighting Installation"] }
+      ],
+      forms: [
+        { title: "Request an Estimate", slug: "request-an-estimate", role: "FORM-PRICING" },
+        { title: "Emergency Electrical Request", slug: "emergency-electrical-service-request", role: "FORM-SERVICE-REQ" }
+      ]
+    },
+    Plumber: {
+      noun: "plumber",
+      hubs: [
+        { title: "Drain Cleaning Services", slug: "drain-cleaning-services", children: ["Main Line Drain Cleaning", "Kitchen Drain Cleaning", "Sewer Camera Inspection"] },
+        { title: "Water Heater Services", slug: "water-heater-services", children: ["Water Heater Replacement", "Tankless Water Heater Install", "Water Heater Repair"] },
+        { title: "Emergency Plumbing", slug: "emergency-plumbing", children: ["Burst Pipe Repair", "Sewer Backup Cleanup", "No-Heat Water Emergency"] }
+      ],
+      forms: [
+        { title: "Request an Estimate", slug: "request-an-estimate", role: "FORM-PRICING" },
+        { title: "Emergency Plumbing Request", slug: "emergency-plumbing-request", role: "FORM-SERVICE-REQ" }
+      ]
+    },
+    HVAC: {
+      noun: "HVAC contractor",
+      hubs: [
+        { title: "AC Repair Services", slug: "ac-repair-services", children: ["Emergency AC Repair", "AC Tune-Up", "Refrigerant Leak Repair"] },
+        { title: "Heating Services", slug: "heating-services", children: ["Furnace Repair", "Heat Pump Installation", "Boiler Service"] },
+        { title: "Indoor Air Quality", slug: "indoor-air-quality", children: ["Duct Cleaning", "Air Purifier Install", "Humidifier Install"] }
+      ],
+      forms: [
+        { title: "Request an Estimate", slug: "request-an-estimate", role: "FORM-PRICING" },
+        { title: "Emergency HVAC Request", slug: "emergency-hvac-request", role: "FORM-SERVICE-REQ" }
+      ]
+    },
+    Handyman: {
+      noun: "handyman",
+      hubs: [
+        { title: "Home Repair Services", slug: "home-repair-services", children: ["Drywall Repair", "Door and Trim Repair", "Fixture Installation"] },
+        { title: "Assembly and Mounting", slug: "assembly-and-mounting", children: ["TV Mounting", "Furniture Assembly", "Shelf Installation"] },
+        { title: "Outdoor Fixes", slug: "outdoor-fixes", children: ["Fence Repair", "Deck Board Replacement", "Gutter Cleaning"] }
+      ],
+      forms: [
+        { title: "Request a Quote", slug: "request-a-quote", role: "FORM-PRICING" },
+        { title: "Book a Visit", slug: "book-a-visit", role: "FORM-SERVICE-REQ" }
+      ]
+    },
+    Cleaning: {
+      noun: "cleaning service",
+      hubs: [
+        { title: "House Cleaning Services", slug: "house-cleaning-services", children: ["Recurring House Cleaning", "Deep Cleaning", "Move-Out Cleaning"] },
+        { title: "Commercial Cleaning", slug: "commercial-cleaning", children: ["Office Cleaning", "Retail Cleaning", "Post-Construction Cleaning"] },
+        { title: "Specialty Cleaning", slug: "specialty-cleaning", children: ["Carpet Cleaning", "Window Cleaning", "Appliance Cleaning"] }
+      ],
+      forms: [
+        { title: "Request a Quote", slug: "request-a-quote", role: "FORM-PRICING" },
+        { title: "Book Cleaning", slug: "book-cleaning", role: "FORM-SERVICE-REQ" }
+      ]
+    },
+    "Other local service": null
+  };
+  VERTICAL_PACKS["Other local service"] = VERTICAL_PACKS.Cleaning;
+
+  function resolveVertical(site) {
+    if (site.vertical && VERTICAL_PACKS[site.vertical]) return site.vertical;
+    var svc = ((site.intake && site.intake.questionnaire.services) || "").toLowerCase();
+    if (/clean|maid|janitor/.test(svc)) return "Cleaning";
+    if (/plumb|drain|water heater/.test(svc)) return "Plumber";
+    if (/hvac|air condition|furnace|heating/.test(svc)) return "HVAC";
+    if (/electric|panel|wiring/.test(svc)) return "Electrician";
+    if (/handyman|repair/.test(svc)) return "Handyman";
+    return "Cleaning";
+  }
+
+  function planInventory(site) {
+    var vert = resolveVertical(site);
+    var pack = VERTICAL_PACKS[vert] || VERTICAL_PACKS.Cleaning;
+    var pages = [];
+    pages.push({ title: "Home", path: "/", role: "HOME", selected: true, hub: null });
+    pack.hubs.forEach(function (hub) {
+      pages.push({ title: hub.title, path: "/" + hub.slug + "/", role: "SVC-HUB", selected: true, hub: hub.slug });
+      hub.children.forEach(function (child) {
+        var cslug = slugify(child);
+        pages.push({
+          title: child,
+          path: "/" + hub.slug + "/" + cslug + "/",
+          role: "SVC-CHILD",
+          selected: true,
+          hub: hub.slug,
+          parentTitle: hub.title
+        });
+      });
+    });
+    pages.push({ title: "About", path: "/about/", role: "COMP-HUB", selected: true });
+    pages.push({ title: "Why Choose Us", path: "/about/why-choose-us/", role: "COMP-CHILD", selected: true });
+    pages.push({ title: "Contact", path: "/contact/", role: "COMP-CONTACT", selected: true });
+    pack.forms.forEach(function (f) {
+      pages.push({ title: f.title, path: "/" + f.slug + "/", role: f.role, selected: true });
+    });
+    site.vertical = vert;
+    site.pageTree = pages;
+    site.pages = pages.filter(function (p) { return p.selected; }).length;
+    site.inventory = pages.map(function (p, i) {
+      return {
+        code: site.code + "-" + ("0" + (i + 1)).slice(-2),
+        title: p.title,
+        path: p.path,
+        role: p.role,
+        target_keyword: slugify(p.title).replace(/-/g, " ") + " " + slugify(site.area).replace(/-/g, " ")
+      };
+    });
+    return pages;
+  }
+
+  function factoryCss() {
+    return "*{margin:0;padding:0;box-sizing:border-box}" +
+      "body{font-family:Georgia,'Times New Roman',serif;color:#1c2733;line-height:1.65;background:#fff}" +
+      "h1,h2,h3,.nav,.btn,.utility,footer{font-family:'Segoe UI',Arial,Helvetica,sans-serif}" +
+      "a{color:#0b5394;text-decoration:none}.wrap{max-width:1080px;margin:0 auto;padding:0 22px}" +
+      ".demo-banner{background:#1c2733;color:#ffd35c;text-align:center;font:600 12px 'Segoe UI',sans-serif;padding:6px;letter-spacing:.4px}" +
+      ".utility{background:#12314e;color:#cfe2f3;font-size:12.5px;padding:5px 0}.utility .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}" +
+      "header.main{background:#fff;border-bottom:3px solid #f5a800}header.main .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;gap:10px;flex-wrap:wrap}" +
+      ".logo{font:800 20px 'Segoe UI',sans-serif;color:#12314e}.logo span{color:#f5a800}.logo small{display:block;font:600 10.5px 'Segoe UI',sans-serif;color:#5a6b7b;letter-spacing:1.2px;text-transform:uppercase}" +
+      ".phone-cta a{font-size:18px;font-weight:800;color:#12314e}.phone-cta small{display:block;color:#5a6b7b;font-size:11px}" +
+      "nav.nav{background:#12314e}nav.nav ul{list-style:none;display:flex;flex-wrap:wrap}" +
+      "nav.nav a{display:block;color:#fff;padding:12px 14px;font-size:13px;font-weight:600}nav.nav a:hover{background:#0b2338}" +
+      "nav.nav .em a{background:#c0392b}.hero{background:linear-gradient(rgba(10,26,42,.82),rgba(10,26,42,.82)),repeating-linear-gradient(45deg,#12314e 0 14px,#153a5c 14px 28px);color:#fff;text-align:center;padding:64px 0 54px}" +
+      ".hero h1{font-size:30px;max-width:820px;margin:0 auto 12px;line-height:1.25}.hero p{color:#ffd35c;font:600 14px 'Segoe UI',sans-serif}" +
+      ".btn{display:inline-block;background:#f5a800;color:#12314e;font:700 14px 'Segoe UI',sans-serif;padding:12px 22px;border-radius:4px;margin:6px 4px 0;border:0;cursor:pointer}" +
+      ".btn.alt{background:#0b5394;color:#fff}section{padding:40px 0}section.tint{background:#f4f7fa}" +
+      "section h2{font-size:24px;color:#12314e;margin-bottom:14px}section p{margin-bottom:12px;font-size:16px}" +
+      ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:18px}" +
+      ".gcard{background:#fff;border:1px solid #dfe6ec;border-left:4px solid #f5a800;border-radius:6px;padding:18px}" +
+      ".gcard h3{font-size:15px;margin-bottom:8px}.gcard h3 a{color:#12314e}.gcard p{font-size:13.5px;color:#44525f;margin:0}" +
+      ".ctastrip{background:#12314e;color:#fff;text-align:center;padding:32px 0}.ctastrip h2{color:#fff}" +
+      ".formbox{background:#fff;border:1px solid #dfe6ec;border-top:4px solid #f5a800;border-radius:6px;padding:24px;max-width:640px}" +
+      ".formbox label{display:block;font:600 12px 'Segoe UI',sans-serif;color:#44525f;margin:12px 0 4px}" +
+      ".formbox input,.formbox textarea,.formbox select{width:100%;padding:10px;border:1px solid #c4cdd5;border-radius:4px;font:14px 'Segoe UI',sans-serif}" +
+      ".crumb{font:12.5px 'Segoe UI',sans-serif;color:#5a6b7b;padding:14px 0 0}.crumb a{color:#5a6b7b}" +
+      "footer{background:#0b2338;color:#b9c9d6;padding:36px 0 20px;margin-top:24px;font-size:13px}" +
+      "footer h4{color:#fff;font:700 12px 'Segoe UI',sans-serif;letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px}" +
+      "footer ul{list-style:none}footer li{margin-bottom:6px}footer a{color:#b9c9d6}" +
+      ".fcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px}" +
+      ".copy{border-top:1px solid #1d4266;margin-top:24px;padding-top:14px;text-align:center;font-size:12px;color:#7f95a8}" +
+      "ul.checks{list-style:none}ul.checks li{padding:6px 0 6px 28px;position:relative}ul.checks li:before{content:\"\\2713\";position:absolute;left:2px;color:#f5a800;font-weight:800;font-family:'Segoe UI',sans-serif}";
+  }
+
+  function navLink(path, label) {
+    return "<a href=\"#\" data-nm-path=\"" + path + "\">" + esc(label) + "</a>";
+  }
+
+  function renderFactoryPage(site, page, allPages) {
+    var phone = (site.intake && site.intake.phone.display) || site.phone || "";
+    var area = (site.intake && site.intake.nap.city) || site.area || "";
+    var hours = (site.intake && site.intake.questionnaire.hours) || "Mon–Sat 7–7";
+    var hubs = allPages.filter(function (p) { return p.role === "SVC-HUB"; });
+    var forms = allPages.filter(function (p) { return /^FORM/.test(p.role); });
+    var emergency = forms.find(function (p) { return /emergency|book/i.test(p.title); }) || forms[1] || forms[0];
+    var estimate = forms.find(function (p) { return /estimate|quote/i.test(p.title); }) || forms[0];
+    var children = allPages.filter(function (p) { return p.role === "SVC-CHILD" && (!page.hub || p.hub === page.hub); });
+    if (page.role === "HOME") children = allPages.filter(function (p) { return p.role === "SVC-CHILD"; }).slice(0, 6);
+    if (page.role === "SVC-HUB") children = allPages.filter(function (p) { return p.role === "SVC-CHILD" && p.hub === page.hub; });
+
+    var nav = "<li>" + navLink("/", "Home") + "</li>" +
+      hubs.map(function (h) { return "<li>" + navLink(h.path, h.title.replace(/ Services$/, "")) + "</li>"; }).join("") +
+      "<li>" + navLink("/about/", "About") + "</li>" +
+      "<li>" + navLink("/contact/", "Contact") + "</li>" +
+      (estimate ? "<li>" + navLink(estimate.path, estimate.title) + "</li>" : "") +
+      (emergency ? "<li class=\"em\">" + navLink(emergency.path, "Emergency") + "</li>" : "");
+
+    var body = "";
+    if (page.role === "HOME") {
+      body =
+        "<div class=\"hero\"><div class=\"wrap\"><h1>" + esc(site.name) + " in " + esc(area) +
+        " — local pages for every service you sell</h1><p>Licensed · Insured · Upfront pricing · Forms wired to GHL</p>" +
+        (estimate ? navLink(estimate.path, "Request Free Estimate").replace("<a", "<a class=\"btn\"") : "") +
+        " <a class=\"btn alt\" href=\"tel:" + esc(phone.replace(/[^\d+]/g, "")) + "\">Call " + esc(phone) + "</a></div></div>" +
+        "<section><div class=\"wrap\"><h2>Service coverage built the Near Me OS way</h2>" +
+        "<p>" + esc(site.name) + " is a " + esc(resolveVertical(site).toLowerCase()) +
+        " serving " + esc(area) + ". This demo site was generated from your questionnaire → URL inventory → TEMPLATE packs → validate pass (AI off).</p>" +
+        "<div class=\"grid\">" + hubs.map(function (h) {
+          return "<div class=\"gcard\"><h3>" + navLink(h.path, h.title) + "</h3><p>Hub page with child service landings for local search coverage.</p></div>";
+        }).join("") + "</div></div></section>" +
+        "<div class=\"ctastrip\"><div class=\"wrap\"><h2>Ready for a quote?</h2>" +
+        (estimate ? navLink(estimate.path, "Start your request").replace("<a", "<a class=\"btn\"") : "") +
+        "</div></div>";
+    } else if (page.role === "SVC-HUB") {
+      body =
+        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " + esc(page.title) + "</div>" +
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + " in " + esc(area) + "</h2>" +
+        "<p>Category hub for " + esc(page.title.toLowerCase()) + ". Child pages below target high-intent local queries.</p>" +
+        "<div class=\"grid\">" + children.map(function (c) {
+          return "<div class=\"gcard\"><h3>" + navLink(c.path, c.title) + "</h3><p>Service landing with FAQ + quote CTA.</p></div>";
+        }).join("") + "</div></div></section>";
+    } else if (page.role === "SVC-CHILD") {
+      body =
+        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " +
+        navLink("/" + page.hub + "/", page.parentTitle || "Services") + " / " + esc(page.title) + "</div>" +
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + " in " + esc(area) + "</h2>" +
+        "<p>" + esc(site.name) + " delivers " + esc(page.title.toLowerCase()) +
+        " for homes and businesses in " + esc(area) +
+        ". Scope is confirmed before work starts; forms route to your GHL pipeline.</p>" +
+        "<ul class=\"checks\"><li>Local technicians familiar with " + esc(area) + "</li>" +
+        "<li>Written scope before work begins</li><li>Quote form on this page</li><li>Phone CTA: " + esc(phone) + "</li></ul>" +
+        (estimate ? navLink(estimate.path, "Request an Estimate").replace("<a", "<a class=\"btn\"") : "") +
+        "</div></section>" +
+        "<section class=\"tint\"><div class=\"wrap\"><h2>FAQ</h2>" +
+        "<p><b>How fast can you schedule " + esc(page.title.toLowerCase()) + "?</b><br>Most jobs book within a few business days; emergencies use the emergency form.</p>" +
+        "<p><b>Do you serve nearby towns?</b><br>Yes — coverage follows your questionnaire towns: " +
+        esc((site.intake && site.intake.questionnaire.towns) || area) + ".</p></div></section>";
+    } else if (/^FORM/.test(page.role)) {
+      body =
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + "</h2>" +
+        "<p>Demo form shell — destination GHL · <b>" + esc(site.ghl) + "</b> (I1 wiring at rollout).</p>" +
+        "<div class=\"formbox\"><label>Name</label><input><label>Email</label><input><label>Phone</label><input>" +
+        "<label>Town</label><input value=\"" + esc(area) + "\"><label>Details</label><textarea></textarea><br><br>" +
+        "<button class=\"btn\" type=\"button\" onclick=\"alert('DEMO form — GHL destination not wired')\">Submit</button></div></div></section>";
+    } else {
+      body =
+        "<div class=\"wrap crumb\">" + navLink("/", "Home") + " / " + esc(page.title) + "</div>" +
+        "<section><div class=\"wrap\"><h2>" + esc(page.title) + "</h2>" +
+        "<p>" + esc(site.name) + " · " + esc(area) + " · " + esc(phone) + "</p>" +
+        "<p>" + esc((site.intake && site.intake.questionnaire.notes) || "Company page generated from NAP + questionnaire facts.") + "</p>" +
+        (page.path === "/contact/" ? "<div class=\"formbox\"><label>Message</label><textarea></textarea><br><br><button class=\"btn\" type=\"button\">Send</button></div>" : "") +
+        "</div></section>";
+    }
+
+    var footLinks = hubs.slice(0, 4).map(function (h) {
+      return "<li>" + navLink(h.path, h.title) + "</li>";
     }).join("");
-    var active = pages.find(function (p) { return p.path === path; }) || pages[0] || { title: site.name, path: "/" };
-    return "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
-      "<link href=\"https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap\" rel=\"stylesheet\">" +
-      "<style>body{margin:0;font-family:Archivo,system-ui,sans-serif;color:#201e1d;background:#f3f2f2}" +
-      "header{background:#201e1d;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}" +
-      "header b{letter-spacing:.08em;font-size:12px}main{padding:28px 20px;max-width:720px}" +
-      "h1{font-size:28px;margin:0 0 8px}p{color:#605d5d;line-height:1.5}.banner{background:#ffe0d9;border:2px solid #201e1d;padding:10px 12px;font-size:12px;margin-bottom:18px}" +
-      ".cta{display:inline-block;margin-top:16px;background:#ec3013;color:#fff;padding:10px 14px;font-weight:700;text-decoration:none}" +
-      "aside{margin-top:28px;padding-top:16px;border-top:2px solid #201e1d}aside h3{font-size:11px;letter-spacing:.1em;color:#605d5d}</style></head><body>" +
-      "<header><b>" + site.name.toUpperCase() + "</b><span style=\"font-size:12px\">" + site.area + "</span></header>" +
-      "<main><div class=\"banner\">NearMe OS preview · draft frame · not yet published</div>" +
-      "<h1>" + active.title + "</h1>" +
-      "<p>Local SEO page for <b>" + site.name + "</b> in " + site.area +
-      ". Quote form and NAP wire to GHL · <b>" + site.ghl + "</b>.</p>" +
-      "<p style=\"font-size:13px\">Path <code>" + active.path + "</code> · phone " + site.phone + "</p>" +
-      "<a class=\"cta\" href=\"#\">Request a quote</a>" +
-      "<aside><h3>SITE PAGES (" + pages.length + ")</h3>" + links + "</aside></main></body></html>";
+
+    return "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\">" +
+      "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
+      "<title>" + esc(page.title) + " | " + esc(site.name) + "</title>" +
+      "<style>" + factoryCss() + "</style></head><body>" +
+      "<div class=\"demo-banner\">DEMO BUILD — NearMe OS Website Factory · " + esc(site.name) +
+      " · " + esc(site.pages) + " pages · sample content pending owner review</div>" +
+      "<div class=\"utility\"><div class=\"wrap\"><span>" + esc(hours) + "</span><span>" + esc(area) +
+      " · " + esc(phone) + "</span></div></div>" +
+      "<header class=\"main\"><div class=\"wrap\"><div class=\"logo\">" + esc(site.name.split(" ")[0] || site.name) +
+      " <span>" + esc(site.name.split(" ").slice(1).join(" ") || "Services") + "</span>" +
+      "<small>" + esc(area) + "</small></div>" +
+      "<div class=\"phone-cta\"><a href=\"tel:" + esc(phone.replace(/[^\d+]/g, "")) + "\">" + esc(phone) +
+      "</a><small>Call for flat-price service</small></div></div></header>" +
+      "<nav class=\"nav\"><div class=\"wrap\"><ul>" + nav + "</ul></div></nav>" +
+      body +
+      "<footer><div class=\"wrap\"><div class=\"fcols\"><div><h4>Services</h4><ul>" + footLinks +
+      "</ul></div><div><h4>Company</h4><ul><li>" + navLink("/about/", "About") + "</li><li>" +
+      navLink("/contact/", "Contact") + "</li></ul></div><div><h4>NAP</h4><p>" + esc(site.name) +
+      "<br>" + esc((site.intake && site.intake.nap.address) || "") + "<br>" + esc(area) +
+      "<br>" + esc(phone) + "</p></div></div>" +
+      "<div class=\"copy\">NearMe OS factory demo · not a live customer site</div></div></footer>" +
+      "<script>(function(){document.addEventListener('click',function(e){var a=e.target.closest('a[data-nm-path]');if(!a)return;e.preventDefault();parent.postMessage({type:'nm-nav',path:a.getAttribute('data-nm-path')},'*');});})();<\/script>" +
+      "</body></html>";
+  }
+
+  function buildSiteHtml(site) {
+    var pages = planInventory(site);
+    var map = {};
+    pages.forEach(function (p) {
+      if (!p.selected) return;
+      map[p.path] = renderFactoryPage(site, p, pages);
+    });
+    site.built = {
+      at: new Date().toISOString(),
+      pageCount: Object.keys(map).length,
+      vertical: site.vertical,
+      pages: map,
+      linkErrors: 0
+    };
+    site.status = "BUILD";
+    site.domain = "draft.demo";
+    site.previewUrl = "";
+    return site.built;
+  }
+
+  var factoryTimer = null;
+
+  function runFactoryBuild(site, done) {
+    ensureSiteMeta(site);
+    var overlay = document.getElementById("factoryOverlay");
+    var stepsEl = document.getElementById("factorySteps");
+    var bar = document.getElementById("factoryBar");
+    var steps = [
+      { t: "S1 · Parse questionnaire → facts", d: "NAP, services, towns, hours" },
+      { t: "S2 · Keyword / intent seeds", d: "Editorial targets (no API)" },
+      { t: "S3 · Instantiate page types", d: "HOME · SVC-HUB · SVC-CHILD · COMP · FORM" },
+      { t: "S4 · Plan URLs + inventory", d: "URL grammar · nested hubs" },
+      { t: "S5/S6 · Compose TEMPLATE packs", d: "AI off · FACT/AUTO/LIBRARY" },
+      { t: "S7 · Emit inventory rows", d: "Page registry for this demo" },
+      { t: "S8 · Render + validate HTML", d: "Chrome, links, forms → GHL meta" }
+    ];
+    document.getElementById("factoryTitle").textContent = "Building " + site.name;
+    document.getElementById("factorySub").textContent =
+      "Factory recipe · " + resolveVertical(site) + " · " + site.area + " · AI off";
+    stepsEl.innerHTML = steps.map(function (s, i) {
+      return "<div class=\"fo-step\" data-fi=\"" + i + "\"><div class=\"dot\">" + (i + 1) +
+        "</div><div><b>" + s.t + "</b><div class=\"limit-meta\">" + s.d + "</div></div>" +
+        "<div class=\"limit-meta\">queued</div></div>";
+    }).join("");
+    overlay.classList.add("open");
+    bar.style.width = "0%";
+    var i = 0;
+    clearInterval(factoryTimer);
+    showToast("Factory engine started");
+    factoryTimer = setInterval(function () {
+      var nodes = stepsEl.querySelectorAll(".fo-step");
+      if (i > 0) {
+        nodes[i - 1].classList.remove("run");
+        nodes[i - 1].classList.add("done");
+        nodes[i - 1].querySelector(".dot").textContent = "✓";
+        nodes[i - 1].querySelector(".limit-meta:last-child").textContent = "done";
+      }
+      if (i === 3) planInventory(site);
+      if (i >= steps.length) {
+        clearInterval(factoryTimer);
+        bar.style.width = "100%";
+        var built = buildSiteHtml(site);
+        site.qa = (site.inventory || []).slice(0, 3).map(function (row) {
+          return { page: row.title, code: row.code, check: "All ranges pass", ok: true };
+        });
+        setTimeout(function () {
+          overlay.classList.remove("open");
+          state.builderTab = "pages";
+          state.previewPath = "/";
+          renderBuilder();
+          loadPreview("/");
+          showToast("Build complete · " + built.pageCount + " pages · 0 broken links");
+          if (done) done(built);
+        }, 450);
+        return;
+      }
+      nodes[i].classList.add("run");
+      nodes[i].querySelector(".limit-meta:last-child").textContent = "running…";
+      bar.style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
+      i += 1;
+    }, 550);
   }
 
   function loadPreview(path) {
-    var s = SITES[state.siteId];
+    var s = ensureSiteMeta(SITES[state.siteId]);
     if (!s) return;
     path = path || state.previewPath || "/";
     state.previewPath = path;
     var frame = document.getElementById("siteFrame");
     var urlEl = document.getElementById("frameUrl");
+
+    // Prefer factory-built pages for drafts / unpublished demos
+    if (s.built && s.built.pages && s.built.pages[path]) {
+      var host = s.publishedUrl || ("preview://" + (s.domain || "draft.demo"));
+      urlEl.textContent = host.replace(/\/$/, "") + (path === "/" ? "/" : path);
+      frame.removeAttribute("src");
+      frame.srcdoc = s.built.pages[path];
+      return;
+    }
+
+    // External live Netlify demos (Elizabeth, SEOCow) when no local build override
     var base = s.previewUrl || s.publishedUrl || "";
-    if (base && path === "/") {
+    if (base && !s.built && path === "/") {
       urlEl.textContent = base;
       frame.removeAttribute("srcdoc");
       frame.src = base;
-    } else if (base && path !== "/") {
-      var abs = base.replace(/\/$/, "") + path;
-      urlEl.textContent = abs + "  ·  preview shell";
-      frame.removeAttribute("src");
-      frame.srcdoc = previewSrcdoc(s, path);
-    } else {
-      var draft = "preview://" + (s.domain || s.id) + path;
-      urlEl.textContent = draft;
-      frame.removeAttribute("src");
-      frame.srcdoc = previewSrcdoc(s, path);
+      return;
     }
+
+    // Unbuilt draft — prompt to run factory
+    urlEl.textContent = "preview://draft.demo" + path + " · not built";
+    frame.removeAttribute("src");
+    frame.srcdoc = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>" +
+      "body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f3f2f2;color:#201e1d;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:32px;text-align:center}" +
+      ".box{max-width:420px;border:2px solid #201e1d;background:#fff;padding:28px}" +
+      "h1{font-size:20px;margin:0 0 10px}p{color:#605d5d;line-height:1.5;font-size:14px}" +
+      "b{color:#ec3013}</style></head><body><div class=\"box\"><h1>Site not built yet</h1>" +
+      "<p><b>" + esc(s.name) + "</b> is still a draft stub. Run the factory build (S1→S8) to generate the full local SEO page set — same process as Elizabeth Electrical / SEOCow Netlify demos.</p>" +
+      "<p>Click <b>Run factory build</b> in the Pages panel.</p></div></body></html>";
   }
 
   function renderLimits() {
@@ -2187,7 +2565,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       "<label class=\"field-label\">PRIMARY TOWN / AREA</label><input type=\"text\" id=\"newSiteArea\" placeholder=\"e.g. Elizabeth, NJ\">" +
       "<label class=\"field-label\">PHONE</label><input type=\"tel\" id=\"newSitePhone\" placeholder=\"(908) 555-0100\">" +
       "<label class=\"field-label\">VERTICAL</label><select id=\"newSiteVertical\">" +
-      "<option>Electrician</option><option>Plumber</option><option>HVAC</option><option>Handyman</option><option>Other local service</option>" +
+      "<option>Electrician</option><option>Plumber</option><option>HVAC</option><option>Handyman</option><option>Cleaning</option><option>Other local service</option>" +
       "</select>" +
       "<p class=\"limit-meta\" style=\"margin-top:12px\">Starts as a draft demo. Complete questionnaire, NAP, logos, and phone before go-live.</p>";
   }
@@ -2235,17 +2613,20 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   function htmlPages(s) {
     var pages = s.pageTree || [];
     var selected = pages.filter(function (p) { return p.selected; }).length;
+    var built = s.built ? ("Built · " + s.built.pageCount + " pages · " + (s.vertical || resolveVertical(s))) : "Not built — run factory";
     var tree = pages.map(function (p, i) {
       return "<label class=\"" + (p.path === state.previewPath ? "on" : "") + "\">" +
         "<input type=\"checkbox\" data-pg=\"" + i + "\" " + (p.selected ? "checked" : "") + ">" +
-        "<span>" + p.title + "</span><span class=\"pg-meta\">" + p.path + "</span></label>";
+        "<span>" + p.title + "</span><span class=\"pg-meta\">" + (p.role ? p.role + " · " : "") + p.path + "</span></label>";
     }).join("");
-    return "<h3>BUILD BRIEF</h3>" +
-      "<textarea id=\"builderPrompt\" placeholder=\"Describe changes…\">Local SEO site for " + s.name +
-      " in " + s.area + " — full service + town coverage, forms to GHL.</textarea>" +
+    return "<div class=\"gate-banner " + (s.built ? "ready" : "") + "\">" + built + "</div>" +
+      "<h3>BUILD BRIEF</h3>" +
+      "<textarea id=\"builderPrompt\" placeholder=\"Describe changes…\">Local SEO site for " + esc(s.name) +
+      " in " + esc(s.area) + " — full service + town coverage, forms to GHL.</textarea>" +
       "<div style=\"display:flex;gap:8px;margin-top:8px;flex-wrap:wrap\">" +
-      "<button class=\"chip\" type=\"button\" id=\"btnApplyBrief\">Apply to preview</button>" +
-      "<button class=\"chip\" type=\"button\" id=\"btnRegenPages\">Regenerate pages</button></div>" +
+      "<button class=\"btn primary\" type=\"button\" id=\"btnFactoryBuild\">Run factory build</button>" +
+      "<button class=\"chip\" type=\"button\" id=\"btnApplyBrief\">Refresh preview</button>" +
+      "<button class=\"chip\" type=\"button\" id=\"btnRegenPages\">Rebuild inventory</button></div>" +
       "<h3>PAGE TREE · " + selected + " / " + pages.length + "</h3>" +
       "<div class=\"page-tree\" id=\"pageTree\">" + tree + "</div>";
   }
@@ -2327,24 +2708,20 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     });
     var apply = document.getElementById("btnApplyBrief");
     var regen = document.getElementById("btnRegenPages");
+    var factory = document.getElementById("btnFactoryBuild");
     if (apply) apply.addEventListener("click", function () {
-      loadPreview(state.previewPath || "/");
-      showToast("Preview updated from brief (demo)");
-    });
-    if (regen) regen.addEventListener("click", function () {
-      var plan = currentPlan();
-      if ((s.pageTree || []).length >= plan.maxPages) {
-        showToast("Page cap · " + plan.maxPages + " on " + plan.name);
+      if (!s.built) {
+        showToast("Run factory build first");
         return;
       }
-      s.pageTree.push({
-        title: "New service page " + (s.pageTree.length + 1),
-        path: "/services/page-" + (s.pageTree.length + 1) + "/",
-        selected: true
-      });
-      s.pages = s.pageTree.filter(function (x) { return x.selected; }).length;
-      renderBuilder();
-      showToast("Draft page added");
+      loadPreview(state.previewPath || "/");
+      showToast("Preview refreshed");
+    });
+    if (factory) factory.addEventListener("click", function () {
+      runFactoryBuild(s);
+    });
+    if (regen) regen.addEventListener("click", function () {
+      runFactoryBuild(s);
     });
   }
 
@@ -2462,7 +2839,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       publishedUrl: "",
       liveUrl: "",
       lifecycle: "draft",
-      pages: 3,
+      vertical: vertical,
+      pages: 2,
       leads7d: 0,
       status: "BUILD",
       ghl: name,
@@ -2479,9 +2857,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         services: vertical + " services"
       }),
       revisions: [],
+      built: null,
       pageTree: [
         { title: "Home", path: "/", selected: true },
-        { title: vertical + " Services", path: "/services/", selected: true },
         { title: "Contact", path: "/contact/", selected: true }
       ],
       qa: [],
@@ -2490,15 +2868,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       hidden: true
     });
     SITES[id].ppc = JSON.parse(JSON.stringify(SITES.ees.ppc));
-    openSite(id, { business: state.mode === "business" });
-    state.builderTab = "questionnaire";
-    renderBuilder();
-    showToast("Demo created · complete intake next");
+    openSite(id, { business: state.mode === "business", tab: "pages" });
+    showToast("Demo created · running factory build…");
+    runFactoryBuild(SITES[id]);
   }
 
-  function publishDemoRevision() {
-    var s = ensureSiteMeta(SITES[state.siteId]);
-    if (!s) return;
+  function finishPublishRevision(s) {
     var acct = currentAccount();
     var plan = currentPlan();
     var selectedPages = (s.pageTree || []).filter(function (p) { return p.selected; }).length || s.pages;
@@ -2512,19 +2887,20 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       return;
     }
     var revNum = (s.revisions || []).length + 1;
-    var url = s.previewUrl && revNum === 1 ? s.previewUrl : demoUrlFor(s, revNum);
+    var url = demoUrlFor(s, revNum);
     s.pages = selectedPages;
     s.status = "LIVE";
     s.lifecycle = "demo";
     s.publishedUrl = url;
-    if (!s.previewUrl) s.previewUrl = url;
+    s.previewUrl = "";
     s.domain = url.replace(/^https?:\/\//, "").replace(/\/$/, "");
     s.revisions.push({
       id: "r" + revNum,
       label: "Rev " + revNum + " · demo server",
       url: url,
       at: "Just now",
-      pages: selectedPages
+      pages: selectedPages,
+      vertical: s.vertical || resolveVertical(s)
     });
     if (existing) {
       existing.pages = selectedPages;
@@ -2547,8 +2923,19 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     state.builderTab = "revisions";
     renderBuilder();
     renderSitesTable();
-    showToast("Published revision " + revNum + " → demo server");
+    showToast("Published revision " + revNum + " · " + selectedPages + " pages on demo server");
     loadPreview("/");
+  }
+
+  function publishDemoRevision() {
+    var s = ensureSiteMeta(SITES[state.siteId]);
+    if (!s) return;
+    if (!s.built || !s.built.pages) {
+      showToast("Building site first (S1→S8)…");
+      runFactoryBuild(s, function () { finishPublishRevision(s); });
+      return;
+    }
+    finishPublishRevision(s);
   }
 
   function promoteToLive() {
@@ -2578,8 +2965,15 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var s = SITES[state.siteId];
     if (!s) return;
     var url = s.liveUrl || s.publishedUrl || s.previewUrl || "";
+    if (s.built && (!url || /demo\.nearmeos\.com/.test(url))) {
+      state.builderTab = "pages";
+      setCockpit("builder");
+      loadPreview("/");
+      showToast("Built demo plays in the frame (host simulated until Netlify deploy)");
+      return;
+    }
     if (!url) {
-      showToast("Publish a demo revision first");
+      showToast("Run factory build + publish a revision first");
       return;
     }
     window.open(url, "_blank", "noopener");
@@ -3094,6 +3488,24 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     e.stopPropagation();
     setBuilderTab(b.getAttribute("data-builder-tab"));
   });
+
+  window.addEventListener("message", function (e) {
+    if (!e.data || e.data.type !== "nm-nav") return;
+    if (!state.siteId) return;
+    loadPreview(e.data.path || "/");
+    if (state.builderTab === "pages") renderPageTreeHighlight();
+  });
+
+  function renderPageTreeHighlight() {
+    var tree = document.getElementById("pageTree");
+    if (!tree) return;
+    var s = SITES[state.siteId];
+    if (!s || !s.pageTree) return;
+    tree.querySelectorAll("label").forEach(function (lab, i) {
+      var p = s.pageTree[i];
+      lab.classList.toggle("on", p && p.path === state.previewPath);
+    });
+  }
 
   document.querySelectorAll(".dd").forEach(function (dd) {
     var btn = dd.querySelector(":scope > .chip");
