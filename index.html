@@ -2385,6 +2385,74 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   };
   VERTICAL_PACKS["Other local service"] = VERTICAL_PACKS.Cleaning;
 
+  /* Local engine bridge — run: python engine/build_server.py */
+  var ENGINE_BRIDGE = "http://127.0.0.1:8765";
+
+  function exportSiteForEngine(site) {
+    ensureSiteMeta(site);
+    return {
+      id: site.id,
+      name: site.name,
+      code: site.code,
+      vertical: site.vertical || resolveVertical(site),
+      area: site.area,
+      phone: site.phone,
+      ghl: site.ghl,
+      intake: site.intake
+    };
+  }
+
+  function buildQaFromValidation(validation, site) {
+    if (validation && validation.qa && validation.qa.length) {
+      return validation.qa.slice(0, 12);
+    }
+    var fails = [];
+    if (validation && validation.inventory && validation.inventory.errors) {
+      validation.inventory.errors.forEach(function (e) {
+        fails.push({ page: "Inventory", code: site.code + "-INV", check: e, ok: false });
+      });
+    }
+    if (validation && validation.links && validation.links.broken) {
+      (validation.links.samples || []).forEach(function (s) {
+        fails.push({ page: s.page || "?", code: "LINK", check: "Broken: " + s.href, ok: false });
+      });
+    }
+    return fails.length ? fails : [{ page: "Site", code: site.code + "-QA", check: "Validators pass", ok: true }];
+  }
+
+  function runClientValidation(site, pagesMap) {
+    var NO_IT = /\b(IT support|software development|web design agency|SaaS platform|cloud hosting)\b/i;
+    var BANDS = { HOME: [100, 800], "SVC-HUB": [70, 600], "SVC-CHILD": [250, 1200], "COMP-HUB": [65, 500], "COMP-CHILD": [65, 500] };
+    var qa = [];
+    var linkErrors = 0;
+    (site.inventory || []).forEach(function (row) {
+      var html = pagesMap[row.path];
+      if (!html) {
+        qa.push({ page: row.title, code: row.code, check: "Page not rendered", ok: false });
+        return;
+      }
+      var text = html.replace(/<[^>]+>/g, " ");
+      var wc = text.split(/\s+/).filter(Boolean).length;
+      var band = BANDS[row.role] || BANDS[row.role && row.role.indexOf("COMP") === 0 ? "COMP-HUB" : "HOME"];
+      if (!band && row.role && row.role.indexOf("SVC-CHILD") >= 0) band = BANDS["SVC-CHILD"];
+      var bandOk = !band || (wc >= band[0] && wc <= band[1]);
+      var itOk = !NO_IT.test(text);
+      var msg = wc + " words" + (band ? " (band " + band[0] + "–" + band[1] + ")" : "");
+      if (!bandOk) msg = "word-band: " + msg;
+      if (!itOk) msg = (msg ? msg + "; " : "") + "no-IT violation";
+      qa.push({ page: row.title, code: row.code, check: msg, ok: bandOk && itOk });
+    });
+    Object.keys(pagesMap).forEach(function (fromPath) {
+      var html = pagesMap[fromPath];
+      var re = /data-nm-path=\"([^\"]+)\"/g;
+      var m;
+      while ((m = re.exec(html))) {
+        if (!pagesMap[m[1]]) linkErrors += 1;
+      }
+    });
+    return { qa: qa.slice(0, 12), linkErrors: linkErrors };
+  }
+
   function resolveVertical(site) {
     if (site.vertical && VERTICAL_PACKS[site.vertical]) return site.vertical;
     var svc = ((site.intake && site.intake.questionnaire.services) || "").toLowerCase();
@@ -2417,6 +2485,12 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     });
     pages.push({ title: "About", path: "/about/", role: "COMP-HUB", selected: true });
     pages.push({ title: "Why Choose Us", path: "/about/why-choose-us/", role: "COMP-CHILD", selected: true });
+    pages.push({
+      title: "Best " + (pack.hubs[0] ? pack.hubs[0].title : "Local Services") + " Company",
+      path: "/about/best-company/",
+      role: "COMP-BEST",
+      selected: true
+    });
     pages.push({ title: "Contact", path: "/contact/", role: "COMP-CONTACT", selected: true });
     pack.forms.forEach(function (f) {
       pages.push({ title: f.title, path: "/" + f.slug + "/", role: f.role, selected: true });
@@ -2952,13 +3026,17 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       if (!p.selected) return;
       map[p.path] = renderFactoryPage(site, p, pages);
     });
+    var validation = runClientValidation(site, map);
     site.built = {
       at: new Date().toISOString(),
       pageCount: Object.keys(map).length,
       vertical: site.vertical,
       pages: map,
-      linkErrors: 0
+      linkErrors: validation.linkErrors,
+      engine: false,
+      source: "browser"
     };
+    site.qa = validation.qa;
     site.status = "BUILD";
     site.domain = "draft.demo";
     site.previewUrl = "";
@@ -2966,6 +3044,105 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   }
 
   var factoryTimer = null;
+
+  function finishFactoryBuildUi(site, built, overlay, done) {
+    overlay.classList.remove("open");
+    state.builderTab = "pages";
+    state.previewPath = "/";
+    renderBuilder();
+    loadPreview("/");
+    var src = built.engine ? "engine" : "browser";
+    var links = built.linkErrors != null ? built.linkErrors : 0;
+    showToast("Build complete · " + built.pageCount + " pages · " + links + " broken links · " + src);
+    if (done) done(built);
+  }
+
+  function runEngineBuildSteps(site, steps, stepsEl, bar, overlay, done) {
+    var i = 0;
+    clearInterval(factoryTimer);
+    factoryTimer = setInterval(function () {
+      var nodes = stepsEl.querySelectorAll(".fo-step");
+      if (i > 0) {
+        nodes[i - 1].classList.remove("run");
+        nodes[i - 1].classList.add("done");
+        nodes[i - 1].querySelector(".dot").textContent = "✓";
+        nodes[i - 1].querySelector(".limit-meta:last-child").textContent = "done";
+      }
+      if (i >= steps.length) {
+        clearInterval(factoryTimer);
+        bar.style.width = "100%";
+        fetch(ENGINE_BRIDGE + "/build", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(exportSiteForEngine(site))
+        }).then(function (r) { return r.json(); })
+          .then(function (result) {
+            if (result.status !== "ok") {
+              throw new Error(result.message || "Engine build failed");
+            }
+            planInventory(site);
+            var val = result.validation || {};
+            site.built = {
+              at: new Date().toISOString(),
+              pageCount: result.page_count,
+              vertical: result.vertical || site.vertical,
+              engine: true,
+              source: "engine",
+              siteId: result.site_id,
+              previewBase: ENGINE_BRIDGE + result.preview_base,
+              linkErrors: val.link_errors != null ? val.link_errors : 0
+            };
+            site.qa = buildQaFromValidation(val, site);
+            site.status = "BUILD";
+            site.domain = "draft.demo";
+            finishFactoryBuildUi(site, site.built, overlay, done);
+          })
+          .catch(function (err) {
+            clearInterval(factoryTimer);
+            showToast("Engine unavailable — browser fallback");
+            runBrowserFactoryBuild(site, steps, stepsEl, bar, overlay, done, true);
+          });
+        return;
+      }
+      nodes[i].classList.add("run");
+      nodes[i].querySelector(".limit-meta:last-child").textContent = "running…";
+      bar.style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
+      if (i === 3) planInventory(site);
+      i += 1;
+    }, 400);
+  }
+
+  function runBrowserFactoryBuild(site, steps, stepsEl, bar, overlay, done, skipIntro) {
+    var i = skipIntro ? steps.length : 0;
+    clearInterval(factoryTimer);
+    if (!skipIntro) {
+      factoryTimer = setInterval(function () {
+        var nodes = stepsEl.querySelectorAll(".fo-step");
+        if (i > 0) {
+          nodes[i - 1].classList.remove("run");
+          nodes[i - 1].classList.add("done");
+          nodes[i - 1].querySelector(".dot").textContent = "✓";
+          nodes[i - 1].querySelector(".limit-meta:last-child").textContent = "done";
+        }
+        if (i === 3) planInventory(site);
+        if (i >= steps.length) {
+          clearInterval(factoryTimer);
+          bar.style.width = "100%";
+          var built = buildSiteHtml(site);
+          finishFactoryBuildUi(site, built, overlay, done);
+          return;
+        }
+        nodes[i].classList.add("run");
+        nodes[i].querySelector(".limit-meta:last-child").textContent = "running…";
+        bar.style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
+        i += 1;
+      }, 550);
+      return;
+    }
+    bar.style.width = "100%";
+    var built = buildSiteHtml(site);
+    finishFactoryBuildUi(site, built, overlay, done);
+  }
 
   function runFactoryBuild(site, done) {
     ensureSiteMeta(site);
@@ -2979,7 +3156,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       { t: "S4 · Plan URLs + inventory", d: "URL grammar · nested hubs" },
       { t: "S5/S6 · Compose TEMPLATE packs", d: "AI off · FACT/AUTO/LIBRARY" },
       { t: "S7 · Emit inventory rows", d: "Page registry for this demo" },
-      { t: "S8 · Render + validate HTML", d: "Chrome, links, forms → GHL meta" }
+      { t: "S8 · Render + validate HTML", d: "Python engine · links · word-band QA" }
     ];
     document.getElementById("factoryTitle").textContent = "Building " + site.name;
     document.getElementById("factorySub").textContent =
@@ -2991,41 +3168,18 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     }).join("");
     overlay.classList.add("open");
     bar.style.width = "0%";
-    var i = 0;
     clearInterval(factoryTimer);
     showToast("Factory engine started");
-    factoryTimer = setInterval(function () {
-      var nodes = stepsEl.querySelectorAll(".fo-step");
-      if (i > 0) {
-        nodes[i - 1].classList.remove("run");
-        nodes[i - 1].classList.add("done");
-        nodes[i - 1].querySelector(".dot").textContent = "✓";
-        nodes[i - 1].querySelector(".limit-meta:last-child").textContent = "done";
-      }
-      if (i === 3) planInventory(site);
-      if (i >= steps.length) {
-        clearInterval(factoryTimer);
-        bar.style.width = "100%";
-        var built = buildSiteHtml(site);
-        site.qa = (site.inventory || []).slice(0, 3).map(function (row) {
-          return { page: row.title, code: row.code, check: "All ranges pass", ok: true };
-        });
-        setTimeout(function () {
-          overlay.classList.remove("open");
-          state.builderTab = "pages";
-          state.previewPath = "/";
-          renderBuilder();
-          loadPreview("/");
-          showToast("Build complete · " + built.pageCount + " pages · 0 broken links");
-          if (done) done(built);
-        }, 450);
-        return;
-      }
-      nodes[i].classList.add("run");
-      nodes[i].querySelector(".limit-meta:last-child").textContent = "running…";
-      bar.style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
-      i += 1;
-    }, 550);
+    fetch(ENGINE_BRIDGE + "/health", { method: "GET" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("bridge down");
+        showToast("Engine bridge connected");
+        runEngineBuildSteps(site, steps, stepsEl, bar, overlay, done);
+      })
+      .catch(function () {
+        showToast("Start bridge: python engine/build_server.py");
+        runBrowserFactoryBuild(site, steps, stepsEl, bar, overlay, done, false);
+      });
   }
 
   function loadPreview(path) {
@@ -3036,7 +3190,18 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var frame = document.getElementById("siteFrame");
     var urlEl = document.getElementById("frameUrl");
 
-    // Prefer factory-built pages for drafts / unpublished demos
+    // Engine-built site served by local bridge
+    if (s.built && s.built.engine && s.built.previewBase) {
+      var base = s.built.previewBase.replace(/\/$/, "");
+      var previewPath = path === "/" ? "/" : (path.replace(/^\//, "").replace(/\/$/, "") + "/");
+      var engineUrl = base + previewPath;
+      urlEl.textContent = engineUrl;
+      frame.removeAttribute("srcdoc");
+      frame.src = engineUrl;
+      return;
+    }
+
+    // In-browser factory-built pages (srcdoc fallback)
     if (s.built && s.built.pages && s.built.pages[path]) {
       var host = s.publishedUrl || ("preview://" + (s.domain || "draft.demo"));
       urlEl.textContent = host.replace(/\/$/, "") + (path === "/" ? "/" : path);
@@ -3383,7 +3548,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   function htmlPages(s) {
     var pages = s.pageTree || [];
     var selected = pages.filter(function (p) { return p.selected; }).length;
-    var built = s.built ? ("Built · " + s.built.pageCount + " pages · " + (s.vertical || resolveVertical(s))) : "Not built — run factory";
+    var built = s.built ? ("Built · " + s.built.pageCount + " pages · " + (s.vertical || resolveVertical(s)) +
+      (s.built.engine ? " · engine" : " · browser")) : "Not built — run factory";
     var tree = pages.map(function (p, i) {
       return "<label class=\"" + (p.path === state.previewPath ? "on" : "") + "\">" +
         "<input type=\"checkbox\" data-pg=\"" + i + "\" " + (p.selected ? "checked" : "") + ">" +
