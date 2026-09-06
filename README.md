@@ -14,5 +14,6 @@ Sister demos already on Netlify:
 - https://elizabeth-electrical-services.netlify.app/
 - https://cryptoconsulting.netlify.app/
 
-Demo only — 
-oindex.
+Demo only.
+
+n8n public API working copy (Connect docs, OpenAPI, endpoint catalog): [docs/n8n/README.md](docs/n8n/README.md).
