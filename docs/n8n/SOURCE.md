@@ -9,6 +9,8 @@ Local copies in this folder come from n8n’s public documentation and public Op
 - Markdown per page: append `.md` to any docs URL
 - Index: https://docs.n8n.io/sitemap.md
 - AI index: https://docs.n8n.io/llms.txt
+- This snapshot: **1,343** pages under `pages/` (full sitemap), plus OpenAPI from RaceCS and n8n Cloud
+- Runbook compiled from those pages: [RUNBOOK.md](RUNBOOK.md)
 
 n8n remains the source of truth. Paths, request bodies, and schemas can change between instance versions.
 
