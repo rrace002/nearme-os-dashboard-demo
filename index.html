@@ -680,6 +680,78 @@ button { cursor: pointer; }
 .build-source-badge.engine { background: #d4edda; color: #155724; border: 1px solid #28a745; }
 .build-source-badge.browser { background: #fff3cd; color: #856404; border: 1px solid #ffc107; }
 .build-source-badge.none { background: #f8d7da; color: #721c24; border: 1px solid #dc3545; }
+.src-row {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 8px 10px;
+}
+.src-row label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--mut);
+}
+.src-row input, .src-row textarea {
+  border: 1px solid var(--soft);
+  background: var(--bg);
+  padding: 8px 10px;
+  font-size: 12.5px;
+  width: 100%;
+}
+.instr-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: calc(100vh - 52px);
+}
+.instr-list {
+  border-right: 2px solid var(--ink);
+  overflow: auto;
+  background: var(--bg);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.instr-list button {
+  text-align: left;
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: 10px;
+  font-size: 12px;
+}
+.instr-list button.on { border-color: var(--ink); background: var(--accent-soft); }
+.instr-list button small { display: block; color: var(--mut); font-size: 10.5px; margin-top: 3px; }
+.instr-detail { overflow: auto; padding: 22px 26px 40px; }
+.instr-detail h2 { font-size: 22px; margin-bottom: 6px; }
+.swatches { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0 18px; }
+.swatch { width: 72px; text-align: center; font-size: 10px; color: var(--mut); }
+.swatch i {
+  display: block;
+  height: 36px;
+  border: 1px solid var(--ink);
+  margin-bottom: 4px;
+}
+.instr-md {
+  font-size: 12.5px;
+  line-height: 1.5;
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 14px;
+  white-space: pre-wrap;
+  max-height: 360px;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.derive-box textarea { min-height: 90px; margin-top: 8px; }
+@media (max-width: 860px) {
+  .src-row { grid-template-columns: 1fr; }
+  .instr-layout { grid-template-columns: 1fr; }
+  .instr-list { border-right: none; border-bottom: 2px solid var(--ink); max-height: 220px; }
+}
 .page-tree { display: flex; flex-direction: column; gap: 2px; }
 .page-tree label {
   display: flex;
@@ -1351,6 +1423,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     <nav class="nav agency-only" id="navAgency">
       <button type="button" class="on" data-view="home">Home</button>
       <button type="button" data-view="sites">Sites</button>
+      <button type="button" data-view="instructions">Instructions</button>
       <div class="section">CRM</div>
       <button type="button" id="navLeads">Leads <span class="count">12</span></button>
       <button type="button" data-toast="GHL sync is live — last pull 2 min ago">GHL sync</button>
@@ -1432,9 +1505,15 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       </div>
       <div class="home-hero">
         <h2>What are we building today?</h2>
-        <p class="sub">Describe the site — NearMe OS generates the local SEO structure and wires forms to your GHL pipeline. PPC routing is configured later inside each site cockpit.</p>
+        <p class="sub">Describe the site — or point at a <b>design source</b>. NearMe OS turns that into an instruction set (IA + chrome), then the factory builds from FACTS + TEMPLATE packs. PPC routing is configured later inside each site cockpit.</p>
         <div class="prompt-box">
           <textarea id="prompt" placeholder="A full local SEO site for an Elizabeth NJ electrician…"></textarea>
+          <div class="src-row">
+            <label for="designSource">DESIGN SOURCE</label>
+            <input id="designSource" type="url" placeholder="https://san-diegotechsupport.com/">
+            <button class="chip" type="button" id="btnDeriveHome">Derive instructions</button>
+            <button class="chip" type="button" data-view="instructions">Catalog</button>
+          </div>
           <div class="prompt-actions">
             <button class="chip" type="button" data-toast="Brand kit attached (demo)">+ Brand kit</button>
             <div class="dd" id="ddStandard">
@@ -1457,10 +1536,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
           </div>
         </div>
         <div class="kinds">
-          <button type="button" class="kind" data-fill="Local services site for a plumber in Austin TX with book / request / quote forms under each category."><div class="ico"></div><b>Local SEO site</b><span>Full registry — hubs, children, forms, schema</span></button>
-          <button type="button" class="kind" data-fill="Booking funnel for emergency electrical calls, form to GHL Emergency pipeline."><div class="ico"></div><b>Booking funnel</b><span>Conversion trio wired to GHL</span></button>
-          <button type="button" class="kind" data-fill="Landing page for kitchen remodel leads in Union County NJ."><div class="ico"></div><b>Lead landing</b><span>Single page + form attribution</span></button>
-          <button type="button" class="kind" data-fill="Rebuild san-diegotechsupport.com structure for a new trade vertical."><div class="ico"></div><b>SDTS replica</b><span>Keyword worksheet → full inventory</span></button>
+          <button type="button" class="kind" data-fill="Local services site for a plumber in Austin TX with book / request / quote forms under each category." data-instruction="Standard"><div class="ico"></div><b>Local SEO site</b><span>Full registry — hubs, children, forms, schema</span></button>
+          <button type="button" class="kind" data-fill="Booking funnel for emergency electrical calls, form to GHL Emergency pipeline." data-instruction="PROD-EES-V1" data-source="https://elizabeth-electrical-services.netlify.app/"><div class="ico"></div><b>Booking funnel</b><span>EES instruction set · conversion trio</span></button>
+          <button type="button" class="kind" data-fill="IT / MSP replica using MASTER-IT-V1 (SDTS information architecture, factory navy/gold chrome)." data-instruction="MASTER-IT-V1"><div class="ico"></div><b>IT master</b><span>MASTER-IT-V1 · allow IT language</span></button>
+          <button type="button" class="kind" data-fill="Rebuild san-diegotechsupport.com as a Gate 1 IT / MSP replica (managed IT, cybersecurity, cloud, vCIO)." data-instruction="PROD-SDTS-V1" data-source="https://san-diegotechsupport.com/"><div class="ico"></div><b>SDTS replica</b><span>Design source → PROD-SDTS-V1 instructions</span></button>
         </div>
       </div>
       <div class="recent">
@@ -1517,6 +1596,32 @@ body.mode-business .biz-inline { display: inline-flex !important; }
           </thead>
           <tbody></tbody>
         </table>
+      </div>
+    </section>
+
+    <section class="view" id="view-instructions">
+      <div class="top">
+        <button class="menu-btn" type="button" data-menu>☰</button>
+        <h1>Instruction sets</h1>
+        <span class="crumb">Design source → factory brief</span>
+        <div class="spacer"></div>
+        <button class="chip" type="button" id="btnCopyInstr">Copy markdown</button>
+        <button class="btn primary" type="button" id="btnUseInstr">Use on Generate</button>
+      </div>
+      <div class="instr-layout">
+        <aside class="instr-list" id="instrList"></aside>
+        <div class="instr-detail">
+          <div class="derive-box">
+            <div class="src-row">
+              <label for="instrSource">SOURCE URL</label>
+              <input id="instrSource" type="url" placeholder="https://example.com/">
+              <button class="chip" type="button" id="btnDeriveInstr">Derive</button>
+              <button class="chip" type="button" id="btnLoadKnownSdts">Load SDTS</button>
+            </div>
+            <textarea id="instrHtml" placeholder="Browser fetch is blocked by CORS — paste homepage HTML here to derive a custom set, or run python3 scripts/design_source_to_instructions.py &lt;url&gt;"></textarea>
+          </div>
+          <div id="instrDetail"></div>
+        </div>
       </div>
     </section>
 
@@ -1688,6 +1793,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
 </div>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="docs/instructions/catalog.js"></script>
 <script>
 (function () {
   var PLANS = {
@@ -2247,7 +2353,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     kwIndex: 0,
     kwChannel: null,
     frameDevice: "desktop",
-    previewPath: "/"
+    previewPath: "/",
+    instructionId: "Standard",
+    customInstructions: []
   };
 
   var BUILDER_TABS = [
@@ -2332,6 +2440,206 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
+  var INSTRUCTION_SETS = (window.NEARME_INSTRUCTION_SETS || []).slice();
+  if (!INSTRUCTION_SETS.length) {
+    INSTRUCTION_SETS.push({
+      id: "Standard",
+      name: "Standard",
+      vertical: "Electrician",
+      allowIt: false,
+      noun: "electrician",
+      chrome: { ink: "#1c2733", navy: "#12314e", navyDeep: "#0b2338", gold: "#f5a800", goldSoft: "#ffd35c", link: "#0b5394", tint: "#f4f7fa" },
+      demoHubs: [],
+      forms: [{ title: "Request an Estimate", slug: "request-an-estimate", role: "FORM-PRICING" }],
+      rules: ["Factory defaults. Load docs/instructions/catalog.js for the full catalog."],
+      source: { kind: "factory-default", url: "" }
+    });
+  }
+
+  function allInstructions() {
+    return INSTRUCTION_SETS.concat(state.customInstructions || []);
+  }
+
+  function getInstruction(id) {
+    var key = String(id || state.instructionId || "Standard");
+    var sets = allInstructions();
+    for (var i = 0; i < sets.length; i++) {
+      if (sets[i].id === key) return sets[i];
+    }
+    for (var j = 0; j < sets.length; j++) {
+      if (sets[j].id === "Standard") return sets[j];
+    }
+    return null;
+  }
+
+  function instructionBySource(url) {
+    var host = "";
+    try { host = new URL(url).hostname.replace(/^www\./, ""); } catch (err) { host = String(url || ""); }
+    if (/san-diegotechsupport|sandiegotechsupport/.test(host)) return getInstruction("PROD-SDTS-V1");
+    if (/elizabethelectrical/.test(host)) return getInstruction("PROD-EES-V1");
+    if (/cryptocurrencyconsulting/.test(host)) return getInstruction("MASTER-IT-V1");
+    return null;
+  }
+
+  function chromeForSite(site) {
+    var instr = getInstruction(site && site.instruction);
+    var chrome = (instr && instr.chrome) || null;
+    return chrome || {
+      ink: "#1c2733",
+      navy: "#12314e",
+      navyDeep: "#0b2338",
+      gold: "#f5a800",
+      goldSoft: "#ffd35c",
+      link: "#0b5394",
+      tint: "#f4f7fa"
+    };
+  }
+
+  function applyChromeTokens(css, chrome) {
+    if (!chrome) return css;
+    var map = [
+      ["#0e69bb", chrome.link],
+      ["#0b5394", chrome.link],
+      ["#ffc233", chrome.goldSoft || chrome.gold],
+      ["#ffd35c", chrome.goldSoft || chrome.gold],
+      ["#f5a800", chrome.gold],
+      ["#fdf3dc", chrome.tint || "#f4f7fa"],
+      ["#f4f7fa", chrome.tint || "#f4f7fa"],
+      ["#153a5c", chrome.navy],
+      ["#12314e", chrome.navy],
+      ["#0b2338", chrome.navyDeep || chrome.navy],
+      ["#1c2733", chrome.ink || "#1c2733"]
+    ];
+    var out = css;
+    map.forEach(function (pair) {
+      out = out.split(pair[0]).join(pair[1]);
+    });
+    return out;
+  }
+
+  function instructionMarkdown(instr) {
+    if (!instr) return "";
+    var hubs = (instr.hubs || instr.demoHubs || []).map(function (h) {
+      return "- **" + h.title + "** (`/" + h.slug + "/`) — " + (h.children || []).join(", ");
+    }).join("\n");
+    var rules = (instr.rules || []).map(function (r) { return "- " + r; }).join("\n");
+    var src = instr.source || {};
+    return "# " + instr.id + " — factory instruction set\n\n" +
+      "## Source\n\n- **URL:** " + (src.url || "—") + "\n- **Kind:** " + (src.kind || "—") + "\n\n" +
+      "## Facts\n\n" + (instr.valueProposition || "") + "\n\n" +
+      "allowIt: " + String(!!instr.allowIt) + " · vertical: " + (instr.vertical || "") + "\n\n" +
+      "## Hubs\n\n" + hubs + "\n\n## Factory rules\n\n" + rules + "\n";
+  }
+
+  function packFromInstruction(instr) {
+    if (!instr) return null;
+    var hubs = instr.demoHubs && instr.demoHubs.length ? instr.demoHubs : (instr.hubs || []).slice(0, 3).map(function (h) {
+      return { title: h.title, slug: h.slug, children: (h.children || []).slice(0, 3) };
+    });
+    if (!hubs.length) return null;
+    return {
+      noun: instr.noun || "local service company",
+      hubs: hubs,
+      forms: instr.forms || [
+        { title: "Request a Quote", slug: "request-a-quote", role: "FORM-PRICING" },
+        { title: "Request a Consultation", slug: "request-a-consultation", role: "FORM-SERVICE-REQ" }
+      ]
+    };
+  }
+
+  function deriveInstructionFromHtml(html, sourceUrl, setId) {
+    var doc = new DOMParser().parseFromString(html, "text/html");
+    var title = (doc.querySelector("title") && doc.querySelector("title").textContent) || sourceUrl || "Custom source";
+    var desc = "";
+    var meta = doc.querySelector('meta[name="description"]');
+    if (meta) desc = meta.getAttribute("content") || "";
+    var text = doc.body ? doc.body.textContent : "";
+    var phoneMatch = text.match(/(?:\+1[\s.-]?)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}/);
+    var emailMatch = html.match(/[A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,}/i);
+    var headings = Array.prototype.map.call(doc.querySelectorAll("h1,h2,h3"), function (el) {
+      return el.textContent.replace(/\s+/g, " ").trim();
+    }).filter(Boolean);
+    var options = Array.prototype.map.call(doc.querySelectorAll("select option"), function (el) {
+      return (el.value || el.textContent || "").trim();
+    }).filter(function (v) { return v && !/^select/i.test(v); });
+    var nav = Array.prototype.map.call(doc.querySelectorAll("nav a, header a"), function (el) {
+      return el.textContent.replace(/\s+/g, " ").trim();
+    }).filter(function (v) { return v && v.length < 60 && !/^(home|search)$/i.test(v); });
+    var labels = [];
+    options.concat(nav).concat(headings).forEach(function (item) {
+      if (item && labels.indexOf(item) < 0) labels.push(item);
+    });
+    var hubs = labels.slice(0, 6).map(function (label) {
+      return {
+        title: label,
+        slug: slugify(label),
+        children: [label + " — core", label + " — advanced", label + " — support"]
+      };
+    });
+    if (!hubs.length) {
+      hubs = [{ title: "Services", slug: "services", children: ["Service one", "Service two", "Service three"] }];
+    }
+    var allowIt = /\b(managed it|cybersecurity|msp|vcio|it support|microsoft 365)\b/i.test(text + " " + title);
+    var id = setId || ("SRC-" + slugify(title).slice(0, 18).toUpperCase() + "-V1");
+    return {
+      id: id,
+      name: id,
+      source: { url: sourceUrl || "", fetched: new Date().toISOString().slice(0, 10), kind: html ? "html-paste" : "url", title: title, description: desc },
+      vertical: allowIt ? "IT / MSP" : "Local services",
+      allowIt: allowIt,
+      noun: allowIt ? "IT support partner" : "local service company",
+      businessName: title.split(/[|–—-]/)[0].trim(),
+      nap: {
+        name: title.split(/[|–—-]/)[0].trim(),
+        phone: phoneMatch ? phoneMatch[0] : "",
+        email: emailMatch ? emailMatch[0].toLowerCase() : "",
+        address: "",
+        city: "",
+        confirm: true
+      },
+      valueProposition: desc || (headings[1] || headings[0] || ""),
+      chrome: {
+        ink: "#1c2733",
+        navy: allowIt ? "#030b1a" : "#12314e",
+        navyDeep: "#0b2338",
+        gold: allowIt ? "#e01a33" : "#f5a800",
+        goldSoft: allowIt ? "#ff3851" : "#ffd35c",
+        link: "#0b5394",
+        tint: "#f4f7fa"
+      },
+      forms: [
+        { title: "Request a Quote", slug: "request-a-quote", role: "FORM-PRICING" },
+        { title: "Request a Consultation", slug: "request-a-consultation", role: "FORM-SERVICE-REQ" }
+      ],
+      gate1: { hubs: hubs.length, childrenPerHub: 3, targetPages: hubs.length * 3 + 6 },
+      hubs: hubs,
+      demoHubs: hubs.slice(0, 3),
+      rules: [
+        "Browser-derived set is a first pass — curate hubs before a production factory run.",
+        "Treat NAP as [confirm]. Do not copy source body copy.",
+        "Skip the no-IT validator when allowIt is true."
+      ]
+    };
+  }
+
+  function upsertCustomInstruction(instr) {
+    state.customInstructions = (state.customInstructions || []).filter(function (s) { return s.id !== instr.id; });
+    state.customInstructions.unshift(instr);
+    state.instructionId = instr.id;
+    refreshInstructionDropdown();
+  }
+
+  function refreshInstructionDropdown() {
+    var menu = document.querySelector("#ddStandard .dd-menu");
+    if (!menu) return;
+    menu.innerHTML = allInstructions().map(function (s) {
+      return "<button type=\"button\" data-pick=\"" + esc(s.id) + "\">" + esc(s.id) +
+        (s.source && s.source.kind ? " — " + esc(s.source.kind) : "") + "</button>";
+    }).join("");
+    var btn = document.getElementById("btnStandard");
+    if (btn) btn.textContent = (state.instructionId || "Standard") + " ▾";
+  }
+
   /* Factory packs — same shape as EES / engine service-tree demos */
   var VERTICAL_PACKS = {
     Electrician: {
@@ -2397,6 +2705,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     "Other local service": null
   };
   VERTICAL_PACKS["Other local service"] = VERTICAL_PACKS.Cleaning;
+  VERTICAL_PACKS.IT = packFromInstruction(getInstruction("MASTER-IT-V1")) || VERTICAL_PACKS.Cleaning;
 
   /* Local engine bridge — run: python engine/build_server.py */
   var ENGINE_BRIDGE = "http://127.0.0.1:8765";
@@ -2438,6 +2747,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var BANDS = { HOME: [100, 800], "SVC-HUB": [70, 600], "SVC-CHILD": [250, 1200], "COMP-HUB": [65, 500], "COMP-CHILD": [65, 500] };
     var qa = [];
     var linkErrors = 0;
+    var instrAllowIt = !!(getInstruction(site.instruction) && getInstruction(site.instruction).allowIt);
     (site.inventory || []).forEach(function (row) {
       var html = pagesMap[row.path];
       if (!html) {
@@ -2449,7 +2759,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       var band = BANDS[row.role] || BANDS[row.role && row.role.indexOf("COMP") === 0 ? "COMP-HUB" : "HOME"];
       if (!band && row.role && row.role.indexOf("SVC-CHILD") >= 0) band = BANDS["SVC-CHILD"];
       var bandOk = !band || (wc >= band[0] && wc <= band[1]);
-      var itOk = !NO_IT.test(text);
+      var itOk = instrAllowIt || !NO_IT.test(text);
       var msg = wc + " words" + (band ? " (band " + band[0] + "–" + band[1] + ")" : "");
       if (!bandOk) msg = "word-band: " + msg;
       if (!itOk) msg = (msg ? msg + "; " : "") + "no-IT violation";
@@ -2467,6 +2777,9 @@ body.mode-business .biz-inline { display: inline-flex !important; }
   }
 
   function resolveVertical(site) {
+    var instr = getInstruction(site && site.instruction);
+    if (instr && /IT/.test(instr.vertical || "")) return "IT";
+    if (instr && instr.vertical && VERTICAL_PACKS[instr.vertical]) return instr.vertical;
     if (site.vertical && VERTICAL_PACKS[site.vertical]) return site.vertical;
     var svc = ((site.intake && site.intake.questionnaire.services) || "").toLowerCase();
     if (/clean|maid|janitor/.test(svc)) return "Cleaning";
@@ -2474,12 +2787,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     if (/hvac|air condition|furnace|heating/.test(svc)) return "HVAC";
     if (/electric|panel|wiring/.test(svc)) return "Electrician";
     if (/handyman|repair/.test(svc)) return "Handyman";
+    if (/\bit\b|cyber|msp|cloud/.test(svc)) return "IT";
     return "Cleaning";
   }
 
   function planInventory(site) {
-    var vert = resolveVertical(site);
-    var pack = VERTICAL_PACKS[vert] || VERTICAL_PACKS.Cleaning;
+    var instr = getInstruction(site.instruction);
+    var pack = packFromInstruction(instr) || VERTICAL_PACKS[resolveVertical(site)] || VERTICAL_PACKS.Cleaning;
+    var vert = (instr && instr.vertical) || resolveVertical(site);
     var pages = [];
     pages.push({ title: "Home", path: "/", role: "HOME", selected: true, hub: null });
     pack.hubs.forEach(function (hub) {
@@ -2523,7 +2838,11 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     return pages;
   }
 
-  function factoryCss() {
+  function factoryCss(site) {
+    return applyChromeTokens(factoryCssDefault(), chromeForSite(site));
+  }
+
+  function factoryCssDefault() {
     return "*{margin:0;padding:0;box-sizing:border-box}" +
       "body{font-family:Georgia,'Times New Roman',serif;color:#1c2733;line-height:1.65;background:#fff}" +
       "h1,h2,h3,.nav,.btn,.card h3,.utility{font-family:'Segoe UI',Arial,Helvetica,sans-serif}" +
@@ -3012,7 +3331,7 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">" +
       "<title>" + esc(page.title) + " | " + esc(facts.name) + "</title>" +
       "<meta name=\"description\" content=\"" + esc(page.title) + " in " + esc(facts.area) + " — " + esc(facts.name) + " local " + esc(facts.noun) + ".\">" +
-      "<style>" + factoryCss() + "</style></head><body>" +
+      "<style>" + factoryCss(site) + "</style></head><body>" +
       "<div class=\"demo-banner\">DEMO BUILD — NearMe OS Website Factory · " + esc(facts.name) +
       " · sample content, placeholder facts marked [DEMO]</div>" +
       "<div class=\"utility\"><div class=\"wrap\"><span>" + esc(facts.licensed) + "</span><span>" + esc(facts.hours) + "</span></div></div>" +
@@ -3513,9 +3832,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       "<label class=\"field-label\">PRIMARY TOWN / AREA</label><input type=\"text\" id=\"newSiteArea\" placeholder=\"e.g. Elizabeth, NJ\">" +
       "<label class=\"field-label\">PHONE</label><input type=\"tel\" id=\"newSitePhone\" placeholder=\"(908) 555-0100\">" +
       "<label class=\"field-label\">VERTICAL</label><select id=\"newSiteVertical\">" +
-      "<option>Electrician</option><option>Plumber</option><option>HVAC</option><option>Handyman</option><option>Cleaning</option><option>Other local service</option>" +
+      "<option>Electrician</option><option>Plumber</option><option>HVAC</option><option>Handyman</option><option>Cleaning</option><option>IT</option><option>Other local service</option>" +
       "</select>" +
-      "<p class=\"limit-meta\" style=\"margin-top:12px\">Starts as a draft demo. Complete questionnaire, NAP, logos, and phone before go-live.</p>";
+      "<label class=\"field-label\">INSTRUCTION SET</label><select id=\"newSiteInstruction\">" +
+      allInstructions().map(function (s) {
+        return "<option" + (s.id === (state.instructionId || "Standard") ? " selected" : "") + ">" + s.id + "</option>";
+      }).join("") +
+      "</select>" +
+      "<p class=\"limit-meta\" style=\"margin-top:12px\">Starts as a draft demo. Complete questionnaire, NAP, logos, and phone before go-live. Instruction set supplies chrome + IA.</p>";
   }
 
   function htmlQuestionnaire(s) {
@@ -3580,6 +3904,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         "<span>" + p.title + "</span><span class=\"pg-meta\">" + (p.role ? p.role + " · " : "") + p.path + "</span></label>";
     }).join("");
     return "<div class=\"gate-banner " + (s.built ? "ready" : "") + "\">" + built + "</div>" +
+      "<h3>INSTRUCTION SET</h3>" +
+      "<p class=\"limit-meta\" style=\"margin-bottom:10px\"><b>" + esc(s.instruction || "Standard") + "</b>" +
+      (getInstruction(s.instruction) && getInstruction(s.instruction).source && getInstruction(s.instruction).source.url
+        ? " · source <a href=\"" + esc(getInstruction(s.instruction).source.url) + "\" target=\"_blank\" rel=\"noopener\">" +
+          esc(getInstruction(s.instruction).source.url) + "</a>"
+        : "") +
+      " · " + (getInstruction(s.instruction) && getInstruction(s.instruction).allowIt ? "IT language allowed" : "no-IT validator on") +
+      "</p>" +
       "<h3>BUILD BRIEF</h3>" +
       "<textarea id=\"builderPrompt\" placeholder=\"Describe changes…\">Local SEO site for " + esc(s.name) +
       " in " + esc(s.area) + " — full service + town coverage, forms to GHL.</textarea>" +
@@ -3778,6 +4110,8 @@ body.mode-business .biz-inline { display: inline-flex !important; }
     var area = (document.getElementById("newSiteArea").value || "").trim();
     var phone = (document.getElementById("newSitePhone").value || "").trim();
     var vertical = document.getElementById("newSiteVertical").value;
+    var instructionId = (document.getElementById("newSiteInstruction") && document.getElementById("newSiteInstruction").value) || state.instructionId || "Standard";
+    var instr = getInstruction(instructionId);
     if (!name || !area) {
       showToast("Name and area required");
       return;
@@ -3802,13 +4136,13 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       pacing: "—",
       phone: phone || "—",
       area: area,
-      instruction: "Standard",
+      instruction: instructionId,
       intake: defaultIntake({
         name: name,
         phone: phone,
         city: area,
         towns: area,
-        services: vertical + " services"
+        services: (instr && instr.serviceHints && instr.serviceHints.join(", ")) || (vertical + " services")
       }),
       revisions: [],
       built: null,
@@ -4302,9 +4636,67 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         b.classList.toggle("on", b.getAttribute("data-view") === name);
       });
     }
+    if (name === "instructions") showInstructions();
     closeLeads();
     closeRail();
     closeDropdowns();
+  }
+
+  function siteFromBrief(text, instructionId, ghl) {
+    var instr = getInstruction(instructionId);
+    var areaMatch = text.match(/\bin\s+([A-Z][A-Za-z .]+(?:,\s*[A-Z]{2})?)/);
+    var area = (areaMatch && areaMatch[1].trim()) || (instr && instr.nap && instr.nap.city) || "Local service area";
+    var name = (instr && instr.businessName) || "";
+    if (!name || /master|standard/i.test(name)) {
+      var nameMatch = text.match(/for (?:an? |the )?([A-Z][^,.]+?)(?:\s+in\s+)/);
+      name = (nameMatch && nameMatch[1].trim()) || "New demo site";
+    }
+    if (/sdts|san diego tech support/i.test(text) && instr && instr.id === "PROD-SDTS-V1") {
+      name = "San Diego Tech Support (replica)";
+      area = "San Diego, CA";
+    }
+    var id = "gen" + Date.now().toString(36);
+    var code = name.replace(/[^A-Za-z]/g, "").slice(0, 4).toUpperCase() || "NEW";
+    var phone = (instr && instr.nap && instr.nap.phone) || "";
+    var site = ensureSiteMeta({
+      id: id,
+      name: name,
+      code: code,
+      domain: "draft.demo",
+      previewUrl: "",
+      publishedUrl: "",
+      liveUrl: "",
+      lifecycle: "draft",
+      vertical: (instr && instr.vertical) || "Electrician",
+      pages: 0,
+      leads7d: 0,
+      status: "BUILD",
+      ghl: (ghl || "").replace(/^GHL:\s*/, "") || name,
+      spend: "$0",
+      pacing: "—",
+      phone: phone || "—",
+      area: area,
+      instruction: instructionId,
+      intake: defaultIntake({
+        name: name,
+        phone: phone,
+        city: area,
+        towns: area,
+        email: (instr && instr.nap && instr.nap.email) || "",
+        address: (instr && instr.nap && instr.nap.address) || "",
+        services: (instr && instr.serviceHints && instr.serviceHints.join(", ")) || text,
+        notes: "Built from instruction set " + instructionId + (instr && instr.source && instr.source.url ? " · source " + instr.source.url : "")
+      }),
+      revisions: [],
+      built: null,
+      pageTree: [],
+      qa: [],
+      leads: [],
+      ppc: null,
+      hidden: false
+    });
+    SITES[id] = site;
+    return site;
   }
 
   function runGenerate() {
@@ -4315,8 +4707,14 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       return;
     }
     var ghl = document.getElementById("btnGhl").textContent.replace(" ▾", "");
-    var std = document.getElementById("btnStandard").textContent.replace(" ▾", "");
-    document.getElementById("buildBrief").textContent = text + " · " + std + " · " + ghl;
+    var instructionId = state.instructionId || "Standard";
+    var src = (document.getElementById("designSource") && document.getElementById("designSource").value.trim()) || "";
+    if (src && instructionBySource(src)) {
+      instructionId = instructionBySource(src).id;
+      state.instructionId = instructionId;
+      refreshInstructionDropdown();
+    }
+    document.getElementById("buildBrief").textContent = text + " · " + instructionId + " · " + ghl;
     document.getElementById("buildGhlMeta").textContent = ghl;
     document.getElementById("buildDone").style.display = "none";
     document.getElementById("buildBar").style.width = "0%";
@@ -4327,8 +4725,10 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       var n = Number(s.getAttribute("data-step")) + 1;
       s.querySelector(".dot").textContent = String(n);
     });
+    var site = siteFromBrief(text, instructionId, ghl);
+    window.__lastGeneratedId = site.id;
     setView("build");
-    showToast("Factory engine started (demo)");
+    showToast("Factory · " + instructionId);
     var i = 0;
     clearInterval(buildTimer);
     buildTimer = setInterval(function () {
@@ -4343,17 +4743,86 @@ body.mode-business .biz-inline { display: inline-flex !important; }
         clearInterval(buildTimer);
         document.getElementById("buildBar").style.width = "100%";
         document.getElementById("buildDone").style.display = "inline-block";
-        window.__showAustin = true;
-        SITES.austin.hidden = false;
+        buildSiteHtml(site);
         renderSitesTable();
-        showToast("Site drafted — open cockpit to set PPC per channel");
+        showToast("Drafted with " + instructionId + " · " + site.pages + " pages");
         return;
       }
       steps[i].classList.add("run");
       steps[i].querySelector(".meta:last-child").textContent = "running…";
       document.getElementById("buildBar").style.width = Math.round(((i + 1) / steps.length) * 100) + "%";
       i += 1;
-    }, 700);
+    }, 500);
+  }
+
+  function renderInstructionList() {
+    var list = document.getElementById("instrList");
+    if (!list) return;
+    list.innerHTML = allInstructions().map(function (s) {
+      return "<button type=\"button\" data-instr=\"" + esc(s.id) + "\" class=\"" +
+        (s.id === state.instructionId ? "on" : "") + "\"><b>" + esc(s.id) + "</b><small>" +
+        esc((s.vertical || "") + (s.source && s.source.url ? " · " + s.source.url : "")) +
+        "</small></button>";
+    }).join("");
+  }
+
+  function renderInstructionDetail() {
+    var root = document.getElementById("instrDetail");
+    if (!root) return;
+    var instr = getInstruction(state.instructionId);
+    if (!instr) {
+      root.innerHTML = "<p class=\"limit-meta\">No instruction set loaded. Add docs/instructions/catalog.js or derive from a source.</p>";
+      return;
+    }
+    var chrome = instr.chrome || {};
+    var swatches = ["navy", "gold", "link", "tint"].map(function (key) {
+      if (!chrome[key]) return "";
+      return "<div class=\"swatch\"><i style=\"background:" + chrome[key] + "\"></i>" + key + "<br>" + chrome[key] + "</div>";
+    }).join("");
+    var hubs = (instr.hubs || instr.demoHubs || []).map(function (h) {
+      return "<li><b>" + esc(h.title) + "</b> — " + esc((h.children || []).slice(0, 4).join(", ")) +
+        ((h.children || []).length > 4 ? "…" : "") + "</li>";
+    }).join("");
+    root.innerHTML =
+      "<h2>" + esc(instr.id) + "</h2>" +
+      "<p class=\"limit-meta\">" + esc(instr.vertical || "") +
+      (instr.allowIt ? " · IT language allowed" : " · no-IT validator") +
+      (instr.source && instr.source.url ? " · <a href=\"" + esc(instr.source.url) + "\" target=\"_blank\" rel=\"noopener\">design source</a>" : "") +
+      "</p>" +
+      "<p style=\"margin:12px 0;font-size:14px\">" + esc(instr.valueProposition || "") + "</p>" +
+      "<div class=\"swatches\">" + swatches + "</div>" +
+      "<h3>Hubs</h3><ul style=\"font-size:13px;line-height:1.55;padding-left:18px;margin:8px 0 16px\">" + hubs + "</ul>" +
+      "<h3>Agent markdown</h3><pre class=\"instr-md\" id=\"instrMd\">" + esc(instructionMarkdown(instr)) + "</pre>";
+  }
+
+  function showInstructions(id) {
+    if (id) state.instructionId = id;
+    renderInstructionList();
+    renderInstructionDetail();
+    refreshInstructionDropdown();
+  }
+
+  function deriveFromInputs(urlEl, htmlEl) {
+    var url = (urlEl && urlEl.value.trim()) || "";
+    var html = (htmlEl && htmlEl.value.trim()) || "";
+    var known = url ? instructionBySource(url) : null;
+    if (known && !html) {
+      state.instructionId = known.id;
+      showInstructions(known.id);
+      showToast("Matched catalog · " + known.id);
+      return known;
+    }
+    if (!html) {
+      showToast("Paste homepage HTML — browsers block fetching arbitrary URLs. Or run the Python script.");
+      setView("instructions");
+      if (url && document.getElementById("instrSource")) document.getElementById("instrSource").value = url;
+      return null;
+    }
+    var instr = deriveInstructionFromHtml(html, url);
+    upsertCustomInstruction(instr);
+    showInstructions(instr.id);
+    showToast("Derived " + instr.id);
+    return instr;
   }
 
   // Events
@@ -4454,14 +4923,22 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       document.querySelectorAll(".kind").forEach(function (k) { k.classList.remove("on"); });
       el.classList.add("on");
       document.getElementById("prompt").value = el.getAttribute("data-fill") || "";
+      var instrId = el.getAttribute("data-instruction");
+      if (instrId) {
+        state.instructionId = instrId;
+        refreshInstructionDropdown();
+      }
+      var src = el.getAttribute("data-source");
+      if (src && document.getElementById("designSource")) document.getElementById("designSource").value = src;
       document.getElementById("prompt").focus();
-      showToast("Brief loaded — click Generate");
+      showToast((instrId || "Standard") + " loaded — click Generate");
     });
   });
   document.getElementById("generate").addEventListener("click", runGenerate);
   document.getElementById("buildDone").addEventListener("click", function () {
-    window.__showAustin = true;
-    openSite("austin");
+    var id = window.__lastGeneratedId || "austin";
+    if (SITES[id]) openSite(id, { tab: "pages" });
+    else openSite("austin");
   });
 
   document.getElementById("btnPreview").addEventListener("click", function () {
@@ -4531,15 +5008,84 @@ body.mode-business .biz-inline { display: inline-flex !important; }
       closeDropdowns();
       if (!open) dd.classList.add("open");
     });
-    dd.querySelectorAll(".dd-menu button").forEach(function (opt) {
-      opt.addEventListener("click", function (e) {
-        e.stopPropagation();
-        btn.textContent = opt.getAttribute("data-pick") + " ▾";
-        dd.classList.remove("open");
-        showToast("Set to " + opt.getAttribute("data-pick"));
-      });
+    dd.addEventListener("click", function (e) {
+      var opt = e.target.closest(".dd-menu button[data-pick]");
+      if (!opt) return;
+      e.stopPropagation();
+      var pick = opt.getAttribute("data-pick");
+      btn.textContent = pick + " ▾";
+      dd.classList.remove("open");
+      if (dd.id === "ddStandard") {
+        state.instructionId = pick;
+        showToast("Instruction set · " + pick);
+      } else {
+        showToast("Set to " + pick);
+      }
     });
   });
+
+  function wireInstructionUi() {
+    var homeDerive = document.getElementById("btnDeriveHome");
+    if (homeDerive) {
+      homeDerive.addEventListener("click", function () {
+        deriveFromInputs(document.getElementById("designSource"), document.getElementById("instrHtml"));
+        setView("instructions");
+      });
+    }
+    var instrDerive = document.getElementById("btnDeriveInstr");
+    if (instrDerive) {
+      instrDerive.addEventListener("click", function () {
+        deriveFromInputs(document.getElementById("instrSource"), document.getElementById("instrHtml"));
+      });
+    }
+    var loadSdts = document.getElementById("btnLoadKnownSdts");
+    if (loadSdts) {
+      loadSdts.addEventListener("click", function () {
+        document.getElementById("instrSource").value = "https://san-diegotechsupport.com/";
+        state.instructionId = "PROD-SDTS-V1";
+        showInstructions("PROD-SDTS-V1");
+        showToast("Loaded PROD-SDTS-V1 from catalog");
+      });
+    }
+    var list = document.getElementById("instrList");
+    if (list) {
+      list.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-instr]");
+        if (!b) return;
+        showInstructions(b.getAttribute("data-instr"));
+      });
+    }
+    var copyBtn = document.getElementById("btnCopyInstr");
+    if (copyBtn) {
+      copyBtn.addEventListener("click", function () {
+        var md = instructionMarkdown(getInstruction(state.instructionId));
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(md).then(function () { showToast("Markdown copied"); });
+        } else {
+          showToast("Copy unavailable");
+        }
+      });
+    }
+    var useBtn = document.getElementById("btnUseInstr");
+    if (useBtn) {
+      useBtn.addEventListener("click", function () {
+        var instr = getInstruction(state.instructionId);
+        refreshInstructionDropdown();
+        if (instr && instr.source && instr.source.url && document.getElementById("designSource")) {
+          document.getElementById("designSource").value = instr.source.url;
+        }
+        if (instr && document.getElementById("prompt") && !document.getElementById("prompt").value.trim()) {
+          document.getElementById("prompt").value = "Rebuild from design source using " + instr.id +
+            (instr.source && instr.source.url ? " (" + instr.source.url + ")" : "") + ".";
+        }
+        setView("home");
+        showToast("Generate will use " + (state.instructionId || "Standard"));
+      });
+    }
+  }
+
+  wireInstructionUi();
+  refreshInstructionDropdown();
 
   document.getElementById("leadTabs").addEventListener("click", function (e) {
     var btn = e.target.closest("button[data-filter]");
