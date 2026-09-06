@@ -1,0 +1,128 @@
+{
+  "id": "Standard",
+  "name": "Standard",
+  "source": {
+    "url": "",
+    "fetched": "2026-09-06",
+    "kind": "factory-default",
+    "title": "NearMe OS factory defaults",
+    "description": "Trade local-SEO pack (electrician by default; plumber/HVAC/handyman/cleaning via vertical)."
+  },
+  "vertical": "Electrician",
+  "allowIt": false,
+  "noun": "electrician",
+  "businessName": "",
+  "nap": {
+    "name": "",
+    "phone": "",
+    "email": "",
+    "address": "",
+    "city": "",
+    "confirm": true
+  },
+  "valueProposition": "Full local SEO site: hubs, children, company pages, conversion trio, FAQ + VS blocks.",
+  "chrome": {
+    "ink": "#1c2733",
+    "navy": "#12314e",
+    "navyDeep": "#0b2338",
+    "gold": "#f5a800",
+    "goldSoft": "#ffd35c",
+    "link": "#0b5394",
+    "tint": "#f4f7fa",
+    "fontBody": "Georgia, 'Times New Roman', serif",
+    "fontUi": "'Segoe UI', Arial, Helvetica, sans-serif"
+  },
+  "extractedColors": [],
+  "nav": [],
+  "headings": [],
+  "formFields": [],
+  "serviceHints": [],
+  "forms": [
+    {
+      "title": "Request an Estimate",
+      "slug": "request-an-estimate",
+      "role": "FORM-PRICING"
+    },
+    {
+      "title": "Emergency Electrical Request",
+      "slug": "emergency-electrical-service-request",
+      "role": "FORM-SERVICE-REQ"
+    }
+  ],
+  "gate1": {
+    "hubs": 3,
+    "childrenPerHub": 3,
+    "targetPages": 14
+  },
+  "hubs": [
+    {
+      "title": "Electrical Panel Services",
+      "slug": "electrical-panel-services",
+      "blurb": "Standard factory electrician pack.",
+      "children": [
+        "Electrical Panel Upgrade",
+        "Circuit Breaker Replacement",
+        "Whole-House Surge Protection"
+      ]
+    },
+    {
+      "title": "Electrical Wiring Services",
+      "slug": "electrical-wiring-services",
+      "blurb": "Standard factory electrician pack.",
+      "children": [
+        "Whole-House Rewiring",
+        "EV Charger Installation",
+        "Knob-and-Tube Replacement"
+      ]
+    },
+    {
+      "title": "Lighting Installation Services",
+      "slug": "lighting-installation-services",
+      "blurb": "Standard factory electrician pack.",
+      "children": [
+        "Recessed Lighting Installation",
+        "Ceiling Fan Installation",
+        "Landscape Lighting Installation"
+      ]
+    }
+  ],
+  "demoHubs": [
+    {
+      "title": "Electrical Panel Services",
+      "slug": "electrical-panel-services",
+      "children": [
+        "Electrical Panel Upgrade",
+        "Circuit Breaker Replacement",
+        "Whole-House Surge Protection"
+      ]
+    },
+    {
+      "title": "Electrical Wiring Services",
+      "slug": "electrical-wiring-services",
+      "children": [
+        "Whole-House Rewiring",
+        "EV Charger Installation",
+        "Knob-and-Tube Replacement"
+      ]
+    },
+    {
+      "title": "Lighting Installation Services",
+      "slug": "lighting-installation-services",
+      "children": [
+        "Recessed Lighting Installation",
+        "Ceiling Fan Installation",
+        "Landscape Lighting Installation"
+      ]
+    }
+  ],
+  "rules": [
+    "Treat extracted NAP, testimonials, and prices as [confirm] until an owner verifies them.",
+    "Do not copy competitor or source body copy verbatim \u2014 rebuild from FACTS + TEMPLATE packs.",
+    "Preserve information architecture (hubs, children, forms, company pages) from this instruction set.",
+    "Staging builds get a STAGING PREVIEW banner and noindex.",
+    "Factory TEMPLATE pass is AI-off; owner review replaces placeholder copy at rollout.",
+    "Skip the no-IT validator when allowIt is true.",
+    "Factory chrome is the SEOCow/NearMe shell remapped to this set's tokens \u2014 not a pixel clone of WordPress.",
+    "Use VERTICAL_PACKS when the brief names plumber, HVAC, handyman, or cleaning."
+  ]
+}

@@ -1,0 +1,303 @@
+{
+  "id": "PROD-EES-V1",
+  "name": "PROD-EES-V1",
+  "source": {
+    "url": "https://elizabeth-electrical-services.netlify.app/",
+    "fetched": "2026-09-06",
+    "kind": "factory-staging",
+    "title": "Elizabeth Electrical Services | Electrician in Elizabeth, NJ",
+    "description": "One-stop electrical in Elizabeth, NJ \u2014 residential, commercial, panels, EV, generators, emergency."
+  },
+  "vertical": "Electrician",
+  "allowIt": false,
+  "noun": "electrician",
+  "businessName": "Elizabeth Electrical Services",
+  "nap": {
+    "name": "Elizabeth Electrical Services",
+    "phone": "(862) 295-0011",
+    "email": "info@elizabethelectricalservices.com",
+    "address": "12 Sayre St",
+    "city": "Elizabeth, NJ 07208",
+    "confirm": true
+  },
+  "valueProposition": "Your one-stop shop for electrical needs in Elizabeth, NJ and the surrounding areas.",
+  "chrome": {
+    "ink": "#1c2733",
+    "navy": "#0f172a",
+    "navyDeep": "#020617",
+    "gold": "#f59e0b",
+    "goldSoft": "#fde68a",
+    "link": "#1d4ed8",
+    "tint": "#fffbeb",
+    "fontBody": "Georgia, 'Times New Roman', serif",
+    "fontUi": "'Segoe UI', Arial, Helvetica, sans-serif"
+  },
+  "extractedColors": [
+    "#0f172a",
+    "#f59e0b",
+    "#1d4ed8",
+    "#fffbeb"
+  ],
+  "nav": [
+    "Residential Electrical",
+    "Commercial Electrical",
+    "Panel & Service Upgrades",
+    "Lighting Installation",
+    "Outlets & Switches",
+    "Ceiling Fans & Fixtures",
+    "Electrical Repairs & Troubleshooting",
+    "EV Charger Installation",
+    "Generator Installation",
+    "Emergency Electrical Services"
+  ],
+  "headings": [
+    "Elizabeth Electrical Services",
+    "What can Elizabeth Electrical Services do for you?"
+  ],
+  "formFields": [
+    "name",
+    "email",
+    "phone",
+    "service",
+    "message"
+  ],
+  "serviceHints": [
+    "Residential Electrical",
+    "Commercial Electrical",
+    "Panel & Service Upgrades",
+    "Lighting Installation",
+    "Outlets & Switches",
+    "Ceiling Fans & Fixtures",
+    "Electrical Repairs & Troubleshooting",
+    "EV Charger Installation",
+    "Generator Installation",
+    "Emergency Electrical Services"
+  ],
+  "forms": [
+    {
+      "title": "Request a Quote",
+      "slug": "request-a-quote",
+      "role": "FORM-PRICING"
+    },
+    {
+      "title": "Request a Proposal",
+      "slug": "request-a-proposal",
+      "role": "FORM-SERVICE-REQ"
+    }
+  ],
+  "gate1": {
+    "hubs": 10,
+    "childrenPerHub": 10,
+    "targetPages": 117
+  },
+  "hubs": [
+    {
+      "title": "Residential Electrical",
+      "slug": "residential-electrical",
+      "blurb": "Home electrical from the EES factory home.",
+      "children": [
+        "Home Wiring Installation",
+        "Kitchen Electrical Upgrades",
+        "Bathroom Electrical Upgrades",
+        "New Circuit Installation",
+        "Rewiring an Older Home",
+        "Smoke / CO Detector Wiring",
+        "Whole-Home Surge Protection",
+        "Attic / Unfinished Space Wiring",
+        "Electrical for Additions",
+        "Permit-Ready Residential Scope"
+      ]
+    },
+    {
+      "title": "Commercial Electrical",
+      "slug": "commercial-electrical",
+      "blurb": "Light commercial from the EES factory home.",
+      "children": [
+        "Retail Storefront Electrical",
+        "Office Suite Electrical",
+        "Warehouse & Shop Power",
+        "Tenant Improvement Electrical",
+        "Emergency / Exit Lighting",
+        "Commercial Panel Work",
+        "Sign & Storefront Circuits",
+        "After-Hours Commercial Repair",
+        "Data / Low-Voltage Pathways",
+        "Commercial Maintenance Plans"
+      ]
+    },
+    {
+      "title": "Panel & Service Upgrades",
+      "slug": "electrical-panel-services",
+      "blurb": "Panel family from the EES factory home.",
+      "children": [
+        "Electrical Panel Replacement",
+        "100-Amp to 200-Amp Upgrade",
+        "Main Breaker Replacement",
+        "Subpanel Installation",
+        "Overloaded Panel Repair",
+        "Federal Pacific / Zinsco Replacement",
+        "Meter / Service Upgrade",
+        "Panel Labeling & Directory",
+        "Whole-House Surge at Panel",
+        "Permit & Inspection Coordination"
+      ]
+    },
+    {
+      "title": "Lighting Installation",
+      "slug": "lighting-installation",
+      "blurb": "Lighting family from the EES factory home.",
+      "children": [
+        "Recessed Lighting Installation",
+        "LED Lighting Conversion",
+        "Outdoor Landscape Lighting",
+        "Kitchen Lighting Layout",
+        "Bath Vanity Lighting",
+        "Dimmer & Scene Control",
+        "Security Lighting",
+        "Canless LED Upgrade",
+        "Fixture Replacement",
+        "Lighting Design Walkthrough"
+      ]
+    },
+    {
+      "title": "Outlets & Switches",
+      "slug": "outlets-and-switches",
+      "blurb": "Outlets family from the EES factory home.",
+      "children": [
+        "GFCI Outlet Installation",
+        "USB Outlet Installation",
+        "Dedicated Appliance Circuits",
+        "AFCI Protection",
+        "Outlet Relocation",
+        "Three-Way Switches",
+        "Exterior Weatherproof Outlets",
+        "Floor Outlets",
+        "Tamper-Resistant Receptacles",
+        "Dead Outlet Diagnosis"
+      ]
+    },
+    {
+      "title": "Ceiling Fans & Fixtures",
+      "slug": "ceiling-fans-and-fixtures",
+      "blurb": "Fans family from the EES factory home.",
+      "children": [
+        "Ceiling Fan Installation",
+        "Ceiling Fan Replacement",
+        "Fan-Rated Box Upgrade",
+        "Remote / Wall Control",
+        "Heavy Fan Brace",
+        "Dining Fixture Install",
+        "Chandelier Install",
+        "Flush-Mount Upgrade",
+        "Balanced Fan Service",
+        "Fixture Swap Same Box"
+      ]
+    },
+    {
+      "title": "Electrical Repairs & Troubleshooting",
+      "slug": "electrical-repairs",
+      "blurb": "Repairs family from the EES factory home.",
+      "children": [
+        "Breaker Trip Troubleshooting",
+        "Flickering Lights Repair",
+        "Dead Outlet Repair",
+        "Burning Smell Investigation",
+        "Hot Switch Repair",
+        "Lost Neutral Diagnosis",
+        "Aluminum Wiring Evaluation",
+        "GFI Nuisance Trip",
+        "Intermittent Outage Tracking",
+        "After-Hours Repair"
+      ]
+    },
+    {
+      "title": "EV Charger Installation",
+      "slug": "ev-charger-installation",
+      "blurb": "EV family from the EES factory home.",
+      "children": [
+        "Level 2 Home EV Charger",
+        "Garage EV Charger Install",
+        "Driveway EV Charger Install",
+        "Load Calculation for EV",
+        "Panel Upgrade for EV",
+        "NEMA 14-50 Outlet",
+        "Hardwired Wall Connector",
+        "Dual Charger Prep",
+        "HOA / Permit Path",
+        "Tesla / Universal Charger"
+      ]
+    },
+    {
+      "title": "Generator Installation",
+      "slug": "generator-installation",
+      "blurb": "Generator family from the EES factory home.",
+      "children": [
+        "Standby Generator Installation",
+        "Automatic Transfer Switch",
+        "Manual Transfer Switch",
+        "Generator Pad & Circuit",
+        "Load Management for Generator",
+        "Generator Maintenance Hookup",
+        "Critical-Circuit Subpanel",
+        "Permit for Generator",
+        "Interlock Kit",
+        "Whole-Home Generator"
+      ]
+    },
+    {
+      "title": "Emergency Electrical Services",
+      "slug": "emergency-electrical-services",
+      "blurb": "Emergency family from the EES factory home.",
+      "children": [
+        "No Power Emergency Call",
+        "Sparking Outlet Emergency",
+        "Burning Panel Emergency",
+        "Storm Damage Electrical",
+        "Water + Electrical Hazard",
+        "Downed Service Drop (coordinate utility)",
+        "After-Hours Emergency Dispatch",
+        "Unsafe Panel Cover-Up",
+        "Emergency Temporary Power",
+        "Same-Day Emergency Slot"
+      ]
+    }
+  ],
+  "demoHubs": [
+    {
+      "title": "Residential Electrical",
+      "slug": "residential-electrical",
+      "children": [
+        "Home Wiring Installation",
+        "Kitchen Electrical Upgrades",
+        "Bathroom Electrical Upgrades"
+      ]
+    },
+    {
+      "title": "Commercial Electrical",
+      "slug": "commercial-electrical",
+      "children": [
+        "Retail Storefront Electrical",
+        "Office Suite Electrical",
+        "Warehouse & Shop Power"
+      ]
+    },
+    {
+      "title": "Panel & Service Upgrades",
+      "slug": "electrical-panel-services",
+      "children": [
+        "Electrical Panel Replacement",
+        "100-Amp to 200-Amp Upgrade",
+        "Main Breaker Replacement"
+      ]
+    }
+  ],
+  "rules": [
+    "Treat extracted NAP, testimonials, and prices as [confirm] until an owner verifies them.",
+    "Do not copy competitor or source body copy verbatim \u2014 rebuild from FACTS + TEMPLATE packs.",
+    "Preserve information architecture (hubs, children, forms, company pages) from this instruction set.",
+    "Staging builds get a STAGING PREVIEW banner and noindex.",
+    "Factory TEMPLATE pass is AI-off; owner review replaces placeholder copy at rollout.",
+    "Skip the no-IT validator when allowIt is true.",
+    "Factory chrome is the SEOCow/NearMe shell remapped to this set's tokens \u2014 not a pixel clone of WordPress."
+  ]
+}

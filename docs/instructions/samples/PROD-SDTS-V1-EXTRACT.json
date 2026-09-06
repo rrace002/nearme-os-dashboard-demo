@@ -1,0 +1,257 @@
+{
+  "id": "PROD-SDTS-V1-EXTRACT",
+  "name": "PROD-SDTS-V1-EXTRACT",
+  "source": {
+    "url": "https://san-diegotechsupport.com",
+    "fetched": "2026-09-06",
+    "kind": "live-site",
+    "title": "Southern California IT Consulting and Cybersecurity (619) 478-0455 Contact Form",
+    "description": "San Diego Tech Support offers an unmatched combination of pricing and service quality for IT Consulting, Cloud and Cybersecurity Services."
+  },
+  "vertical": "IT / MSP",
+  "allowIt": true,
+  "noun": "IT support partner",
+  "businessName": "Southern California IT Consulting and Cybersecurity (619) 478",
+  "nap": {
+    "name": "Southern California IT Consulting and Cybersecurity (619) 478",
+    "phone": "(619) 478-0455",
+    "email": "support@san-diegotechsupport.com",
+    "address": "",
+    "city": "",
+    "confirm": true
+  },
+  "valueProposition": "San Diego Tech Support offers an unmatched combination of pricing and service quality for IT Consulting, Cloud and Cybersecurity Services.",
+  "chrome": {
+    "ink": "#1c2733",
+    "navy": "#e01a33",
+    "navyDeep": "#0b2338",
+    "gold": "#cc0b20",
+    "goldSoft": "#ffd35c",
+    "link": "#4285f4",
+    "tint": "#f4f7fa",
+    "fontBody": "Georgia, 'Times New Roman', serif",
+    "fontUi": "'Segoe UI', Arial, Helvetica, sans-serif"
+  },
+  "extractedColors": [
+    "#e01a33",
+    "#cc0b20",
+    "#4285f4",
+    "#ff3851",
+    "#32373c",
+    "#3b45fd",
+    "#030b1a",
+    "#1a1a1a"
+  ],
+  "nav": [
+    "Facebook-f",
+    "Twitter",
+    "Youtube",
+    "Linkedin",
+    "Telegram",
+    "Whatsapp",
+    "About Our Company",
+    "A Trustworthy Computer Support Company for Businesses",
+    "Contact Us for Tech Support Inquiries",
+    "Meet Your Tech Dream Team",
+    "The Best Cloud Services Provider (CSP) Company",
+    "The Best IT Consulting Firm",
+    "The Best Managed IT Service Provider (MSP) company",
+    "Why Choose Our IT Company over the competition?",
+    "Industries We Serve",
+    "Cyber Security For Banks"
+  ],
+  "headings": [
+    "SAN DIEGO IT SUPPORT",
+    "A ReliableIT Supportpartner you can Trust",
+    "Thank You for Your Inquiry!",
+    "Crucial tips to protect customers\u2019 PHI",
+    "Get your eCommerce business ready for the holiday rush",
+    "A quick guide to web hosting",
+    "Tips to help you master Microsoft Word and boost your productivity",
+    "Add An Extra Layer Of Cyber Security Protection By Utilizing Cyber Insurance",
+    "Give Your Business The Protection It Needs With Cyber Insurance"
+  ],
+  "formFields": [
+    "s",
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "service",
+    "message"
+  ],
+  "serviceHints": [
+    "Manage Services",
+    "Business Continuity",
+    "Cyber Security",
+    "Cloud Services",
+    "vCIO Services",
+    "Network Support and Installations",
+    "Security Camera Services",
+    "Microsoft Office 365",
+    "Server Virtualization Services",
+    "Apple/Mac Support",
+    "HIPPA Technology Consulting",
+    "Cloud Consulting",
+    "Web Design",
+    "Marketing",
+    "Business Application",
+    "SAN DIEGO IT SUPPORT"
+  ],
+  "forms": [
+    {
+      "title": "Request a Quote",
+      "slug": "request-a-quote",
+      "role": "FORM-PRICING"
+    },
+    {
+      "title": "Request a Consultation",
+      "slug": "request-a-consultation",
+      "role": "FORM-SERVICE-REQ"
+    }
+  ],
+  "gate1": {
+    "hubs": 10,
+    "childrenPerHub": 10,
+    "targetPages": 117
+  },
+  "hubs": [
+    {
+      "title": "Manage Services",
+      "slug": "manage-services",
+      "blurb": "Service family taken from the design source nav/headings (Manage Services).",
+      "children": [
+        "HIPPA Technology Consulting",
+        "Manage Services \u2014 option 2",
+        "Manage Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Business Continuity",
+      "slug": "business-continuity",
+      "blurb": "Service family taken from the design source nav/headings (Business Continuity).",
+      "children": [
+        "Cloud Consulting",
+        "Business Application",
+        "Business Continuity \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Cyber Security",
+      "slug": "cyber-security",
+      "blurb": "Service family taken from the design source nav/headings (Cyber Security).",
+      "children": [
+        "Web Design",
+        "Cyber Security \u2014 option 2",
+        "Cyber Security \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Cloud Services",
+      "slug": "cloud-services",
+      "blurb": "Service family taken from the design source nav/headings (Cloud Services).",
+      "children": [
+        "Marketing",
+        "Cloud Services \u2014 option 2",
+        "Cloud Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "vCIO Services",
+      "slug": "vcio-services",
+      "blurb": "Service family taken from the design source nav/headings (vCIO Services).",
+      "children": [
+        "SAN DIEGO IT SUPPORT",
+        "vCIO Services \u2014 option 2",
+        "vCIO Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Network Support and Installations",
+      "slug": "network-support-and-installations",
+      "blurb": "Service family taken from the design source nav/headings (Network Support and Installations).",
+      "children": [
+        "Network Support and Installations \u2014 option 1",
+        "Network Support and Installations \u2014 option 2",
+        "Network Support and Installations \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Security Camera Services",
+      "slug": "security-camera-services",
+      "blurb": "Service family taken from the design source nav/headings (Security Camera Services).",
+      "children": [
+        "Security Camera Services \u2014 option 1",
+        "Security Camera Services \u2014 option 2",
+        "Security Camera Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Microsoft Office 365",
+      "slug": "microsoft-office-365",
+      "blurb": "Service family taken from the design source nav/headings (Microsoft Office 365).",
+      "children": [
+        "Microsoft Office 365 \u2014 option 1",
+        "Microsoft Office 365 \u2014 option 2",
+        "Microsoft Office 365 \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Server Virtualization Services",
+      "slug": "server-virtualization-services",
+      "blurb": "Service family taken from the design source nav/headings (Server Virtualization Services).",
+      "children": [
+        "Server Virtualization Services \u2014 option 1",
+        "Server Virtualization Services \u2014 option 2",
+        "Server Virtualization Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Apple/Mac Support",
+      "slug": "apple-mac-support",
+      "blurb": "Service family taken from the design source nav/headings (Apple/Mac Support).",
+      "children": [
+        "Apple/Mac Support \u2014 option 1",
+        "Apple/Mac Support \u2014 option 2",
+        "Apple/Mac Support \u2014 option 3"
+      ]
+    }
+  ],
+  "demoHubs": [
+    {
+      "title": "Manage Services",
+      "slug": "manage-services",
+      "children": [
+        "HIPPA Technology Consulting",
+        "Manage Services \u2014 option 2",
+        "Manage Services \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Business Continuity",
+      "slug": "business-continuity",
+      "children": [
+        "Cloud Consulting",
+        "Business Application",
+        "Business Continuity \u2014 option 3"
+      ]
+    },
+    {
+      "title": "Cyber Security",
+      "slug": "cyber-security",
+      "children": [
+        "Web Design",
+        "Cyber Security \u2014 option 2",
+        "Cyber Security \u2014 option 3"
+      ]
+    }
+  ],
+  "rules": [
+    "Treat extracted NAP, testimonials, and prices as [confirm] until an owner verifies them.",
+    "Do not copy competitor body copy verbatim \u2014 rebuild from FACTS + TEMPLATE packs.",
+    "Preserve information architecture (hubs, children, forms, company pages) from this instruction set.",
+    "Staging builds get a STAGING PREVIEW banner and noindex.",
+    "Factory TEMPLATE pass is AI-off; owner review replaces placeholder copy at rollout.",
+    "Skip the no-IT validator when allowIt is true."
+  ]
+}
