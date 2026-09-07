@@ -1,10 +1,10 @@
-# Generated runbook companions
+# Runbook companions
 
-These files are generated from the official n8n sitemap and the local `pages/` copies. The operational document is **[../RUNBOOK.md](../RUNBOOK.md)**.
+These files used to be separate. Everything is now in **[../RUNBOOK.md](../RUNBOOK.md)**.
 
-| File | Contents |
+| Former file | Section in the one document |
 | --- | --- |
-| [PAGE-INDEX.md](PAGE-INDEX.md) | All 1,343 sitemap pages with local + official links |
-| [NODES.md](NODES.md) | Nodes, credentials, community nodes |
-| [CHEATSHEET.md](CHEATSHEET.md) | Commands from install, Server CLI, n8n CLI, API, MCP |
-| [ENV-VARS.md](ENV-VARS.md) | Environment variables named in the self-hosted config docs |
+| PAGE-INDEX.md | [Documentation page index](../RUNBOOK.md#documentation-page-index) |
+| NODES.md | [Nodes and integrations catalog](../RUNBOOK.md#nodes-and-integrations-catalog) |
+| CHEATSHEET.md | [Command cheat sheet](../RUNBOOK.md#command-cheat-sheet) |
+| ENV-VARS.md | [Self-hosted environment variables](../RUNBOOK.md#self-hosted-environment-variables) |

@@ -16,4 +16,4 @@ Sister demos already on Netlify:
 
 Demo only.
 
-n8n operations runbook and full docs snapshot (1,343 pages): [docs/n8n/RUNBOOK.md](docs/n8n/RUNBOOK.md).
+n8n operations (one document): [docs/n8n/RUNBOOK.md](docs/n8n/RUNBOOK.md).
