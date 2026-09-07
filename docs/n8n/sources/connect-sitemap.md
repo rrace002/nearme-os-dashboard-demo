@@ -1,0 +1,76 @@
+## Connect
+
+- [Connect](https://docs.n8n.io/connect/readme.md): Use the API, CLI, and MCP server to connect to n8n programmatically.
+- [n8n API](https://docs.n8n.io/connect/n8n-api.md): Use n8n's public REST API to perform tasks programmatically instead of through the GUI.
+- [Authentication](https://docs.n8n.io/connect/n8n-api/authentication.md): Authentication for n8n's public REST API.
+- [Pagination](https://docs.n8n.io/connect/n8n-api/pagination.md): Pagination in n8n's public REST API.
+- [Use an API playground](https://docs.n8n.io/connect/n8n-api/use-an-api-playground.md): How to use an API playground to try out n8n's public REST API.
+- [Endpoint reference](https://docs.n8n.io/connect/n8n-api/api-reference.md): Endpoint reference for n8n's public REST API, generated from the OpenAPI specification.
+- [Audit](https://docs.n8n.io/connect/n8n-api/audit.md)
+- [Community Package](https://docs.n8n.io/connect/n8n-api/community-package.md)
+- [Credential](https://docs.n8n.io/connect/n8n-api/credential.md)
+- [Data Table](https://docs.n8n.io/connect/n8n-api/data-table.md)
+- [Discover](https://docs.n8n.io/connect/n8n-api/discover.md)
+- [Evaluation](https://docs.n8n.io/connect/n8n-api/evaluation.md)
+- [Execution](https://docs.n8n.io/connect/n8n-api/execution.md)
+- [Folders](https://docs.n8n.io/connect/n8n-api/folders.md)
+- [Git Connections](https://docs.n8n.io/connect/n8n-api/git-connections.md)
+- [Insights](https://docs.n8n.io/connect/n8n-api/insights.md)
+- [Log Streaming](https://docs.n8n.io/connect/n8n-api/log-streaming.md)
+- [N8n Package](https://docs.n8n.io/connect/n8n-api/n8n-package.md)
+- [Projects](https://docs.n8n.io/connect/n8n-api/projects.md)
+- [Role](https://docs.n8n.io/connect/n8n-api/role.md)
+- [Role Mapping Rule](https://docs.n8n.io/connect/n8n-api/role-mapping-rule.md)
+- [Security Policy](https://docs.n8n.io/connect/n8n-api/security-policy.md)
+- [Settings Ldap](https://docs.n8n.io/connect/n8n-api/settings-ldap.md)
+- [Settings Otel](https://docs.n8n.io/connect/n8n-api/settings-otel.md)
+- [Settings Sso Oidc](https://docs.n8n.io/connect/n8n-api/settings-sso-oidc.md)
+- [Settings Sso Saml](https://docs.n8n.io/connect/n8n-api/settings-sso-saml.md)
+- [Source Control](https://docs.n8n.io/connect/n8n-api/source-control.md)
+- [Tags](https://docs.n8n.io/connect/n8n-api/tags.md)
+- [User](https://docs.n8n.io/connect/n8n-api/user.md)
+- [Variables](https://docs.n8n.io/connect/n8n-api/variables.md)
+- [Workflow](https://docs.n8n.io/connect/n8n-api/workflow.md)
+- [Models](https://docs.n8n.io/connect/n8n-api/models.md)
+- [n8n CLI](https://docs.n8n.io/connect/n8n-cli.md): n8n CLI is a lightweight client for interacting with n8n programmatically through the Public API.
+- [Connect to n8n MCP server](https://docs.n8n.io/connect/connect-to-n8n-mcp-server.md): Connect, authenticate, and integrate MCP clients to build and execute n8n workflows programmatically
+- [MCP client connection examples](https://docs.n8n.io/connect/connect-to-n8n-mcp-server/mcp-client-examples.md): Copy-paste connection commands and configuration for Lovable, Claude Desktop, Claude Code, Codex, Gemini CLI, Cursor, VS Code, Windsurf, and Google ADK agents.
+- [MCP server tools reference](https://docs.n8n.io/connect/connect-to-n8n-mcp-server/mcp-server-tools-reference.md): Complete reference for all tools exposed by the n8n MCP server, including workflow management, workflow builder, agent management, and data table tools.
+- [Connect to the n8n docs MCP server](https://docs.n8n.io/connect/connect-to-n8n-docs-mcp-server.md): Connect an AI tool to an n8n docs Model Context Protocol (MCP) server to search and answer questions from the documentation and wider knowledge base.
+- [Create nodes](https://docs.n8n.io/connect/create-nodes.md): Plan, build, test, and deploy a custom n8n node.
+- [Overview](https://docs.n8n.io/connect/create-nodes/overview.md)
+- [Plan your node](https://docs.n8n.io/connect/create-nodes/plan-your-node.md)
+- [Choose a node type](https://docs.n8n.io/connect/create-nodes/plan-your-node/choose-a-node-type.md)
+- [Choose a node building style](https://docs.n8n.io/connect/create-nodes/plan-your-node/choose-a-node-building-style.md)
+- [Node UI design](https://docs.n8n.io/connect/create-nodes/plan-your-node/node-ui-design.md)
+- [Choose node file structure](https://docs.n8n.io/connect/create-nodes/plan-your-node/choose-node-file-structure.md)
+- [Build your node](https://docs.n8n.io/connect/create-nodes/build-your-node.md)
+- [Set up your development environment](https://docs.n8n.io/connect/create-nodes/build-your-node/set-up-your-development-environment.md)
+- [Using the n8n-node tool](https://docs.n8n.io/connect/create-nodes/build-your-node/using-the-n8n-node-tool.md)
+- [Tutorial: Build a declarative-style node](https://docs.n8n.io/connect/create-nodes/build-your-node/tutorial-build-a-declarative-style-node.md)
+- [Tutorial: Build a programmatic-style node](https://docs.n8n.io/connect/create-nodes/build-your-node/tutorial-build-a-programmatic-style-node.md)
+- [Reference](https://docs.n8n.io/connect/create-nodes/build-your-node/reference.md)
+- [Node UI elements](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/node-ui-elements.md)
+- [Code standards](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/code-standards.md)
+- [Error handling](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/error-handling.md)
+- [Versioning](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/versioning.md)
+- [Base files](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files.md)
+- [Structure](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files/structure.md): A reference document detailing the basic structure of the node base file.
+- [Standard parameters](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files/standard-parameters.md): A reference document listing the standard parameters of the node base file.
+- [Declarative-style parameters](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files/declarative-style-parameters.md): A reference document listing the declarative-style parameters of the node base file.
+- [Programmatic-style parameters](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files/programmatic-style-parameters.md): A reference document listing the programmatic-style parameters of the node base file.
+- [Programmatic-style execute method](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/base-files/programmatic-style-execute-method.md): A reference document for the programmatic-style execute() method of the node base file.
+- [Codex files](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/codex-files.md)
+- [Credentials files](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/credentials-files.md)
+- [HTTP request helpers](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/http-request-helpers.md)
+- [Item linking](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/item-linking.md)
+- [UX guidelines](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/ux-guidelines.md)
+- [Verification guidelines](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/verification-guidelines.md)
+- [Test your node](https://docs.n8n.io/connect/create-nodes/test-your-node.md)
+- [Run your node locally](https://docs.n8n.io/connect/create-nodes/test-your-node/run-your-node-locally.md)
+- [Node linter](https://docs.n8n.io/connect/create-nodes/test-your-node/node-linter.md)
+- [Troubleshooting](https://docs.n8n.io/connect/create-nodes/test-your-node/troubleshooting.md)
+- [Deploy your node](https://docs.n8n.io/connect/create-nodes/deploy-your-node.md)
+- [Submit community nodes](https://docs.n8n.io/connect/create-nodes/deploy-your-node/submit-community-nodes.md)
+- [Install private nodes](https://docs.n8n.io/connect/create-nodes/deploy-your-node/install-private-nodes.md)
+

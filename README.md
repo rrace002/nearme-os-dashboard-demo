@@ -14,5 +14,6 @@ Sister demos already on Netlify:
 - https://elizabeth-electrical-services.netlify.app/
 - https://cryptoconsulting.netlify.app/
 
-Demo only — 
-oindex.
+Demo only.
+
+n8n operations (one document): [docs/n8n/RUNBOOK.md](docs/n8n/RUNBOOK.md).
