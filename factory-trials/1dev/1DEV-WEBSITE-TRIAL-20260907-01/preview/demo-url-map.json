@@ -1,0 +1,1217 @@
+{
+  "warning": "This file is a preview-only route map. It is not the approved site URL manifest.",
+  "approved_url_path_field": null,
+  "preview_index": "index.html (NOT HOME; HOME is not in Site Pages)",
+  "routes": [
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-hub",
+      "record_id": "rec7fyDPxevfUjMak",
+      "slot_id": "svc-cat01-hub",
+      "approved_url_slug_leaf": "custom-software-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-01",
+      "record_id": "reccOWSGW38ZxJ9Ya",
+      "slot_id": "svc-cat01-01",
+      "approved_url_slug_leaf": "custom-business-applications",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-02",
+      "record_id": "recnk4cpqPZctsAlF",
+      "slot_id": "svc-cat01-02",
+      "approved_url_slug_leaf": "desktop-application-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-03",
+      "record_id": "recO172dJYj04EuSq",
+      "slot_id": "svc-cat01-03",
+      "approved_url_slug_leaf": "internal-tools-and-admin-panels",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-04",
+      "record_id": "recscAiNmx5G8cbBn",
+      "slot_id": "svc-cat01-04",
+      "approved_url_slug_leaf": "saas-product-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-05",
+      "record_id": "rec5TB8EOPH1KYq21",
+      "slot_id": "svc-cat01-05",
+      "approved_url_slug_leaf": "legacy-system-replacement",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-06",
+      "record_id": "recjx4Xrl9wOyT3DZ",
+      "slot_id": "svc-cat01-06",
+      "approved_url_slug_leaf": "domain-specific-software-builds",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-07",
+      "record_id": "recCu03CqIxtM1V7M",
+      "slot_id": "svc-cat01-07",
+      "approved_url_slug_leaf": "multi-tenant-application-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-08",
+      "record_id": "recDYApXaus7XlWTI",
+      "slot_id": "svc-cat01-08",
+      "approved_url_slug_leaf": "workflow-centric-custom-software",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-09",
+      "record_id": "recu4me18K2YQCnO2",
+      "slot_id": "svc-cat01-09",
+      "approved_url_slug_leaf": "data-heavy-application-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat01-10",
+      "record_id": "rec3jbYU9rlFoiICC",
+      "slot_id": "svc-cat01-10",
+      "approved_url_slug_leaf": "custom-software-architecture",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat01-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-hub",
+      "record_id": "recHbY60L0UHzc1xH",
+      "slot_id": "svc-cat02-hub",
+      "approved_url_slug_leaf": "web-application-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-01",
+      "record_id": "recRmY4UUn7VJ1oWj",
+      "slot_id": "svc-cat02-01",
+      "approved_url_slug_leaf": "full-stack-web-applications",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-02",
+      "record_id": "recPKuPDjIDQPruHW",
+      "slot_id": "svc-cat02-02",
+      "approved_url_slug_leaf": "customer-portals-and-dashboards",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-03",
+      "record_id": "recMKNLvKDScCTggb",
+      "slot_id": "svc-cat02-03",
+      "approved_url_slug_leaf": "progressive-web-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-04",
+      "record_id": "recVVn8bOQaLNArhW",
+      "slot_id": "svc-cat02-04",
+      "approved_url_slug_leaf": "admin-consoles-and-back-offices",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-05",
+      "record_id": "recOSSacoI56BPTIJ",
+      "slot_id": "svc-cat02-05",
+      "approved_url_slug_leaf": "authentication-and-user-accounts",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-06",
+      "record_id": "recPQUMKTCjcWbv8g",
+      "slot_id": "svc-cat02-06",
+      "approved_url_slug_leaf": "real-time-web-applications",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-07",
+      "record_id": "reced23dg12cdGcsy",
+      "slot_id": "svc-cat02-07",
+      "approved_url_slug_leaf": "ecommerce-web-applications",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-08",
+      "record_id": "recFIgrPUc7NbBe3l",
+      "slot_id": "svc-cat02-08",
+      "approved_url_slug_leaf": "content-driven-web-platforms",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-09",
+      "record_id": "rec6DLgJ96YFhdAPz",
+      "slot_id": "svc-cat02-09",
+      "approved_url_slug_leaf": "single-page-application-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat02-10",
+      "record_id": "reciBlNheM1YfNj9Y",
+      "slot_id": "svc-cat02-10",
+      "approved_url_slug_leaf": "server-side-rendered-web-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat02-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-hub",
+      "record_id": "recD7QfLY0DxuSYI4",
+      "slot_id": "svc-cat03-hub",
+      "approved_url_slug_leaf": "mobile-app-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-01",
+      "record_id": "rec42I9TLdPbPeOrf",
+      "slot_id": "svc-cat03-01",
+      "approved_url_slug_leaf": "ios-app-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-02",
+      "record_id": "recB7Kh91HR7P7AXE",
+      "slot_id": "svc-cat03-02",
+      "approved_url_slug_leaf": "android-app-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-03",
+      "record_id": "recv21ONz0Nig2Uwt",
+      "slot_id": "svc-cat03-03",
+      "approved_url_slug_leaf": "cross-platform-mobile-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-04",
+      "record_id": "reccbNRlgACFFnbMO",
+      "slot_id": "svc-cat03-04",
+      "approved_url_slug_leaf": "mobile-backend-apis",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-05",
+      "record_id": "recyB8qAaLKzJE26i",
+      "slot_id": "svc-cat03-05",
+      "approved_url_slug_leaf": "push-notifications-and-messaging",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-06",
+      "record_id": "recuhvTedB94yyRVs",
+      "slot_id": "svc-cat03-06",
+      "approved_url_slug_leaf": "offline-capable-mobile-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-07",
+      "record_id": "recqfyXysvwHWwlhs",
+      "slot_id": "svc-cat03-07",
+      "approved_url_slug_leaf": "mobile-app-ui-implementation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-08",
+      "record_id": "recOHMhSTMQERrlKT",
+      "slot_id": "svc-cat03-08",
+      "approved_url_slug_leaf": "app-store-submission-support",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-09",
+      "record_id": "recHTGQJCfZWTYKgU",
+      "slot_id": "svc-cat03-09",
+      "approved_url_slug_leaf": "mobile-app-rebuilds",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat03-10",
+      "record_id": "recqGJUoLmbY9ZOyJ",
+      "slot_id": "svc-cat03-10",
+      "approved_url_slug_leaf": "companion-mobile-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat03-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-hub",
+      "record_id": "recNed4GLyGrDSYv8",
+      "slot_id": "svc-cat04-hub",
+      "approved_url_slug_leaf": "ai-feature-integration",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-01",
+      "record_id": "rec2BYnxK0qJ8fvzk",
+      "slot_id": "svc-cat04-01",
+      "approved_url_slug_leaf": "llm-features-in-existing-apps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-02",
+      "record_id": "recvdrdVffeiZTXIm",
+      "slot_id": "svc-cat04-02",
+      "approved_url_slug_leaf": "chat-and-assistant-interfaces",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-03",
+      "record_id": "recM9Wb97K85tOnCb",
+      "slot_id": "svc-cat04-03",
+      "approved_url_slug_leaf": "document-qa-features",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-04",
+      "record_id": "rec5fEFAdh8EcfEvT",
+      "slot_id": "svc-cat04-04",
+      "approved_url_slug_leaf": "ai-search-and-retrieval",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-05",
+      "record_id": "recpX9KDaoYho15dp",
+      "slot_id": "svc-cat04-05",
+      "approved_url_slug_leaf": "prompt-to-action-workflows",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-06",
+      "record_id": "recxAm4tZ4ZlQis0q",
+      "slot_id": "svc-cat04-06",
+      "approved_url_slug_leaf": "ai-content-generation-features",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-07",
+      "record_id": "recXr7YhkBWRQ6qpV",
+      "slot_id": "svc-cat04-07",
+      "approved_url_slug_leaf": "recommendation-features",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-08",
+      "record_id": "rectyh2dlMnS0Yo1C",
+      "slot_id": "svc-cat04-08",
+      "approved_url_slug_leaf": "speech-and-transcription-features",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-09",
+      "record_id": "rec9L2pWkdqbmUUr7",
+      "slot_id": "svc-cat04-09",
+      "approved_url_slug_leaf": "ai-feature-guardrails-and-evals",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat04-10",
+      "record_id": "reck9lRhoTIHw4eb2",
+      "slot_id": "svc-cat04-10",
+      "approved_url_slug_leaf": "human-in-the-loop-ai-features",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat04-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-hub",
+      "record_id": "recpOPCJ8xABC9QYd",
+      "slot_id": "svc-cat05-hub",
+      "approved_url_slug_leaf": "automation-and-workflows",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-01",
+      "record_id": "rec9Oicua4djaKNiC",
+      "slot_id": "svc-cat05-01",
+      "approved_url_slug_leaf": "business-process-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-02",
+      "record_id": "recy4UhrE19bZrAyk",
+      "slot_id": "svc-cat05-02",
+      "approved_url_slug_leaf": "scheduled-job-and-batch-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-03",
+      "record_id": "rectsO5KuitFvU01C",
+      "slot_id": "svc-cat05-03",
+      "approved_url_slug_leaf": "data-sync-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-04",
+      "record_id": "recOkC5dtm14mYyoK",
+      "slot_id": "svc-cat05-04",
+      "approved_url_slug_leaf": "notification-and-alert-workflows",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-05",
+      "record_id": "recT8KZ4BskDsCpO1",
+      "slot_id": "svc-cat05-05",
+      "approved_url_slug_leaf": "approval-workflow-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-06",
+      "record_id": "recT5amAwBNFAoY1t",
+      "slot_id": "svc-cat05-06",
+      "approved_url_slug_leaf": "spreadsheet-and-form-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-07",
+      "record_id": "recZnaKC9gdoIEYoa",
+      "slot_id": "svc-cat05-07",
+      "approved_url_slug_leaf": "ops-runbook-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-08",
+      "record_id": "recENdmLqFuTcggR8",
+      "slot_id": "svc-cat05-08",
+      "approved_url_slug_leaf": "lead-and-crm-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-09",
+      "record_id": "recf0IhqCIg0Kw9cg",
+      "slot_id": "svc-cat05-09",
+      "approved_url_slug_leaf": "invoice-and-billing-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat05-10",
+      "record_id": "recoN4Us6SdIbBwtf",
+      "slot_id": "svc-cat05-10",
+      "approved_url_slug_leaf": "custom-webhook-automation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat05-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-hub",
+      "record_id": "rec92qazO1idHnnjm",
+      "slot_id": "svc-cat06-hub",
+      "approved_url_slug_leaf": "api-and-systems-integration",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-01",
+      "record_id": "recaUPLDlObCP3hBr",
+      "slot_id": "svc-cat06-01",
+      "approved_url_slug_leaf": "rest-api-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-02",
+      "record_id": "rechP5oktwp6wELOn",
+      "slot_id": "svc-cat06-02",
+      "approved_url_slug_leaf": "third-party-api-integrations",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-03",
+      "record_id": "recr8qtKSeynqnGBU",
+      "slot_id": "svc-cat06-03",
+      "approved_url_slug_leaf": "payment-processor-integrations",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-04",
+      "record_id": "rect19wA39Zt87aI4",
+      "slot_id": "svc-cat06-04",
+      "approved_url_slug_leaf": "crm-and-erp-integrations",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-05",
+      "record_id": "rect1XQnjVhR42Lbg",
+      "slot_id": "svc-cat06-05",
+      "approved_url_slug_leaf": "webhook-and-event-pipelines",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-06",
+      "record_id": "receMqsXhx7F7CRGE",
+      "slot_id": "svc-cat06-06",
+      "approved_url_slug_leaf": "sso-and-identity-integrations",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-07",
+      "record_id": "rec8MlKk5edcLaHZM",
+      "slot_id": "svc-cat06-07",
+      "approved_url_slug_leaf": "data-warehouse-connectors",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-08",
+      "record_id": "recapbQylH5MMpyIG",
+      "slot_id": "svc-cat06-08",
+      "approved_url_slug_leaf": "file-and-storage-integrations",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-09",
+      "record_id": "recvoveR5SXtpLOOn",
+      "slot_id": "svc-cat06-09",
+      "approved_url_slug_leaf": "legacy-system-adapters",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat06-10",
+      "record_id": "recQ0fx6eDGZDreEl",
+      "slot_id": "svc-cat06-10",
+      "approved_url_slug_leaf": "api-documentation-and-sdks",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat06-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-hub",
+      "record_id": "rect58szVj6xSLRQ4",
+      "slot_id": "svc-cat07-hub",
+      "approved_url_slug_leaf": "code-review-and-rescue",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-01",
+      "record_id": "recO7oMdm1OXOITF1",
+      "slot_id": "svc-cat07-01",
+      "approved_url_slug_leaf": "independent-code-review",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-02",
+      "record_id": "recPmVu31dBUU36zF",
+      "slot_id": "svc-cat07-02",
+      "approved_url_slug_leaf": "security-minded-code-review",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-03",
+      "record_id": "rechvkRxynwJCqbVp",
+      "slot_id": "svc-cat07-03",
+      "approved_url_slug_leaf": "performance-bottleneck-review",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-04",
+      "record_id": "reczXOnPNYYHsDaCp",
+      "slot_id": "svc-cat07-04",
+      "approved_url_slug_leaf": "abandoned-project-rescue",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-05",
+      "record_id": "rec2e34jVY5X9xJY9",
+      "slot_id": "svc-cat07-05",
+      "approved_url_slug_leaf": "technical-debt-assessment",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-06",
+      "record_id": "recGKf0BHHhX7uQBq",
+      "slot_id": "svc-cat07-06",
+      "approved_url_slug_leaf": "hotfix-and-production-firefighting",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-07",
+      "record_id": "recqiCBujlmJ5XseN",
+      "slot_id": "svc-cat07-07",
+      "approved_url_slug_leaf": "architecture-recovery-reviews",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-08",
+      "record_id": "recIbyXpVGzN9f6uj",
+      "slot_id": "svc-cat07-08",
+      "approved_url_slug_leaf": "dependency-and-upgrade-rescue",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-09",
+      "record_id": "recD7vr4lXnf9FIUE",
+      "slot_id": "svc-cat07-09",
+      "approved_url_slug_leaf": "test-coverage-rescue",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat07-10",
+      "record_id": "recZqQutYGrbuuVWn",
+      "slot_id": "svc-cat07-10",
+      "approved_url_slug_leaf": "handoff-documentation-rescue",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat07-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-hub",
+      "record_id": "recoZE5M8AL9YCJuP",
+      "slot_id": "svc-cat08-hub",
+      "approved_url_slug_leaf": "mvp-and-startup-builds",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-01",
+      "record_id": "recyXZpH2Q4IXYp1s",
+      "slot_id": "svc-cat08-01",
+      "approved_url_slug_leaf": "startup-mvp-development",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-02",
+      "record_id": "recJ9E1EFBAc2sAwr",
+      "slot_id": "svc-cat08-02",
+      "approved_url_slug_leaf": "prototype-to-production",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-03",
+      "record_id": "recr5pEELPlV4rbdl",
+      "slot_id": "svc-cat08-03",
+      "approved_url_slug_leaf": "founder-led-product-scoping",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-04",
+      "record_id": "reckE2bFOdk5J35RM",
+      "slot_id": "svc-cat08-04",
+      "approved_url_slug_leaf": "first-customer-feature-builds",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-05",
+      "record_id": "recVlfCLi4czgQSNd",
+      "slot_id": "svc-cat08-05",
+      "approved_url_slug_leaf": "landing-page-plus-app-mvp",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-06",
+      "record_id": "recEBgsKqZbQSOVF5",
+      "slot_id": "svc-cat08-06",
+      "approved_url_slug_leaf": "stripe-ready-mvp-billing",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-07",
+      "record_id": "recpmherbuYVbNJyq",
+      "slot_id": "svc-cat08-07",
+      "approved_url_slug_leaf": "auth-and-onboarding-for-mvps",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-08",
+      "record_id": "rec3X4Zrsf51KIFaM",
+      "slot_id": "svc-cat08-08",
+      "approved_url_slug_leaf": "analytics-ready-mvp-instrumentation",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-09",
+      "record_id": "recu3E0Wv3cp8ibZY",
+      "slot_id": "svc-cat08-09",
+      "approved_url_slug_leaf": "pivot-friendly-mvp-architecture",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat08-10",
+      "record_id": "recq0jj04K2Nk28DI",
+      "slot_id": "svc-cat08-10",
+      "approved_url_slug_leaf": "post-mvp-hardening",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat08-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-hub",
+      "record_id": "rec1fTPoRymrv8j7M",
+      "slot_id": "svc-cat09-hub",
+      "approved_url_slug_leaf": "maintenance-and-support",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-01",
+      "record_id": "recNEiWogOlGGNP3u",
+      "slot_id": "svc-cat09-01",
+      "approved_url_slug_leaf": "ongoing-application-maintenance",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-02",
+      "record_id": "reccjYXtkdnwndJ4m",
+      "slot_id": "svc-cat09-02",
+      "approved_url_slug_leaf": "bug-fix-retainers",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-03",
+      "record_id": "rechdSFCTdqykoETF",
+      "slot_id": "svc-cat09-03",
+      "approved_url_slug_leaf": "dependency-and-security-updates",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-04",
+      "record_id": "recdZQB5bnCNZXDyp",
+      "slot_id": "svc-cat09-04",
+      "approved_url_slug_leaf": "hosting-and-deploy-support",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-05",
+      "record_id": "recsRJpgW8EcpRBHo",
+      "slot_id": "svc-cat09-05",
+      "approved_url_slug_leaf": "performance-monitoring-support",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-06",
+      "record_id": "recp0C2pSFLJGdTUH",
+      "slot_id": "svc-cat09-06",
+      "approved_url_slug_leaf": "feature-increment-retainers",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-07",
+      "record_id": "recALxL1SlKq0TMVW",
+      "slot_id": "svc-cat09-07",
+      "approved_url_slug_leaf": "incident-support-windows",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-08",
+      "record_id": "rec4zeq9FlXZAWGW9",
+      "slot_id": "svc-cat09-08",
+      "approved_url_slug_leaf": "database-maintenance-support",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-09",
+      "record_id": "reczicFsNsbwpsxiJ",
+      "slot_id": "svc-cat09-09",
+      "approved_url_slug_leaf": "documentation-upkeep",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat09-10",
+      "record_id": "rec3sQhWHhPtqcHhR",
+      "slot_id": "svc-cat09-10",
+      "approved_url_slug_leaf": "vendor-handoff-maintenance",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat09-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-hub",
+      "record_id": "recxeboMljVjQJ64V",
+      "slot_id": "svc-cat10-hub",
+      "approved_url_slug_leaf": "ai-pair-programming-and-training",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-01",
+      "record_id": "recOghkSR7dcq13BN",
+      "slot_id": "svc-cat10-01",
+      "approved_url_slug_leaf": "ai-pair-programming-sessions",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-02",
+      "record_id": "recpjCsezMIsomwvn",
+      "slot_id": "svc-cat10-02",
+      "approved_url_slug_leaf": "cursor-and-copilot-workflow-training",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-03",
+      "record_id": "recGPSTDMt1w7BDVG",
+      "slot_id": "svc-cat10-03",
+      "approved_url_slug_leaf": "team-ai-coding-playbooks",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-04",
+      "record_id": "recWDT038MLT1LjVY",
+      "slot_id": "svc-cat10-04",
+      "approved_url_slug_leaf": "prompt-engineering-for-developers",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-05",
+      "record_id": "rech0mCCUv9odH8bl",
+      "slot_id": "svc-cat10-05",
+      "approved_url_slug_leaf": "codebase-onboarding-with-ai",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-06",
+      "record_id": "recxP0XNjwevA0DnB",
+      "slot_id": "svc-cat10-06",
+      "approved_url_slug_leaf": "ai-assisted-test-writing-training",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-07",
+      "record_id": "recr1Xu6UgN6U1WLC",
+      "slot_id": "svc-cat10-07",
+      "approved_url_slug_leaf": "ai-code-review-coaching",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-07.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-08",
+      "record_id": "rec2QSS2UpOxyY7HX",
+      "slot_id": "svc-cat10-08",
+      "approved_url_slug_leaf": "staff-augmented-ai-coding-sprints",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-08.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-09",
+      "record_id": "recBOTXW7HqFawaD1",
+      "slot_id": "svc-cat10-09",
+      "approved_url_slug_leaf": "engineering-manager-ai-briefings",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-09.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/svc-cat10-10",
+      "record_id": "rec5mmkvHIJgEriO4",
+      "slot_id": "svc-cat10-10",
+      "approved_url_slug_leaf": "safe-ai-coding-policy-workshops",
+      "approved_url_path": null,
+      "preview_path": "pages/svc-cat10-10.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/com-cat01-hub",
+      "record_id": "recdf8kRNn7HcEDLb",
+      "slot_id": "com-cat01-hub",
+      "approved_url_slug_leaf": "about-1dev",
+      "approved_url_path": null,
+      "preview_path": "pages/com-cat01-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/com-cat01-01",
+      "record_id": "recF9SF6rwziE71P7",
+      "slot_id": "com-cat01-01",
+      "approved_url_slug_leaf": "why-choose-us",
+      "approved_url_path": null,
+      "preview_path": "pages/com-cat01-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/com-cat01-02",
+      "record_id": "recpP3q6HnAd5gFeT",
+      "slot_id": "com-cat01-02",
+      "approved_url_slug_leaf": "service-areas",
+      "approved_url_path": null,
+      "preview_path": "pages/com-cat01-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/com-cat01-form01",
+      "record_id": "rec9q8rrROQPi8qT4",
+      "slot_id": "com-cat01-form01",
+      "approved_url_slug_leaf": "contact",
+      "approved_url_path": null,
+      "preview_path": "pages/com-cat01-form01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-hub",
+      "record_id": "rec3h9LRTRcaK6bYD",
+      "slot_id": "ind-cat01-hub",
+      "approved_url_slug_leaf": "industries",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-hub.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-01",
+      "record_id": "recWZMyNugP4vLVgN",
+      "slot_id": "ind-cat01-01",
+      "approved_url_slug_leaf": "healthcare",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-01.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-02",
+      "record_id": "recFBdFmH8adNdn19",
+      "slot_id": "ind-cat01-02",
+      "approved_url_slug_leaf": "logistics",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-02.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-03",
+      "record_id": "rec12Ac1T2Mufhf5B",
+      "slot_id": "ind-cat01-03",
+      "approved_url_slug_leaf": "professional-services",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-03.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-04",
+      "record_id": "recwmIKtrKg3n8bBs",
+      "slot_id": "ind-cat01-04",
+      "approved_url_slug_leaf": "ecommerce",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-04.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-05",
+      "record_id": "rec51pWvIT4tiSdI6",
+      "slot_id": "ind-cat01-05",
+      "approved_url_slug_leaf": "property-management",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-05.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    },
+    {
+      "page_key": "1dev-ai-coding-services/ind-cat01-06",
+      "record_id": "recHVHxzELZRa9FvL",
+      "slot_id": "ind-cat01-06",
+      "approved_url_slug_leaf": "manufacturing",
+      "approved_url_path": null,
+      "preview_path": "pages/ind-cat01-06.html",
+      "preview_only": true,
+      "note": "preview_path is NOT an approved hierarchical URL"
+    }
+  ]
+}

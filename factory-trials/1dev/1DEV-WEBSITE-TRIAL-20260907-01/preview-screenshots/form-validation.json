@@ -1,0 +1,12 @@
+{
+  "empty": {"ok": true, "valid": false, "requiredCount": 5},
+  "filled": {
+    "valid": true,
+    "hidden": false,
+    "text": "DEMO ONLY / NOT CONNECTED — nothing was sent. This is not operational lead delivery. GHL webhook is skipped.",
+    "className": "demo-form is-ok"
+  },
+  "network_posts_or_webhooks": [],
+  "browser_mcp": "unavailable",
+  "method": "Chrome 148 CDP against http://127.0.0.1:8768"
+}
