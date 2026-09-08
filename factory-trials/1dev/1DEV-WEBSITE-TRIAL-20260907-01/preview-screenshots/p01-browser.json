@@ -1,0 +1,87 @@
+[
+  {
+    "name": "hub",
+    "width": 375,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "name": "child",
+    "width": 375,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "name": "contact",
+    "width": 375,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "name": "hub",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "name": "child",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "name": "contact",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "overflow": false,
+    "paddingLeft": "24px",
+    "paddingRight": "24px",
+    "notesOpen": false,
+    "banner": "PRIVATE DEMO / PROVISIONAL / NOT FOR PUBLICATION. Not factory-compliant. Do not deploy.",
+    "hasForm": true
+  },
+  {
+    "formSubmit": {
+      "text": "DEMO ONLY / NOT CONNECTED — nothing was sent. This is not operational lead delivery. GHL webhook is skipped.",
+      "hidden": false
+    },
+    "posts": []
+  },
+  {
+    "reviewOpen": {
+      "open": true,
+      "hasS0": true
+    }
+  }
+]

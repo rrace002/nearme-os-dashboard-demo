@@ -1,0 +1,24 @@
+{
+  "included_in_preview": 121,
+  "by_class": {
+    "demo-hub": 10,
+    "demo-child-summary": 100,
+    "provisional": 11
+  },
+  "deferred_not_in_manifest": [
+    "HOME /",
+    "INS-PRIVACY /privacy/",
+    "glossary page",
+    "INS-FORMS estimate / book-a-call / emergency"
+  ],
+  "go_live_blocked": [
+    "placeholder phone",
+    "no GHL endpoint",
+    "no owned images",
+    "INS-TRACKING",
+    "no Privacy page",
+    "no approved url_path",
+    "full INS md not mounted",
+    "this dashboard repo is not production destination"
+  ]
+}
