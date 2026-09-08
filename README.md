@@ -13,6 +13,7 @@ Sister demos already on Netlify:
 - https://near-me-os.netlify.app/
 - https://elizabeth-electrical-services.netlify.app/
 - https://cryptoconsulting.netlify.app/
+- https://145anydrain-demo.netlify.app/ — live demo still labels `/heating-and-cooling-services/` as Water Heaters; the dashboard factory now emits a real HVAC hub at that slug (furnace, AC, heat pump, boiler, maintenance).
 
 Demo only — 
 oindex.
